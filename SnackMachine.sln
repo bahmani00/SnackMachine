@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackMachine.WinUI", "SnackMachine.WinUI\SnackMachine.WinUI.csproj", "{C40A1E49-A0AD-413B-B3AF-BCC0CAA2FB07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackMachine.Logic", "SnackMachine.Logic\SnackMachine.Logic.csproj", "{FA24174B-BF17-4662-895B-BE96297794BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C40A1E49-A0AD-413B-B3AF-BCC0CAA2FB07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C40A1E49-A0AD-413B-B3AF-BCC0CAA2FB07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C40A1E49-A0AD-413B-B3AF-BCC0CAA2FB07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C40A1E49-A0AD-413B-B3AF-BCC0CAA2FB07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA24174B-BF17-4662-895B-BE96297794BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA24174B-BF17-4662-895B-BE96297794BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA24174B-BF17-4662-895B-BE96297794BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA24174B-BF17-4662-895B-BE96297794BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {351C2C9B-06BD-4C42-B247-C7BA19603EC9}
+	EndGlobalSection
+EndGlobal
