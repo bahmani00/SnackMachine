@@ -1,10 +1,18 @@
 ﻿using Ardalis.GuardClauses;
+using System;
+using System.Collections.Generic;
 
 namespace SnackMachine.Logic
 {
     public class Money: ValueObject<Money>
     {
-        public static readonly Money Null = new Money(0, 0, 0, 0, 0, 0);
+        public static readonly Money None = new Money(0, 0, 0, 0, 0, 0);
+        public static readonly Money Cent = new Money(1, 0, 0, 0, 0, 0);
+        public static readonly Money TenCent = new Money(0, 1, 0, 0, 0, 0);        
+        public static readonly Money Quarter = new Money(0, 0, 1, 0, 0, 0);
+        public static readonly Money Dollar = new Money(0, 0, 0, 1, 0, 0);
+        public static readonly Money FiveDollar = new Money(0, 0, 0, 0, 1, 0);
+        public static readonly Money TwentyDollar = new Money(0, 0, 0, 0, 0, 1);
 
         public int OneCentCount { get; }
         public int TenCentCount { get; }
@@ -38,23 +46,11 @@ namespace SnackMachine.Logic
             this.TwentyDollarCount += twentyDollarCount;
         }
 
-        public static Money operator +(Money m1, Money m2) =>
-            new Money(
-                     m1.OneCentCount + m2.OneCentCount,
-                     m1.TenCentCount + m2.TenCentCount,
-                     m1.QuarterCount + m2.QuarterCount,
-                     m1.OneDollarCount + m2.OneDollarCount,
-                     m1.FiveDollarCount + m2.FiveDollarCount,
-                     m1.TwentyDollarCount + m2.TwentyDollarCount);
-
-        public static Money operator -(Money m1, Money m2) =>
-            new Money(
-                    m1.OneCentCount - m2.OneCentCount,
-                    m1.TenCentCount - m2.TenCentCount,
-                    m1.QuarterCount - m2.QuarterCount,
-                    m1.OneDollarCount - m2.OneDollarCount,
-                    m1.FiveDollarCount - m2.FiveDollarCount,
-                    m1.TwentyDollarCount - m2.TwentyDollarCount);
+        internal static bool Validate(Money money)
+        {
+            var valids = new List<Money> { Cent, TenCent, Quarter, Dollar, FiveDollar, TwentyDollar };
+            return valids.Contains(money);
+        }
 
         protected override bool EqualsCore(Money other)
         {
@@ -81,5 +77,29 @@ namespace SnackMachine.Logic
                 return hash;
             };
         }
+
+        public static Money operator +(Money m1, Money m2) =>
+            new Money(
+                     m1.OneCentCount + m2.OneCentCount,
+                     m1.TenCentCount + m2.TenCentCount,
+                     m1.QuarterCount + m2.QuarterCount,
+                     m1.OneDollarCount + m2.OneDollarCount,
+                     m1.FiveDollarCount + m2.FiveDollarCount,
+                     m1.TwentyDollarCount + m2.TwentyDollarCount);
+
+        public static Money operator -(Money m1, Money m2) =>
+            new Money(
+                    m1.OneCentCount - m2.OneCentCount,
+                    m1.TenCentCount - m2.TenCentCount,
+                    m1.QuarterCount - m2.QuarterCount,
+                    m1.OneDollarCount - m2.OneDollarCount,
+                    m1.FiveDollarCount - m2.FiveDollarCount,
+                    m1.TwentyDollarCount - m2.TwentyDollarCount);
+
+        public static implicit operator decimal(Money money)
+        {
+            return money.Amount;
+        }
+
     }
 }
