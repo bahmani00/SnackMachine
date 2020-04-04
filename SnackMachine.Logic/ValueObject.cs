@@ -12,7 +12,7 @@
             return EqualsCore(valueObject);
         }
 
-        protected abstract bool EqualsCore(ValueObject<T> other);
+        protected abstract bool EqualsCore(T other);
 
         public override int GetHashCode()
         {

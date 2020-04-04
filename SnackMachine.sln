@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackMachine.WinUI", "Snack
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackMachine.Logic", "SnackMachine.Logic\SnackMachine.Logic.csproj", "{FA24174B-BF17-4662-895B-BE96297794BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackMachine.Logic.Tests", "SnackMachine.Logic.Tests\SnackMachine.Logic.Tests.csproj", "{74F26BF3-7F26-49D4-8D20-6CE62BB6A9EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FA24174B-BF17-4662-895B-BE96297794BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA24174B-BF17-4662-895B-BE96297794BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA24174B-BF17-4662-895B-BE96297794BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74F26BF3-7F26-49D4-8D20-6CE62BB6A9EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74F26BF3-7F26-49D4-8D20-6CE62BB6A9EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74F26BF3-7F26-49D4-8D20-6CE62BB6A9EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74F26BF3-7F26-49D4-8D20-6CE62BB6A9EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

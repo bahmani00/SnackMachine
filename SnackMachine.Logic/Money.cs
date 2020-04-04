@@ -1,47 +1,85 @@
-﻿namespace SnackMachine.Logic
+﻿using Ardalis.GuardClauses;
+
+namespace SnackMachine.Logic
 {
-    public class Money
+    public class Money: ValueObject<Money>
     {
-        public static readonly Money Null = new Money(0, 0, 0, 0, 0, 0, 0);
+        public static readonly Money Null = new Money(0, 0, 0, 0, 0, 0);
 
-        public int OneCentCount { get; private set; }
-        public int FiveCentCount { get; private set; }
-        public int TenCentCount { get; private set; }
-        public int QuarterCentCount { get; private set; }
-        public int OneDollarCentCount { get; private set; }
-        public int FiveDollarCentCount { get; private set; }
-        public int TwentyDollarCentCount { get; private set; }
+        public int OneCentCount { get; }
+        public int TenCentCount { get; }
+        public int QuarterCount { get; }
+        public int OneDollarCount { get; }
+        public int FiveDollarCount { get; }
+        public int TwentyDollarCount { get; }
 
-        public Money(int oneCentCount, int fiveCentCount, int tenCentCount, int quarterCentCount, int oneDollarCentCount, int fiveDollarCentCount, int twentyDollarCentCount)
+        public decimal Amount =>
+            OneCentCount * 0.01m +
+            TenCentCount * 0.1m +
+            QuarterCount * 0.25m +
+            OneDollarCount +
+            FiveDollarCount * 5m +
+            TwentyDollarCount * 20m;
+
+        public Money(int oneCentCount, int tenCentCount, int quarterCount, int oneDollarCount, int fiveDollarCount, int twentyDollarCount)
         {
+            Guard.Against.Negative(oneCentCount, nameof(oneCentCount));
+            Guard.Against.Negative(tenCentCount, nameof(tenCentCount));
+            Guard.Against.Negative(quarterCount, nameof(quarterCount));
+            Guard.Against.Negative(oneDollarCount, nameof(oneDollarCount));
+            Guard.Against.Negative(fiveDollarCount, nameof(fiveDollarCount));
+            Guard.Against.Negative(twentyDollarCount, nameof(twentyDollarCount));
+
             this.OneCentCount += oneCentCount;
-            this.FiveCentCount += fiveCentCount;
             this.TenCentCount += tenCentCount;
-            this.QuarterCentCount += quarterCentCount;
-            this.OneDollarCentCount += oneDollarCentCount;
-            this.FiveDollarCentCount += fiveDollarCentCount;
-            this.TwentyDollarCentCount += twentyDollarCentCount;
+            this.QuarterCount += quarterCount;
+            this.OneDollarCount += oneDollarCount;
+            this.FiveDollarCount += fiveDollarCount;
+            this.TwentyDollarCount += twentyDollarCount;
         }
 
         public static Money operator +(Money m1, Money m2) =>
             new Money(
                      m1.OneCentCount + m2.OneCentCount,
-                     m1.FiveCentCount + m2.FiveCentCount,
                      m1.TenCentCount + m2.TenCentCount,
-                     m1.QuarterCentCount + m2.QuarterCentCount,
-                     m1.OneDollarCentCount + m2.OneDollarCentCount,
-                     m1.FiveDollarCentCount + m2.FiveDollarCentCount,
-                     m1.TwentyDollarCentCount + m2.TwentyDollarCentCount);
+                     m1.QuarterCount + m2.QuarterCount,
+                     m1.OneDollarCount + m2.OneDollarCount,
+                     m1.FiveDollarCount + m2.FiveDollarCount,
+                     m1.TwentyDollarCount + m2.TwentyDollarCount);
 
         public static Money operator -(Money m1, Money m2) =>
             new Money(
                     m1.OneCentCount - m2.OneCentCount,
-                    m1.FiveCentCount - m2.FiveCentCount,
                     m1.TenCentCount - m2.TenCentCount,
-                    m1.QuarterCentCount - m2.QuarterCentCount,
-                    m1.OneDollarCentCount - m2.OneDollarCentCount,
-                    m1.FiveDollarCentCount - m2.FiveDollarCentCount,
-                    m1.TwentyDollarCentCount - m2.TwentyDollarCentCount);
+                    m1.QuarterCount - m2.QuarterCount,
+                    m1.OneDollarCount - m2.OneDollarCount,
+                    m1.FiveDollarCount - m2.FiveDollarCount,
+                    m1.TwentyDollarCount - m2.TwentyDollarCount);
 
+        protected override bool EqualsCore(Money other)
+        {
+            return this.OneCentCount == other.OneCentCount &&
+                    this.TenCentCount == other.TenCentCount &&
+                    this.QuarterCount == other.QuarterCount &&
+                    this.OneDollarCount == other.OneDollarCount &&
+                    this.FiveDollarCount == other.FiveDollarCount &&
+                    this.TwentyDollarCount == other.TwentyDollarCount;
+        }
+
+        protected override int GetHashCodeCore()
+        {
+            unchecked
+            {
+                // 23 & 31 should be coprime
+                var hash = 23;
+                hash = (hash * 31) + OneCentCount;
+                hash = (hash * 31) + TenCentCount;
+                hash = (hash * 31) + QuarterCount;
+                hash = (hash * 31) + OneDollarCount;
+                hash = (hash * 31) + FiveDollarCount;
+                hash = (hash * 31) + TwentyDollarCount;
+                return hash;
+            };
+        }
     }
 }
