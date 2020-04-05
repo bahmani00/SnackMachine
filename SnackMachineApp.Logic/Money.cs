@@ -1,8 +1,7 @@
 ﻿using Ardalis.GuardClauses;
-using System;
 using System.Collections.Generic;
 
-namespace SnackMachine.Logic
+namespace SnackMachineApp.Logic
 {
     public class Money: ValueObject<Money>
     {
@@ -14,20 +13,22 @@ namespace SnackMachine.Logic
         public static readonly Money FiveDollar = new Money(0, 0, 0, 0, 1, 0);
         public static readonly Money TwentyDollar = new Money(0, 0, 0, 0, 0, 1);
 
-        public int OneCentCount { get; }
-        public int TenCentCount { get; }
-        public int QuarterCount { get; }
-        public int OneDollarCount { get; }
-        public int FiveDollarCount { get; }
-        public int TwentyDollarCount { get; }
+        public virtual int OneCentCount { get; }
+        public virtual int TenCentCount { get; }
+        public virtual int QuarterCount { get; }
+        public virtual int OneDollarCount { get; }
+        public virtual int FiveDollarCount { get; }
+        public virtual int TwentyDollarCount { get; }
 
-        public decimal Amount =>
+        public virtual decimal Amount =>
             OneCentCount * 0.01m +
             TenCentCount * 0.1m +
             QuarterCount * 0.25m +
             OneDollarCount +
             FiveDollarCount * 5m +
             TwentyDollarCount * 20m;
+
+        protected Money() { }
 
         public Money(int oneCentCount, int tenCentCount, int quarterCount, int oneDollarCount, int fiveDollarCount, int twentyDollarCount)
         {

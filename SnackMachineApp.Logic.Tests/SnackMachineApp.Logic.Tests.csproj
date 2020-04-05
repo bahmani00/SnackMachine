@@ -11,8 +11,8 @@
     <ProjectGuid>{74F26BF3-7F26-49D4-8D20-6CE62BB6A9EE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SnackMachine.Logic.Tests</RootNamespace>
-    <AssemblyName>SnackMachine.Logic.Tests</AssemblyName>
+    <RootNamespace>SnackMachineApp.Logic.Tests</RootNamespace>
+    <AssemblyName>SnackMachineApp.Logic.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -87,7 +87,7 @@
     <Analyzer Include="..\..\..\nugetPackages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SnackMachine.Logic\SnackMachine.Logic.csproj">
+    <ProjectReference Include="..\SnackMachineApp.Logic\SnackMachineApp.Logic.csproj">
       <Project>{fa24174b-bf17-4662-895b-be96297794bc}</Project>
       <Name>SnackMachine.Logic</Name>
     </ProjectReference>

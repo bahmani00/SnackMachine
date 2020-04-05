@@ -1,4 +1,4 @@
-﻿using SnackMachine.Logic;
+﻿using SnackMachineApp.Logic;
 
 namespace SnackMachine.UI.Common
 {
@@ -6,7 +6,10 @@ namespace SnackMachine.UI.Common
     {
         public MainViewModel()
         {
-            var snackMachine = new SnackMachineEntity();
+            SnackMachineApp.Logic.SnackMachine snackMachine;
+            using (var session = SessionFactory.OpenSession())
+                snackMachine = session.Get<SnackMachineApp.Logic.SnackMachine>(1);
+
             var viewModel = new SnackMachineViewModel(snackMachine);
             _dialogService.ShowDialog(viewModel);
         }

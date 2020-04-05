@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="Ardalis.GuardClauses" Version="1.4.2" />
+    <PackageReference Include="fluentnhibernate" Version="2.1.2" />
+    <PackageReference Include="nhibernate" Version="5.2.7" />
   </ItemGroup>
 
 </Project>

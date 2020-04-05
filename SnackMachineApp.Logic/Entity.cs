@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace SnackMachine.Logic
+namespace SnackMachineApp.Logic
 {
     public class Entity
     {
-        public int Id { get; private set; }
+        public virtual int Id { get; private set; }
 
         public override bool Equals(object obj)
         {

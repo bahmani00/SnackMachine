@@ -2,7 +2,7 @@
 using System;
 using Xunit;
 
-namespace SnackMachine.Logic.Tests
+namespace SnackMachineApp.Logic.Tests
 {
     public class MoneySpecs
     {

@@ -1,14 +1,14 @@
-﻿using SnackMachine.Logic;
+﻿using SnackMachineApp.Logic;
 using SnackMachine.UI.Common;
 using System;
 
-using static SnackMachine.Logic.Money;
+using static SnackMachineApp.Logic.Money;
 
 namespace SnackMachine.UI
 {
     public class SnackMachineViewModel : ViewModel
     {
-        private SnackMachineEntity snackMachine;
+        private SnackMachineApp.Logic.SnackMachine snackMachine;
 
 
         public override string Caption => "Snack Machine";
@@ -36,7 +36,7 @@ namespace SnackMachine.UI
             }
         }
 
-        public SnackMachineViewModel(SnackMachineEntity snackMachine)
+        public SnackMachineViewModel(SnackMachineApp.Logic.SnackMachine snackMachine)
         {
             this.snackMachine = snackMachine;
 
@@ -55,6 +55,13 @@ namespace SnackMachine.UI
         private void BuySnack()
         {
             snackMachine.BuySnack();
+            using (var session = SessionFactory.OpenSession())
+            using (var transaction = session.BeginTransaction())
+            {
+                session.SaveOrUpdate(snackMachine);
+                transaction.Commit();
+            }
+
             NotifyClient("You have bought a snack");
         }
 
