@@ -3,7 +3,7 @@ using static SnackMachine.Logic.Money;
 
 namespace SnackMachine.Logic
 {
-    public class SnackMachine
+    public class SnackMachineEntity
     {
         public Money MoneyInside { get; private set; } = None;
         public Money MoneyInTransaction { get; private set; } = None;

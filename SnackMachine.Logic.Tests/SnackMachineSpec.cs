@@ -11,7 +11,7 @@ namespace SnackMachine.Logic.Tests
         [Fact]
         public void InsertMoney_ReturnMoney_ResultsIn_Empty_MoneyInTransaction()
         {
-            var snackMachine = new SnackMachine();
+            var snackMachine = new SnackMachineEntity();
             snackMachine.InsertMoney(Dollar);
 
             snackMachine.ReturnMoney();
@@ -22,7 +22,7 @@ namespace SnackMachine.Logic.Tests
         [Fact]
         public void InsertMoney_goes_to_money_in_transaction()
         {
-            var snackMachine = new SnackMachine();
+            var snackMachine = new SnackMachineEntity();
 
             snackMachine.InsertMoney(Cent);
             snackMachine.InsertMoney(Dollar);
@@ -33,7 +33,7 @@ namespace SnackMachine.Logic.Tests
         [Fact]
         public void InsertMoney_Cannot_insert_more_than_one_coin_or_note_at_a_time()
         {
-            var snackMachine = new SnackMachine();
+            var snackMachine = new SnackMachineEntity();
             Money twoCent = Cent + Cent;
 
             Action action = () => snackMachine.InsertMoney(twoCent);
@@ -44,7 +44,7 @@ namespace SnackMachine.Logic.Tests
         [Fact]
         public void BuySnack_trades_inserted_money_for_a_snack()
         {
-            var snackMachine = new SnackMachine();
+            var snackMachine = new SnackMachineEntity();
             snackMachine.InsertMoney(Dollar);
             snackMachine.InsertMoney(Dollar);
 

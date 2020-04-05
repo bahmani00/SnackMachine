@@ -78,6 +78,14 @@ namespace SnackMachine.Logic
             };
         }
 
+        public override string ToString()
+        {
+            if (Amount < 1)
+                return "¢" + (Amount * 100).ToString("0");
+
+            return "$" + Amount.ToString("0.00");
+        }
+
         public static Money operator +(Money m1, Money m2) =>
             new Money(
                      m1.OneCentCount + m2.OneCentCount,
