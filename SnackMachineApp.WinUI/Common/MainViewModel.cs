@@ -1,6 +1,6 @@
 ﻿using SnackMachineApp.Logic;
 
-namespace SnackMachine.UI.Common
+namespace SnackMachineApp.UI.Common
 {
     public class MainViewModel : ViewModel
     {

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace SnackMachine.UI.Common
+namespace SnackMachineApp.UI.Common
 {
     public static class DialogCloser
     {

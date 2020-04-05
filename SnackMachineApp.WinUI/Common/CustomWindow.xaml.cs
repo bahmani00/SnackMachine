@@ -1,4 +1,4 @@
-﻿namespace SnackMachine.UI.Common
+﻿namespace SnackMachineApp.UI.Common
 {
     public partial class CustomWindow
     {

@@ -1,14 +1,13 @@
 ﻿using SnackMachineApp.Logic;
-using SnackMachine.UI.Common;
-using System;
+using SnackMachineApp.UI.Common;
 
 using static SnackMachineApp.Logic.Money;
 
-namespace SnackMachine.UI
+namespace SnackMachineApp.UI
 {
     public class SnackMachineViewModel : ViewModel
     {
-        private SnackMachineApp.Logic.SnackMachine snackMachine;
+        private SnackMachine snackMachine;
 
 
         public override string Caption => "Snack Machine";
@@ -36,7 +35,7 @@ namespace SnackMachine.UI
             }
         }
 
-        public SnackMachineViewModel(SnackMachineApp.Logic.SnackMachine snackMachine)
+        public SnackMachineViewModel(SnackMachine snackMachine)
         {
             this.snackMachine = snackMachine;
 
@@ -49,7 +48,6 @@ namespace SnackMachine.UI
 
             ReturnMoneyCommand = new Command(() => ReturnMoney());
             BuySnackCommand = new Command(() => BuySnack());
-
         }
 
         private void BuySnack()

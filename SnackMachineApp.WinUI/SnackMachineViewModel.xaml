@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:ui="clr-namespace:SnackMachine.UI">
+                    xmlns:ui="clr-namespace:SnackMachineApp.UI">
     <DataTemplate x:Key="SnackMachineViewModel" DataType="ui:SnackMachineViewModel">
         
         <Grid>
