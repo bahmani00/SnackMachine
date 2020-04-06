@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SnackMachineApp.Logic
+﻿namespace SnackMachineApp.Logic
 {
     public class Entity
     {

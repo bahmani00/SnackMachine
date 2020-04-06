@@ -40,11 +40,11 @@ namespace SnackMachineApp.UI
             this.snackMachine = snackMachine;
 
             InsertCentCommand = new Command(() => InsertMoney(Cent));
-            InsertTenCentCommand = new Command(() => InsertMoney(Money.TenCent));
-            InsertQuarterCommand = new Command(() => InsertMoney(Money.Quarter));
-            InsertDollarCommand = new Command(() => InsertMoney(Money.Dollar));
-            InsertFiveDollarCommand = new Command(() => InsertMoney(Money.FiveDollar));
-            InsertTwentyDollarCommand = new Command(() => InsertMoney(Money.TwentyDollar));
+            InsertTenCentCommand = new Command(() => InsertMoney(TenCent));
+            InsertQuarterCommand = new Command(() => InsertMoney(Quarter));
+            InsertDollarCommand = new Command(() => InsertMoney(Dollar));
+            InsertFiveDollarCommand = new Command(() => InsertMoney(FiveDollar));
+            InsertTwentyDollarCommand = new Command(() => InsertMoney(TwentyDollar));
 
             ReturnMoneyCommand = new Command(() => ReturnMoney());
             BuySnackCommand = new Command(() => BuySnack());
@@ -52,7 +52,8 @@ namespace SnackMachineApp.UI
 
         private void BuySnack()
         {
-            snackMachine.BuySnack();
+
+            snackMachine.BuySnack(1);
             using (var session = SessionFactory.OpenSession())
             using (var transaction = session.BeginTransaction())
             {
