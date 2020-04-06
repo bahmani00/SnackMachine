@@ -69,12 +69,12 @@ namespace SnackMachineApp.Logic
             {
                 // 23 & 31 should be coprime
                 var hash = 23;
-                hash = (hash * 31) + OneCentCount;
-                hash = (hash * 31) + TenCentCount;
-                hash = (hash * 31) + QuarterCount;
-                hash = (hash * 31) + OneDollarCount;
-                hash = (hash * 31) + FiveDollarCount;
-                hash = (hash * 31) + TwentyDollarCount;
+                hash = (hash * 31) ^ OneCentCount;
+                hash = (hash * 31) ^ TenCentCount;
+                hash = (hash * 31) ^ QuarterCount;
+                hash = (hash * 31) ^ OneDollarCount;
+                hash = (hash * 31) ^ FiveDollarCount;
+                hash = (hash * 31) ^ TwentyDollarCount;
                 return hash;
             };
         }

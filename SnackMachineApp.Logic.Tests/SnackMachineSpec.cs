@@ -45,13 +45,14 @@ namespace SnackMachineApp.Logic.Tests
         public void BuySnack_trades_inserted_money_for_a_snack()
         {
             var snackMachine = new SnackMachine();
-            snackMachine.InsertMoney(Dollar);
+            snackMachine.LoadSnacks(1, new SnackPile(new Snack("Some Snack"), 10, 1m));
             snackMachine.InsertMoney(Dollar);
 
-            snackMachine.BuySnack();
+            snackMachine.BuySnack(1);
 
-            snackMachine.MoneyInTransaction.Should().Be(None);
-            snackMachine.MoneyInside.Amount.Should().Be(2m);
+            snackMachine.MoneyInTransaction.Amount.Should().Be(0m);
+            snackMachine.MoneyInside.Should().Be(Dollar);
+            snackMachine.GetSnackPile(1).Quantity.Should().Be(9);
         }
     }
 }

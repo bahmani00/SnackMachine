@@ -34,11 +34,14 @@ namespace SnackMachineApp.Logic
         {
             Id(x => x.Id);
             Map(x => x.Position);
-            Map(x => x.Quantity);
-            Map(x => x.Price);
 
+            Component(x => x.SnackPile, y =>
+            {
+                y.Map(x => x.Quantity);
+                y.Map(x => x.Price);
+                y.References(x => x.Snack).Not.LazyLoad();
+            });
 
-            References(x => x.Snack);
             References(x => x.SnackMachine);
         }
     }

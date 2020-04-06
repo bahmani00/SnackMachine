@@ -52,7 +52,6 @@ namespace SnackMachineApp.UI
 
         private void BuySnack()
         {
-
             snackMachine.BuySnack(1);
             using (var session = SessionFactory.OpenSession())
             using (var transaction = session.BeginTransaction())

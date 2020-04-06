@@ -1,6 +1,6 @@
 ﻿namespace SnackMachineApp.Logic
 {
-    public class Snack : Entity
+    public class Snack : AggregateRoot
     {
         public Snack():this(null)
         {

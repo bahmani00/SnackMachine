@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using static SnackMachineApp.Logic.Money;
 
 namespace SnackMachineApp.Logic
 {
-    public class SnackMachine: Entity
+    public class SnackMachine: AggregateRoot
     {
         public virtual Money MoneyInside { get; protected set; }
         public virtual Money MoneyInTransaction { get; protected set; }
@@ -17,9 +18,9 @@ namespace SnackMachineApp.Logic
 
             Slots = new List<Slot>
             {
-                new Slot(this, 1, null, 5, 0m),
-                new Slot(this, 2, null, 5, 0m),
-                new Slot(this, 3, null, 5, 0m),
+                new Slot(this, 1),
+                new Slot(this, 2),
+                new Slot(this, 3),
             };
         }
 
@@ -35,9 +36,26 @@ namespace SnackMachineApp.Logic
 
         public virtual void BuySnack(int position)
         {
-            //Slots[position - 1].Quantity--;
+            var slot = GetSlot(position);
+            slot.SnackPile = slot.SnackPile.SubtaractOne();
             MoneyInside += MoneyInTransaction;
             MoneyInTransaction = None;
+        }
+
+        public virtual void LoadSnacks(int position, SnackPile snackPile)
+        {
+            var slot = GetSlot(position);
+            slot.SnackPile = snackPile;
+        }
+
+        private Slot GetSlot(int position)
+        {
+            return Slots.Single(x => x.Position == position);
+        }
+
+        public virtual SnackPile GetSnackPile(int position)
+        {
+            return GetSlot(position).SnackPile;
         }
     }
 }
