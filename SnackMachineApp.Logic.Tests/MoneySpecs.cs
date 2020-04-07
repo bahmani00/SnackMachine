@@ -154,6 +154,7 @@ namespace SnackMachineApp.Logic.Tests
 
         [Theory]
         [InlineData(0, 0, 0, 0, 0, 0, 0)]
+        [InlineData(26.36, 1, 1, 1, 1, 1, 1)]
         [InlineData(0.01, 1, 0, 0, 0, 0, 0)]
         [InlineData(0.21, 1, 2, 0, 0, 0, 0)]
         [InlineData(0.96, 1, 2, 3, 0, 0, 0)]
@@ -162,6 +163,7 @@ namespace SnackMachineApp.Logic.Tests
         [InlineData(149.96, 1, 2, 3, 4, 1, 7)]
         [InlineData(0.11, 1, 1, 0, 0, 0, 0)]
         [InlineData(501.1, 0, 1, 0, 1, 0, 25)]
+        [InlineData(302.11, 1, 1, 0, 2, 0, 15)]
         public void Allocate_with_highest_denomination_first(
             decimal amount,
             int expectedOneCentCount,

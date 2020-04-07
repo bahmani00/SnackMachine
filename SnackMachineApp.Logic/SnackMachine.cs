@@ -48,7 +48,12 @@ namespace SnackMachineApp.Logic
                 throw new InvalidOperationException();
 
             slot.SnackPile = slot.SnackPile.SubtaractOne();
-            //TODO: use snack's price
+
+            var change = MoneyInside.Allocate(MoneyInTransaction - slot.SnackPile.Price);
+            if (change.Amount < MoneyInTransaction - slot.SnackPile.Price)
+                throw new InvalidOperationException();
+
+            MoneyInside -= change;
             MoneyInTransaction = 0;
         }
 

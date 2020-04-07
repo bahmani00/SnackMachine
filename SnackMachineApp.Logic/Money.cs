@@ -134,5 +134,14 @@ namespace SnackMachineApp.Logic
                     m1.FiveDollarCount - m2.FiveDollarCount,
                     m1.TwentyDollarCount - m2.TwentyDollarCount);
 
+        public static Money operator *(Money m1, int multiplier) =>
+            new Money(
+              m1.OneCentCount * multiplier,
+              m1.TenCentCount * multiplier,
+              m1.QuarterCount * multiplier,
+              m1.OneDollarCount * multiplier,
+              m1.FiveDollarCount * multiplier,
+              m1.TwentyDollarCount * multiplier);
+
     }
 }
