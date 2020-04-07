@@ -1,4 +1,5 @@
 ﻿using Ardalis.GuardClauses;
+using System;
 using System.Collections.Generic;
 
 namespace SnackMachineApp.Logic
@@ -87,6 +88,34 @@ namespace SnackMachineApp.Logic
             return "$" + Amount.ToString("0.00");
         }
 
+        public Money Allocate(decimal amount)
+        {
+            int twentyDollarCount = Math.Min((int)(amount / 20), TwentyDollarCount);
+            amount = amount - twentyDollarCount * 20;
+
+            int fiveDollarCount = Math.Min((int)(amount / 5), FiveDollarCount);
+            amount = amount - fiveDollarCount * 5;
+
+            int oneDollarCount = Math.Min((int)amount, OneDollarCount);
+            amount = amount - oneDollarCount;
+
+            int quarterCount = Math.Min((int)(amount / 0.25m), QuarterCount);
+            amount = amount - quarterCount * 0.25m;
+
+            int tenCentCount = Math.Min((int)(amount / 0.1m), TenCentCount);
+            amount = amount - tenCentCount * 0.1m;
+
+            int oneCentCount = Math.Min((int)(amount / 0.01m), OneCentCount);
+
+            return new Money(
+                oneCentCount,
+                tenCentCount,
+                quarterCount,
+                oneDollarCount,
+                fiveDollarCount,
+                twentyDollarCount);
+        }
+
         public static Money operator +(Money m1, Money m2) =>
             new Money(
                      m1.OneCentCount + m2.OneCentCount,
@@ -104,11 +133,6 @@ namespace SnackMachineApp.Logic
                     m1.OneDollarCount - m2.OneDollarCount,
                     m1.FiveDollarCount - m2.FiveDollarCount,
                     m1.TwentyDollarCount - m2.TwentyDollarCount);
-
-        public static implicit operator decimal(Money money)
-        {
-            return money.Amount;
-        }
 
     }
 }

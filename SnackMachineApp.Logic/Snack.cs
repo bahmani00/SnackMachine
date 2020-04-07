@@ -2,6 +2,8 @@
 {
     public class Snack : AggregateRoot
     {
+        public static readonly Snack None = new Snack();
+
         public Snack():this(null)
         {
         }

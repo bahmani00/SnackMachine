@@ -4,6 +4,8 @@ namespace SnackMachineApp.Logic
 {
     public class SnackPile : ValueObject<SnackPile>
     {
+        public static readonly SnackPile Empty = new SnackPile(Snack.None, 0, 0m);
+
         public Snack Snack { get; }
         public int Quantity { get; }
         public decimal Price { get; }
@@ -16,7 +18,9 @@ namespace SnackMachineApp.Logic
         {
             Guard.Against.Null(snack, nameof(snack));
             Guard.Against.Negative(quantity, nameof(quantity));
-            Guard.Against.OutOfRange(price, nameof(price), 0.01m, decimal.MaxValue);
+            Guard.Against.Negative(price, nameof(price));
+            //TODO: Price cannot be less than 0.01
+            //Guard.Against.OutOfRange(price, nameof(price), 0.01m, 0);
 
             this.Snack = snack;
             this.Quantity = quantity;

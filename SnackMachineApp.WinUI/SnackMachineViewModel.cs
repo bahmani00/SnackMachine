@@ -22,7 +22,7 @@ namespace SnackMachineApp.UI
         public Command BuySnackCommand { get; private set; }
 
         public string MoneyInTransaction => snackMachine.MoneyInTransaction.ToString();
-        public Money MoneyInside => snackMachine.MoneyInside + snackMachine.MoneyInTransaction;
+        public Money MoneyInside => snackMachine.MoneyInside;
 
         private string _message = "";
         public string Message

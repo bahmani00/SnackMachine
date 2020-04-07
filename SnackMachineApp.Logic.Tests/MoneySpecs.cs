@@ -151,5 +151,41 @@ namespace SnackMachineApp.Logic.Tests
             //Assert
             action.Should().Throw<ArgumentException>();
         }
+
+        [Theory]
+        [InlineData(0, 0, 0, 0, 0, 0, 0)]
+        [InlineData(0.01, 1, 0, 0, 0, 0, 0)]
+        [InlineData(0.21, 1, 2, 0, 0, 0, 0)]
+        [InlineData(0.96, 1, 2, 3, 0, 0, 0)]
+        [InlineData(4.96, 1, 2, 3, 4, 0, 0)]
+        [InlineData(29.96, 1, 2, 3, 4, 1, 1)]
+        [InlineData(149.96, 1, 2, 3, 4, 1, 7)]
+        [InlineData(0.11, 1, 1, 0, 0, 0, 0)]
+        [InlineData(501.1, 0, 1, 0, 1, 0, 25)]
+        public void Allocate_with_highest_denomination_first(
+            decimal amount,
+            int expectedOneCentCount,
+            int expectedTenCentCount,
+            int expectedQuarterCount,
+            int expectedOneDollarCount,
+            int expectedFiveDollarCount,
+            int expectedTwentyDollarCount
+            )
+        {
+            //Arrange
+            //Insert tons of money to test allocation
+            var bank = new Money(1_000, 1_000, 1_000, 1_000, 1_000, 1_000);
+
+            //Ac
+            var allocated = bank.Allocate(amount);
+
+            //Assert
+            allocated.OneCentCount.Should().Be(expectedOneCentCount);
+            allocated.TenCentCount.Should().Be(expectedTenCentCount);
+            allocated.QuarterCount.Should().Be(expectedQuarterCount);
+            allocated.OneDollarCount.Should().Be(expectedOneDollarCount);
+            allocated.FiveDollarCount.Should().Be(expectedFiveDollarCount);
+            allocated.TwentyDollarCount.Should().Be(expectedTwentyDollarCount);
+        }
     }
 }

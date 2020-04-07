@@ -16,7 +16,7 @@ namespace SnackMachineApp.Logic.Tests
 
             snackMachine.ReturnMoney();
 
-            snackMachine.MoneyInTransaction.Should().Be(None);
+            snackMachine.MoneyInTransaction.Should().Be(0);
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace SnackMachineApp.Logic.Tests
             snackMachine.InsertMoney(Cent);
             snackMachine.InsertMoney(Dollar);
 
-            snackMachine.MoneyInTransaction.Amount.Should().Be(1.01m);
+            snackMachine.MoneyInTransaction.Should().Be(1.01m);
         }
 
         [Fact]
@@ -50,9 +50,50 @@ namespace SnackMachineApp.Logic.Tests
 
             snackMachine.BuySnack(1);
 
-            snackMachine.MoneyInTransaction.Amount.Should().Be(0m);
+            snackMachine.MoneyInTransaction.Should().Be(0m);
             snackMachine.MoneyInside.Should().Be(Dollar);
             snackMachine.GetSnackPile(1).Quantity.Should().Be(9);
+        }
+
+        [Fact]
+        public void BuySnack_NoSnackAvailable_CannotBuy()
+        {
+            //Arrange
+            var snackMachine = new SnackMachine();
+
+            //Act
+            Action action = () => snackMachine.BuySnack(1);
+
+            //Assert
+            action.Should().Throw<ArgumentException>();
+        }
+
+        [Fact]
+        public void BuySnack_Cannot_NotEnoughMoneyInserted_CannotBuy()
+        {
+            var snackMachine = new SnackMachine();
+            snackMachine.LoadSnacks(1, new SnackPile(Snack.None, 1, 2m));
+            snackMachine.InsertMoney(Dollar);
+
+            Action action = () => snackMachine.BuySnack(1);
+
+            action.Should().Throw<InvalidOperationException>();
+        }
+
+        [Fact]
+        public void ReturnMoney_returns_money_with_highest_denomination_first()
+        {
+            SnackMachine snackMachine = new SnackMachine();
+            snackMachine.LoadMoney(Dollar);
+
+            snackMachine.InsertMoney(Quarter);
+            snackMachine.InsertMoney(Quarter);
+            snackMachine.InsertMoney(Quarter);
+            snackMachine.InsertMoney(Quarter);
+            snackMachine.ReturnMoney();
+
+            snackMachine.MoneyInside.QuarterCount.Should().Be(4);
+            snackMachine.MoneyInside.OneDollarCount.Should().Be(0);
         }
     }
 }

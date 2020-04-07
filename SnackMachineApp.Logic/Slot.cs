@@ -3,11 +3,12 @@
     public class Slot : Entity
     {
         protected Slot() { }
+
         public Slot(SnackMachine snackMachine, int position)
         {
             this.SnackMachine = snackMachine;
             this.Position = position;
-            this.SnackPile = new SnackPile(null, 0, 0m);
+            this.SnackPile = SnackPile.Empty;
         }
 
         public virtual SnackMachine SnackMachine { get; set; }
