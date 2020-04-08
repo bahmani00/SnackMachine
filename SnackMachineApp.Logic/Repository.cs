@@ -2,7 +2,7 @@
 {
     public class Repository<T> where T: AggregateRoot
     {
-        public T Get(int id)
+        public T Get(long id)
         {
             using(var session = SessionFactory.OpenSession())
             {

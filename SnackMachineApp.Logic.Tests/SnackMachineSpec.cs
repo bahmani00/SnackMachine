@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using System;
+using System.Linq;
 using Xunit;
 
 using static SnackMachineApp.Logic.Money;
@@ -46,16 +47,16 @@ namespace SnackMachineApp.Logic.Tests
         {
             //Arrange
             var snackMachine = new SnackMachine();
-            snackMachine.LoadSnacks(1, new SnackPile(new Snack("Some Snack"), 10, 1m));
+            snackMachine.LoadSnacks(1, new SnackPile(Snack.None, 10, 1m));
             snackMachine.InsertMoney(Dollar);
 
             //Act
             snackMachine.BuySnack(1);
 
             //Assert
-            snackMachine.MoneyInTransaction.Should().Be(0m);
-            snackMachine.MoneyInside.Should().Be(Dollar);
-            snackMachine.GetSnackPile(1).Quantity.Should().Be(9);
+            0m.Should().Be(snackMachine.MoneyInTransaction);
+            Dollar.Should().Be(snackMachine.MoneyInside);
+            9.Should().Be(snackMachine.GetSnackPile(1).Quantity);
         }
 
         [Fact]
@@ -65,10 +66,12 @@ namespace SnackMachineApp.Logic.Tests
             var snackMachine = new SnackMachine();
 
             //Act
-            Action action = () => snackMachine.BuySnack(1);
+            var valid = snackMachine.CanBuySnack(1);
 
             //Assert
-            action.Should().Throw<ArgumentException>();
+            false.Should().Equals(valid);
+            true.Should().Equals(snackMachine.ValidationMessages.Any());
+            Helper.NoSnackAvailableToBuy.Should().Equals(snackMachine.ValidationMessages.Project());
         }
 
         [Fact]
@@ -80,10 +83,12 @@ namespace SnackMachineApp.Logic.Tests
 
             //Action
             snackMachine.InsertMoney(Dollar);
-            Action action = () => snackMachine.BuySnack(1);
+            var valid = snackMachine.CanBuySnack(1);
 
             //Assert
-            action.Should().Throw<InvalidOperationException>();
+            false.Should().Equals(valid);
+            true.Should().Equals(snackMachine.ValidationMessages.Any());
+            Helper.NotEnoughMoneyInserted.Should().Equals(snackMachine.ValidationMessages.Project());
         }
 
         [Fact]
@@ -101,8 +106,8 @@ namespace SnackMachineApp.Logic.Tests
             snackMachine.ReturnMoney();
 
             //Assert
-            snackMachine.MoneyInside.QuarterCount.Should().Be(4);
-            snackMachine.MoneyInside.OneDollarCount.Should().Be(0);
+            4.Should().Be(snackMachine.MoneyInside.QuarterCount);
+            0.Should().Be(snackMachine.MoneyInside.OneDollarCount);
         }
 
         [Fact]
@@ -129,9 +134,12 @@ namespace SnackMachineApp.Logic.Tests
             snackMachine.LoadSnacks(1, new SnackPile(Snack.None, 1, 0.5m));
             snackMachine.InsertMoney(Dollar);
 
-            Action action = () => snackMachine.BuySnack(1);
+            var valid = snackMachine.CanBuySnack(1);
 
-            action.Should().Throw<InvalidOperationException>();
+            //Assert
+            false.Should().Equals(valid);
+            true.Should().Equals(snackMachine.ValidationMessages.Any());
+            Helper.NotEnoughChange.Should().Equals(snackMachine.ValidationMessages.Project());
         }
     }
 }

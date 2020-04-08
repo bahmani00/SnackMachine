@@ -41,18 +41,42 @@ namespace SnackMachineApp.Logic
             MoneyInside -= meneyToReturn;
         }
 
+        public virtual bool CanBuySnack(int position)
+        {
+            ValidationMessages.Clear();
+
+            var snackPile = GetSnackPile(position);
+
+            if (snackPile.Quantity == 0)
+            {
+                ValidationMessages.Add(Helper.NoSnackAvailableToBuy);
+                return false;
+            }
+
+            if (snackPile.Price > MoneyInTransaction)
+            {
+                ValidationMessages.Add(Helper.NotEnoughMoneyInserted);
+                return false;
+            }
+
+            if(!MoneyInside.CanAllocate(snackPile.Price))
+            {
+                ValidationMessages.Add(Helper.NotEnoughChange);
+                return false;
+            }
+
+            return true;
+        }
+
         public virtual void BuySnack(int position)
         {
-            var slot = GetSlot(position);
-            if (slot.SnackPile.Price > MoneyInTransaction)
-                throw new InvalidOperationException();
+            if (!CanBuySnack(position))
+                return;
 
+            var slot = GetSlot(position);
             slot.SnackPile = slot.SnackPile.SubtaractOne();
 
             var change = MoneyInside.Allocate(MoneyInTransaction - slot.SnackPile.Price);
-            if (change.Amount < MoneyInTransaction - slot.SnackPile.Price)
-                throw new InvalidOperationException();
-
             MoneyInside -= change;
             MoneyInTransaction = 0;
         }
@@ -66,6 +90,14 @@ namespace SnackMachineApp.Logic
         private Slot GetSlot(int position)
         {
             return Slots.Single(x => x.Position == position);
+        }
+
+        public virtual IReadOnlyList<SnackPile> GetAllSnackPiles()
+        {
+            return Slots
+                .OrderBy(x => x.Position)
+                .Select(x => x.SnackPile)
+                .ToList();
         }
 
         public virtual SnackPile GetSnackPile(int position)

@@ -88,7 +88,21 @@ namespace SnackMachineApp.Logic
             return "$" + Amount.ToString("0.00");
         }
 
+        public bool CanAllocate(decimal amount)
+        {
+            var money = AllocateCore(amount);
+            return money.Amount == amount;
+        }
+
         public Money Allocate(decimal amount)
+        {
+            if (!CanAllocate(Amount))
+                throw new InvalidOperationException();
+
+            return AllocateCore(amount);
+        }
+
+        private Money AllocateCore(decimal amount)
         {
             int twentyDollarCount = Math.Min((int)(amount / 20), TwentyDollarCount);
             amount = amount - twentyDollarCount * 20;

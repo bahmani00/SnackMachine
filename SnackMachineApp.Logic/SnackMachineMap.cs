@@ -21,7 +21,7 @@ namespace SnackMachineApp.Logic
                 y.Map(x => x.TwentyDollarCount);
             });
 
-            HasMany<Slot>(Reveal.Member<SnackMachine>("Slots"))
+            HasMany<Slot>(Reveal.Member<SnackMachine>("Slots"))//reveal Slots since it's protected
                .Cascade.SaveUpdate() //Updating all inner objects. ex. Slots as well
                .Not.LazyLoad() //All repositories are working in detached mode(once session is closed, impossible to do Lazy loading)
                .Inverse();

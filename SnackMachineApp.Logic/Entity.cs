@@ -1,23 +1,50 @@
-﻿namespace SnackMachineApp.Logic
+﻿using System.Collections.Generic;
+
+namespace SnackMachineApp.Logic
 {
     public class Entity
     {
-        public virtual int Id { get; private set; }
+        public virtual long Id { get; protected set; }
+        public virtual IList<string> ValidationMessages { get; protected set; } = new List<string>();
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(this, obj)) return true;
+            var other = obj as Entity;
 
-            if (obj == null) return false;
+            if (ReferenceEquals(other, null))
+                return false;
 
-            if (obj?.GetType() != this.GetType()) return false;
+            if (ReferenceEquals(this, other))
+                return true;
 
-            return Id == ((Entity)obj).Id;
+            if (GetType() != other.GetType())
+                return false;
+
+            if (Id == 0 || other.Id == 0)
+                return false;
+
+            return Id == other.Id;
+        }
+
+        public static bool operator ==(Entity a, Entity b)
+        {
+            if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
+                return true;
+
+            if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
+                return false;
+
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(Entity a, Entity b)
+        {
+            return !(a == b);
         }
 
         public override int GetHashCode()
         {
-            return 2108858624 + Id.GetHashCode();
+            return (GetType().ToString() + Id).GetHashCode();
         }
     }
 }
