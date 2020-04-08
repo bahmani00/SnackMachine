@@ -1,13 +1,16 @@
 ﻿using SnackMachineApp.Logic;
-using SnackMachineApp.UI.Common;
-
+using SnackMachineApp.WinUI.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using static SnackMachineApp.Logic.Money;
 
-namespace SnackMachineApp.UI
+namespace SnackMachineApp.WinUI
 {
     public class SnackMachineViewModel : ViewModel
     {
         private SnackMachine snackMachine;
+        private readonly SnackMachineRepository repository;
 
 
         public override string Caption => "Snack Machine";
@@ -19,7 +22,7 @@ namespace SnackMachineApp.UI
         public Command InsertFiveDollarCommand { get; private set; }
         public Command InsertTwentyDollarCommand { get; private set; }
         public Command ReturnMoneyCommand { get; private set; }
-        public Command BuySnackCommand { get; private set; }
+        public Command<string> BuySnackCommand { get; private set; }
 
         public string MoneyInTransaction => snackMachine.MoneyInTransaction.ToString();
         public Money MoneyInside => snackMachine.MoneyInside;
@@ -35,9 +38,19 @@ namespace SnackMachineApp.UI
             }
         }
 
+        public IReadOnlyList<SnackPileViewModel> Piles
+        {
+            get
+            {
+                return snackMachine.GetAllSnackPiles()
+                    .Select(x => new SnackPileViewModel(x))
+                    .ToList();
+            }
+        }
         public SnackMachineViewModel(SnackMachine snackMachine)
         {
             this.snackMachine = snackMachine;
+            repository = new SnackMachineRepository();
 
             InsertCentCommand = new Command(() => InsertMoney(Cent));
             InsertTenCentCommand = new Command(() => InsertMoney(TenCent));
@@ -47,18 +60,20 @@ namespace SnackMachineApp.UI
             InsertTwentyDollarCommand = new Command(() => InsertMoney(TwentyDollar));
 
             ReturnMoneyCommand = new Command(() => ReturnMoney());
-            BuySnackCommand = new Command(() => BuySnack());
+            BuySnackCommand = new Command<string>(BuySnack);
         }
 
-        private void BuySnack()
+        private void BuySnack(string position)
         {
-            snackMachine.BuySnack(1);
-            using (var session = SessionFactory.OpenSession())
-            using (var transaction = session.BeginTransaction())
+            var pos = Convert.ToInt32(position);
+            if (!snackMachine.CanBuySnack(pos))
             {
-                session.SaveOrUpdate(snackMachine);
-                transaction.Commit();
+                Message = snackMachine.ValidationMessages.Project();
+                return;
             }
+            
+            snackMachine.BuySnack(pos);
+            repository.Save(snackMachine);
 
             NotifyClient("You have bought a snack");
         }
@@ -80,6 +95,7 @@ namespace SnackMachineApp.UI
             Message = message;
             Notify(nameof(MoneyInTransaction));
             Notify(nameof(MoneyInside));
+            Notify(nameof(Piles));
         }
 
     }
