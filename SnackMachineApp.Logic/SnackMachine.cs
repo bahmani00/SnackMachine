@@ -10,7 +10,7 @@ namespace SnackMachineApp.Logic
         public virtual Money MoneyInside { get; protected set; }
         public virtual decimal MoneyInTransaction { get; protected set; }
 
-        public virtual IList<Slot> Slots { get; protected set; }
+        protected virtual IList<Slot> Slots { get; set; }
 
         public SnackMachine() {
             MoneyInside = None;
@@ -65,7 +65,6 @@ namespace SnackMachineApp.Logic
 
         private Slot GetSlot(int position)
         {
-            //TODO: slots needs to be loaded from db
             return Slots.Single(x => x.Position == position);
         }
 

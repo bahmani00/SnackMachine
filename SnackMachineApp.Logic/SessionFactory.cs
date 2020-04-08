@@ -30,7 +30,7 @@ namespace SnackMachineApp.Logic
                 .Mappings(m => m.FluentMappings
                     .AddFromAssembly(Assembly.GetExecutingAssembly())
                     .Conventions.Add(
-                        ForeignKey.EndsWith("ID"),
+                        ForeignKey.EndsWith("Id"),
                         ConventionBuilder.Property
                             .When(criteria => criteria.Expect(x => x.Nullable, Is.Not.Set), x => x.Not.Nullable()))
                     .Conventions.Add<TableNameConvention>()
@@ -57,7 +57,7 @@ namespace SnackMachineApp.Logic
         {
             public void Apply(IIdentityInstance instance)
             {
-                instance.Column(instance.EntityType.Name + "ID");
+                instance.Column(instance.EntityType.Name + "Id");
                 instance.GeneratedBy.HiLo("[dbo].[Ids]", "NextHigh", "9", "EntityName = '" + instance.EntityType.Name + "'");
             }
         }

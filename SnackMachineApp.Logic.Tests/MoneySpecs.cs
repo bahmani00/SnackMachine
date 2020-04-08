@@ -175,10 +175,9 @@ namespace SnackMachineApp.Logic.Tests
             )
         {
             //Arrange
-            //Insert tons of money to test allocation
             var bank = new Money(1_000, 1_000, 1_000, 1_000, 1_000, 1_000);
 
-            //Ac
+            //Act
             var allocated = bank.Allocate(amount);
 
             //Assert

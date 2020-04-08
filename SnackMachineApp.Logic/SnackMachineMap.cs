@@ -22,8 +22,8 @@ namespace SnackMachineApp.Logic
             });
 
             HasMany<Slot>(Reveal.Member<SnackMachine>("Slots"))
-               .Cascade.SaveUpdate()
-               .Not.LazyLoad()
+               .Cascade.SaveUpdate() //Updating all inner objects. ex. Slots as well
+               .Not.LazyLoad() //All repositories are working in detached mode(once session is closed, impossible to do Lazy loading)
                .Inverse();
         }
     }

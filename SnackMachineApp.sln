@@ -9,6 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachineApp.Logic", "Sn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackMachineApp.Logic.Tests", "SnackMachineApp.Logic.Tests\SnackMachineApp.Logic.Tests.csproj", "{74F26BF3-7F26-49D4-8D20-6CE62BB6A9EE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{78ACAAD4-FD7E-45CE-9E8A-F0455ECE4D2E}"
+	ProjectSection(SolutionItems) = preProject
+		database.sql = database.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

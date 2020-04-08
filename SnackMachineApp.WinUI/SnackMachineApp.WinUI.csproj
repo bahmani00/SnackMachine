@@ -173,7 +173,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SnackMachineApp.Logic\SnackMachineApp.Logic.csproj">
       <Project>{fa24174b-bf17-4662-895b-be96297794bc}</Project>
-      <Name>SnackMachine.Logic</Name>
+      <Name>SnackMachineApp.Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
