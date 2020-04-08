@@ -1,6 +1,6 @@
-﻿using SnackMachineApp.UI.Common;
+﻿using SnackMachineApp.WinUI.Common;
 
-namespace SnackMachineApp.UI.Utils
+namespace SnackMachineApp.WinUI.Utils
 {
     public class DialogService
     {

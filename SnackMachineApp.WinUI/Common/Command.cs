@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace SnackMachineApp.UI.Common
+namespace SnackMachineApp.WinUI.Common
 {
     public class Command<T> : ICommand
     {

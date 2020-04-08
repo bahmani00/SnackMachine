@@ -1,4 +1,4 @@
-﻿namespace SnackMachineApp.UI.Common
+﻿namespace SnackMachineApp.WinUI.Common
 {
     public partial class MainWindow
     {

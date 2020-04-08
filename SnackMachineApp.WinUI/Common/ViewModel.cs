@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using SnackMachineApp.UI.Utils;
+using SnackMachineApp.WinUI.Utils;
 
-namespace SnackMachineApp.UI.Common
+namespace SnackMachineApp.WinUI.Common
 {
     public abstract class ViewModel : INotifyPropertyChanged
     {

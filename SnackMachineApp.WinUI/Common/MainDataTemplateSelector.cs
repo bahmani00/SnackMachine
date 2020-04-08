@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SnackMachineApp.UI.Common
+namespace SnackMachineApp.WinUI.Common
 {
     public class MainDataTemplateSelector : DataTemplateSelector
     {
