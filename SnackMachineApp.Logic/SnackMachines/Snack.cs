@@ -1,4 +1,6 @@
-﻿namespace SnackMachineApp.Logic
+﻿using SnackMachineApp.Logic.Core;
+
+namespace SnackMachineApp.Logic.SnackMachines
 {
     public class Snack : AggregateRoot
     {

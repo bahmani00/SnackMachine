@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using SnackMachineApp.Logic.Utils;
+using System.Configuration;
 
 namespace SnackMachineApp.Logic.UI
 {

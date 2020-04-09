@@ -1,18 +1,21 @@
-﻿using System;
+﻿using SnackMachineApp.Logic.Core;
+using SnackMachineApp.Logic.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using static SnackMachineApp.Logic.Money;
 
-namespace SnackMachineApp.Logic
+namespace SnackMachineApp.Logic.SnackMachines
 {
-    public class SnackMachine: AggregateRoot
+    public class SnackMachine : AggregateRoot
     {
         public virtual Money MoneyInside { get; protected set; }
         public virtual decimal MoneyInTransaction { get; protected set; }
 
         protected virtual IList<Slot> Slots { get; set; }
 
-        public SnackMachine() {
+        public SnackMachine()
+        {
             MoneyInside = None;
             MoneyInTransaction = 0;
 
@@ -27,7 +30,7 @@ namespace SnackMachineApp.Logic
 
         public virtual void InsertMoney(Money money)
         {
-            if (!Money.Validate(money))
+            if (!Validate(money))
                 throw new InvalidOperationException();
 
             MoneyInTransaction += money.Amount;
@@ -59,7 +62,7 @@ namespace SnackMachineApp.Logic
                 return false;
             }
 
-            if(!MoneyInside.CanAllocate(snackPile.Price))
+            if (!MoneyInside.CanAllocate(snackPile.Price))
             {
                 ValidationMessages.Add(Helper.NotEnoughChange);
                 return false;

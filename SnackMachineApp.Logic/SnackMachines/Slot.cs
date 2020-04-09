@@ -1,4 +1,6 @@
-﻿namespace SnackMachineApp.Logic
+﻿using SnackMachineApp.Logic.Core;
+
+namespace SnackMachineApp.Logic.SnackMachines
 {
     public class Slot : Entity
     {
@@ -6,9 +8,9 @@
 
         public Slot(SnackMachine snackMachine, int position)
         {
-            this.SnackMachine = snackMachine;
-            this.Position = position;
-            this.SnackPile = SnackPile.Empty;
+            SnackMachine = snackMachine;
+            Position = position;
+            SnackPile = SnackPile.Empty;
         }
 
         public virtual SnackMachine SnackMachine { get; set; }

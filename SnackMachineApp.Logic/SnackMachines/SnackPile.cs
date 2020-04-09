@@ -1,6 +1,7 @@
 ﻿using Ardalis.GuardClauses;
+using SnackMachineApp.Logic.Core;
 
-namespace SnackMachineApp.Logic
+namespace SnackMachineApp.Logic.SnackMachines
 {
     public class SnackPile : ValueObject<SnackPile>
     {
@@ -22,9 +23,9 @@ namespace SnackMachineApp.Logic
             //TODO: Price cannot be less than 0.01
             //Guard.Against.OutOfRange(price, nameof(price), 0.01m, 0);
 
-            this.Snack = snack;
-            this.Quantity = quantity;
-            this.Price = price;
+            Snack = snack;
+            Quantity = quantity;
+            Price = price;
         }
 
         protected override bool EqualsCore(SnackPile other)
@@ -40,9 +41,9 @@ namespace SnackMachineApp.Logic
             {
                 // 23 & 31 should be coprime
                 var hash = 23;
-                hash = (hash * 31) ^ Snack.GetHashCode();
-                hash = (hash * 31) ^ Quantity;
-                hash = (hash * 31) ^ Price.GetHashCode();
+                hash = hash * 31 ^ Snack.GetHashCode();
+                hash = hash * 31 ^ Quantity;
+                hash = hash * 31 ^ Price.GetHashCode();
                 return hash;
             };
         }

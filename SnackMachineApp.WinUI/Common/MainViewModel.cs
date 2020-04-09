@@ -1,4 +1,5 @@
-﻿using SnackMachineApp.Logic;
+﻿using SnackMachineApp.Logic.SnackMachines;
+using SnackMachineApp.WinUI.SnackMachines;
 
 namespace SnackMachineApp.WinUI.Common
 {

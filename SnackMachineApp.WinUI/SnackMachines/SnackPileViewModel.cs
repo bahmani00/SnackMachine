@@ -1,9 +1,9 @@
 using System;
 using System.Windows;
 using System.Windows.Media;
-using SnackMachineApp.Logic;
+using SnackMachineApp.Logic.SnackMachines;
 
-namespace SnackMachineApp.WinUI
+namespace SnackMachineApp.WinUI.SnackMachines
 {
     public class SnackPileViewModel
     {

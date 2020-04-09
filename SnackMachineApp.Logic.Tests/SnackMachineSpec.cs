@@ -1,4 +1,6 @@
 ﻿using FluentAssertions;
+using SnackMachineApp.Logic.SnackMachines;
+using SnackMachineApp.Logic.Utils;
 using System;
 using System.Linq;
 using Xunit;

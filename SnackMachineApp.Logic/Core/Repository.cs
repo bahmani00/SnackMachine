@@ -1,10 +1,12 @@
-﻿namespace SnackMachineApp.Logic
+﻿using SnackMachineApp.Logic.Utils;
+
+namespace SnackMachineApp.Logic.Core
 {
-    public class Repository<T> where T: AggregateRoot
+    public class Repository<T> where T : AggregateRoot
     {
         public T Get(long id)
         {
-            using(var session = SessionFactory.OpenSession())
+            using (var session = SessionFactory.OpenSession())
             {
                 return session.Get<T>(id);
             }

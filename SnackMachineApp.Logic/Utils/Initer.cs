@@ -1,6 +1,7 @@
-﻿using static SnackMachineApp.Logic.Money;
+﻿using SnackMachineApp.Logic.SnackMachines;
+using static SnackMachineApp.Logic.Money;
 
-namespace SnackMachineApp.Logic
+namespace SnackMachineApp.Logic.Utils
 {
     public static class Initer
     {

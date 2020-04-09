@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SnackMachineApp.Logic
+namespace SnackMachineApp.Logic.Core
 {
     public class Entity
     {

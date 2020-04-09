@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using SnackMachineApp.Logic.SnackMachines;
+using SnackMachineApp.Logic.Utils;
+using System.Configuration;
 using Xunit;
 using static SnackMachineApp.Logic.Money;
 
