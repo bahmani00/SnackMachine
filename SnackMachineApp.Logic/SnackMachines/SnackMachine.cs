@@ -52,19 +52,19 @@ namespace SnackMachineApp.Logic.SnackMachines
 
             if (snackPile.Quantity == 0)
             {
-                ValidationMessages.Add(Helper.NoSnackAvailableToBuy);
+                ValidationMessages.Add(Constants.NoSnackAvailableToBuy);
                 return false;
             }
 
             if (snackPile.Price > MoneyInTransaction)
             {
-                ValidationMessages.Add(Helper.NotEnoughMoneyInserted);
+                ValidationMessages.Add(Constants.NotEnoughMoneyInserted);
                 return false;
             }
 
             if (!MoneyInside.CanAllocate(snackPile.Price))
             {
-                ValidationMessages.Add(Helper.NotEnoughChange);
+                ValidationMessages.Add(Constants.NotEnoughChange);
                 return false;
             }
 

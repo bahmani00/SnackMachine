@@ -206,6 +206,10 @@ INSERT [dbo].[Snack] ([SnackId], [Name]) VALUES (3, N'Gum')
 GO
 INSERT [dbo].[SnackMachine] ([SnackMachineId], [OneCentCount], [TenCentCount], [QuarterCount], [OneDollarCount], [FiveDollarCount], [TwentyDollarCount]) VALUES (1, 4, 2, 2, 13, 1, 2)
 GO
+INSERT INTO [dbo].[Atm] ([AtmId], [MoneyCharged], [OneCentCount], [TenCentCount], [QuarterCount], [OneDollarCount], [FiveDollarCount], [TwentyDollarCount]) VALUES (1, 0, 100, 100, 100, 100, 100, 100)
+GO
+INSERT INTO [dbo].[Ids] ([Id], [NextHigh]) VALUES (N'AtmId', 1)
+GO
 ALTER TABLE [dbo].[Slot]  WITH CHECK ADD  CONSTRAINT [FK_SnackId_SlotId] FOREIGN KEY([SnackId])
 REFERENCES [dbo].[Snack] ([SnackId])
 GO

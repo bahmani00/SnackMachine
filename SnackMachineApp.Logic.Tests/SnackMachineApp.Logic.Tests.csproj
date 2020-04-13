@@ -97,6 +97,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AtmSpecs.cs" />
     <Compile Include="RepositoryTest.cs" />
     <Compile Include="SnackMachineSpec.cs" />
     <Compile Include="MoneySpecs.cs" />
