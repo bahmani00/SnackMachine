@@ -1,8 +1,10 @@
 ﻿using SnackMachineApp.Logic.Utils;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SnackMachineApp.Logic.Core
 {
-    public class Repository<T> where T : AggregateRoot
+    public class Repository<T> : IRepository<T> where T : AggregateRoot
     {
         public T Get(long id)
         {
@@ -12,22 +14,33 @@ namespace SnackMachineApp.Logic.Core
             }
         }
 
-        public void Save(T aggregateRoot)
+        public IList<T> List()
         {
-            if (!ValidateBeforeSave(aggregateRoot))
-                return;
+            using (var session = SessionFactory.OpenSession())
+            {
+                return session.QueryOver<T>().List<T>();
+            };
+        }
 
+        public void Save(T entity)
+        {
             using (var session = SessionFactory.OpenSession())
             using (var transaction = session.BeginTransaction())
             {
-                session.SaveOrUpdate(aggregateRoot);
+                session.SaveOrUpdateAsync(entity);
                 transaction.Commit();
             }
         }
 
-        public virtual bool ValidateBeforeSave(T aggregateRoot)
+        public void Delete(T entity)
         {
-            return true;
+            using (var session = SessionFactory.OpenSession())
+            using (var transaction = session.BeginTransaction())
+            {
+                session.Delete(entity);
+                transaction.Commit();
+            }
         }
+
     }
 }

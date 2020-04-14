@@ -1,4 +1,5 @@
-﻿using SnackMachineApp.Logic.SnackMachines;
+﻿using SnackMachineApp.Logic.Core;
+using SnackMachineApp.Logic.SnackMachines;
 using static SnackMachineApp.Logic.SharedKernel.Money;
 
 namespace SnackMachineApp.Logic.Utils
@@ -8,6 +9,8 @@ namespace SnackMachineApp.Logic.Utils
         public static void Init(string connectionString)
         {
             SessionFactory.Init(connectionString);
+            DomainEvents.Init();
+
             //InitializeDatabase();
         }
 

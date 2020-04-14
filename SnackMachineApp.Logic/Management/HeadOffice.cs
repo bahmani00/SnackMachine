@@ -1,5 +1,6 @@
 ﻿using SnackMachineApp.Logic.Core;
 using SnackMachineApp.Logic.SharedKernel;
+using System;
 
 namespace SnackMachineApp.Logic.Management
 {
@@ -8,5 +9,9 @@ namespace SnackMachineApp.Logic.Management
         public virtual decimal Balance { get; protected set; }
         public virtual Money Cash { get; protected set; } = Money.None;
 
+        public virtual void ChangeBalance(decimal delta)
+        {
+            Balance += delta;
+        }
     }
 }
