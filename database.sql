@@ -186,11 +186,17 @@ CREATE TABLE [dbo].[SnackMachine](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+--- Begin Insert -------------------------------------------------------------------
 INSERT [dbo].[Ids] ([Id], [NextHigh]) VALUES (N'SlotId', 3)
 GO
 INSERT [dbo].[Ids] ([Id], [NextHigh]) VALUES (N'SnackId', 3)
 GO
 INSERT [dbo].[Ids] ([Id], [NextHigh]) VALUES (N'SnackMachineId', 1)
+GO
+INSERT [dbo].[Snack] ([SnackId], [Name]) VALUES (1, N'Chocolate')
+INSERT [dbo].[Snack] ([SnackId], [Name]) VALUES (2, N'Soda')
+INSERT [dbo].[Snack] ([SnackId], [Name]) VALUES (3, N'Gum')
 GO
 INSERT [dbo].[Slot] ([SlotId], [Position], [SnackMachineId], [Quantity], [Price], [SnackId]) VALUES (1, 1, 1, 16, CAST(3.00000 AS Decimal(19, 5)), 1)
 GO
@@ -198,18 +204,19 @@ INSERT [dbo].[Slot] ([SlotId], [Position], [SnackMachineId], [Quantity], [Price]
 GO
 INSERT [dbo].[Slot] ([SlotId], [Position], [SnackMachineId], [Quantity], [Price], [SnackId]) VALUES (3, 3, 1, 10, CAST(1.00000 AS Decimal(19, 5)), 3)
 GO
-INSERT [dbo].[Snack] ([SnackId], [Name]) VALUES (1, N'Chocolate')
-GO
-INSERT [dbo].[Snack] ([SnackId], [Name]) VALUES (2, N'Soda')
-GO
-INSERT [dbo].[Snack] ([SnackId], [Name]) VALUES (3, N'Gum')
-GO
+
 INSERT [dbo].[SnackMachine] ([SnackMachineId], [OneCentCount], [TenCentCount], [QuarterCount], [OneDollarCount], [FiveDollarCount], [TwentyDollarCount]) VALUES (1, 4, 2, 2, 13, 1, 2)
-GO
-INSERT INTO [dbo].[Atm] ([AtmId], [MoneyCharged], [OneCentCount], [TenCentCount], [QuarterCount], [OneDollarCount], [FiveDollarCount], [TwentyDollarCount]) VALUES (1, 0, 100, 100, 100, 100, 100, 100)
 GO
 INSERT INTO [dbo].[Ids] ([Id], [NextHigh]) VALUES (N'AtmId', 1)
 GO
+INSERT INTO [dbo].[Atm] ([AtmId], [MoneyCharged], [OneCentCount], [TenCentCount], [QuarterCount], [OneDollarCount], [FiveDollarCount], [TwentyDollarCount]) VALUES (1, 0, 100, 100, 100, 100, 100, 100)
+GO
+INSERT INTO [dbo].[Ids] ([Id], [NextHigh]) VALUES (N'HeadOfficeId', 1)
+GO
+INSERT INTO [dbo].[HeadOffice] ([HeadOfficeId], [MoneyCharged], [OneCentCount], [TenCentCount], [QuarterCount], [OneDollarCount], [FiveDollarCount], [TwentyDollarCount]) VALUES (1, 110, 20, 20, 20, 20, 20, 20)
+GO
+--- End Insert -------------------------------------------------------------------
+
 ALTER TABLE [dbo].[Slot]  WITH CHECK ADD  CONSTRAINT [FK_SnackId_SlotId] FOREIGN KEY([SnackId])
 REFERENCES [dbo].[Snack] ([SnackId])
 GO

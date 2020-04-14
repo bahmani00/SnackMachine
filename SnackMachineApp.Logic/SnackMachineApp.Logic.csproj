@@ -5,9 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Management\**" />
-    <EmbeddedResource Remove="Management\**" />
-    <None Remove="Management\**" />
+    <Compile Remove="Atms\BalanceChangedEvent.cs" />
+    <Compile Remove="Core\IDomainEvent.cs" />
   </ItemGroup>
 
   <ItemGroup>
