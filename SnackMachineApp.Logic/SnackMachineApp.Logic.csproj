@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Management\**" />
+    <EmbeddedResource Remove="Management\**" />
+    <None Remove="Management\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Ardalis.GuardClauses" Version="1.4.2" />
     <PackageReference Include="fluentnhibernate" Version="2.1.2" />
     <PackageReference Include="nhibernate" Version="5.2.7" />

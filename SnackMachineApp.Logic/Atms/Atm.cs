@@ -1,4 +1,5 @@
 ﻿using SnackMachineApp.Logic.Core;
+using SnackMachineApp.Logic.SharedKernel;
 using SnackMachineApp.Logic.Utils;
 using System;
 

@@ -1,9 +1,10 @@
 ﻿using SnackMachineApp.Logic.Core;
+using SnackMachineApp.Logic.SharedKernel;
 using SnackMachineApp.Logic.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static SnackMachineApp.Logic.Money;
+using static SnackMachineApp.Logic.SharedKernel.Money;
 
 namespace SnackMachineApp.Logic.SnackMachines
 {

@@ -1,11 +1,12 @@
 ﻿using FluentAssertions;
+using SnackMachineApp.Logic.SharedKernel;
 using SnackMachineApp.Logic.SnackMachines;
 using SnackMachineApp.Logic.Utils;
 using System;
 using System.Linq;
 using Xunit;
 
-using static SnackMachineApp.Logic.Money;
+using static SnackMachineApp.Logic.SharedKernel.Money;
 
 namespace SnackMachineApp.Logic.Tests
 {

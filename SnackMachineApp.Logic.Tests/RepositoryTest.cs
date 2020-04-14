@@ -2,7 +2,7 @@
 using SnackMachineApp.Logic.Utils;
 using System.Configuration;
 using Xunit;
-using static SnackMachineApp.Logic.Money;
+using static SnackMachineApp.Logic.SharedKernel.Money;
 
 namespace SnackMachineApp.Logic.Tests
 {

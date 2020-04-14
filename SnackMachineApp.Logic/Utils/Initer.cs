@@ -1,5 +1,5 @@
 ﻿using SnackMachineApp.Logic.SnackMachines;
-using static SnackMachineApp.Logic.Money;
+using static SnackMachineApp.Logic.SharedKernel.Money;
 
 namespace SnackMachineApp.Logic.Utils
 {

@@ -3,13 +3,13 @@ using SnackMachineApp.Logic.Core;
 using System;
 using System.Collections.Generic;
 
-namespace SnackMachineApp.Logic
+namespace SnackMachineApp.Logic.SharedKernel
 {
-    public class Money: ValueObject<Money>
+    public class Money : ValueObject<Money>
     {
         public static readonly Money None = new Money(0, 0, 0, 0, 0, 0);
         public static readonly Money Cent = new Money(1, 0, 0, 0, 0, 0);
-        public static readonly Money TenCent = new Money(0, 1, 0, 0, 0, 0);        
+        public static readonly Money TenCent = new Money(0, 1, 0, 0, 0, 0);
         public static readonly Money Quarter = new Money(0, 0, 1, 0, 0, 0);
         public static readonly Money Dollar = new Money(0, 0, 0, 1, 0, 0);
         public static readonly Money FiveDollar = new Money(0, 0, 0, 0, 1, 0);
@@ -41,12 +41,12 @@ namespace SnackMachineApp.Logic
             Guard.Against.Negative(fiveDollarCount, nameof(fiveDollarCount));
             Guard.Against.Negative(twentyDollarCount, nameof(twentyDollarCount));
 
-            this.OneCentCount += oneCentCount;
-            this.TenCentCount += tenCentCount;
-            this.QuarterCount += quarterCount;
-            this.OneDollarCount += oneDollarCount;
-            this.FiveDollarCount += fiveDollarCount;
-            this.TwentyDollarCount += twentyDollarCount;
+            OneCentCount += oneCentCount;
+            TenCentCount += tenCentCount;
+            QuarterCount += quarterCount;
+            OneDollarCount += oneDollarCount;
+            FiveDollarCount += fiveDollarCount;
+            TwentyDollarCount += twentyDollarCount;
         }
 
         internal static bool Validate(Money money)
@@ -57,12 +57,12 @@ namespace SnackMachineApp.Logic
 
         protected override bool EqualsCore(Money other)
         {
-            return this.OneCentCount == other.OneCentCount &&
-                    this.TenCentCount == other.TenCentCount &&
-                    this.QuarterCount == other.QuarterCount &&
-                    this.OneDollarCount == other.OneDollarCount &&
-                    this.FiveDollarCount == other.FiveDollarCount &&
-                    this.TwentyDollarCount == other.TwentyDollarCount;
+            return OneCentCount == other.OneCentCount &&
+                    TenCentCount == other.TenCentCount &&
+                    QuarterCount == other.QuarterCount &&
+                    OneDollarCount == other.OneDollarCount &&
+                    FiveDollarCount == other.FiveDollarCount &&
+                    TwentyDollarCount == other.TwentyDollarCount;
         }
 
         protected override int GetHashCodeCore()
@@ -71,12 +71,12 @@ namespace SnackMachineApp.Logic
             {
                 // 23 & 31 should be coprime
                 var hash = 23;
-                hash = (hash * 31) ^ OneCentCount;
-                hash = (hash * 31) ^ TenCentCount;
-                hash = (hash * 31) ^ QuarterCount;
-                hash = (hash * 31) ^ OneDollarCount;
-                hash = (hash * 31) ^ FiveDollarCount;
-                hash = (hash * 31) ^ TwentyDollarCount;
+                hash = hash * 31 ^ OneCentCount;
+                hash = hash * 31 ^ TenCentCount;
+                hash = hash * 31 ^ QuarterCount;
+                hash = hash * 31 ^ OneDollarCount;
+                hash = hash * 31 ^ FiveDollarCount;
+                hash = hash * 31 ^ TwentyDollarCount;
                 return hash;
             };
         }

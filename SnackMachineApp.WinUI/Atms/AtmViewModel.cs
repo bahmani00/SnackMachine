@@ -1,7 +1,7 @@
 ﻿using SnackMachineApp.Logic.Atms;
-using SnackMachineApp.Logic;
 using SnackMachineApp.WinUI.Common;
 using SnackMachineApp.Logic.Utils;
+using SnackMachineApp.Logic.SharedKernel;
 
 namespace SnackMachineApp.WinUI.Atms
 {
