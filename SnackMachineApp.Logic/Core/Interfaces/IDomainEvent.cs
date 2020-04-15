@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SnackMachineApp.Logic.Core
+namespace SnackMachineApp.Logic.Core.Interfaces
 {
     public interface IDomainEvent
     {

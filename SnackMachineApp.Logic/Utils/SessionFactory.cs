@@ -6,10 +6,12 @@ using FluentNHibernate.Conventions.AcceptanceCriteria;
 using FluentNHibernate.Conventions.Helpers;
 using FluentNHibernate.Conventions.Instances;
 using NHibernate;
+using NHibernate.Event;
+using SnackMachineApp.Logic.Core;
 
 namespace SnackMachineApp.Logic.Utils
 {
-    public static class SessionFactory
+    internal static class SessionFactory
     {
         private static ISessionFactory _factory;
 
@@ -40,6 +42,14 @@ namespace SnackMachineApp.Logic.Utils
                  {
                      //to create db tables
                      //new SchemaExport(x).Execute(true, true, false);
+                     x.EventListeners.PostCommitUpdateEventListeners =
+                         new IPostUpdateEventListener[] { new NHibernateDbEventListener() };
+                     x.EventListeners.PostCommitInsertEventListeners =
+                         new IPostInsertEventListener[] { new NHibernateDbEventListener() };
+                     x.EventListeners.PostCommitDeleteEventListeners =
+                         new IPostDeleteEventListener[] { new NHibernateDbEventListener() };
+                     x.EventListeners.PostCollectionUpdateEventListeners =
+                         new IPostCollectionUpdateEventListener[] { new NHibernateDbEventListener() };
                  });
 
             return configuration.BuildSessionFactory();

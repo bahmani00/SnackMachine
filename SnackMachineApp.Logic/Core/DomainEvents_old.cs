@@ -1,11 +1,12 @@
-﻿using System;
+﻿using SnackMachineApp.Logic.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
 namespace SnackMachineApp.Logic.Core
 {
-    public static class DomainEvents
+    public static class DomainEvents_old
     {
         private static Dictionary<Type, List<Delegate>> _dynamicHandlers;
         private static List<Type> _staticHandlers;

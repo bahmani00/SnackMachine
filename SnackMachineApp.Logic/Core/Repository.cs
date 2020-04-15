@@ -1,10 +1,10 @@
-﻿using SnackMachineApp.Logic.Utils;
+﻿using SnackMachineApp.Logic.Core.Interfaces;
+using SnackMachineApp.Logic.Utils;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SnackMachineApp.Logic.Core
 {
-    public class Repository<T> : IRepository<T> where T : AggregateRoot
+    public abstract class Repository<T> : IRepository<T> where T : AggregateRoot
     {
         public T Get(long id)
         {

@@ -1,4 +1,4 @@
-﻿using SnackMachineApp.Logic.Core;
+﻿using SnackMachineApp.Logic.Core.Interfaces;
 using System;
 
 namespace SnackMachineApp.Logic.Atms

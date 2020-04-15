@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using SnackMachineApp.Logic.Core.Interfaces;
+using System.Threading.Tasks;
 
 namespace SnackMachineApp.Logic.Core
 {

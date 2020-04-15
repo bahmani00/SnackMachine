@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using SnackMachineApp.Logic.Atms;
 using SnackMachineApp.Logic.Utils;
-using System;
 using System.Linq;
 using Xunit;
 using static SnackMachineApp.Logic.SharedKernel.Money;
@@ -68,6 +67,22 @@ namespace SnackMachineApp.Logic.Tests
             //Assert
             atm.MoneyInside.Amount.Should().Be(0m);
             atm.MoneyCharged.Should().Be(1.12m);
+        }
+
+        [Fact]
+        public void Withrawl_raises_an_event()
+        {
+            //Arranage
+            var atm = new Atm();
+            atm.LoadMoney(Dollar);
+
+            //Act
+            atm.Withdrawal(1m);
+
+            //Assert
+            var @event = atm.DomainEvents[0] as BalanceChangedEvent;
+            @event.Should().NotBeNull();
+            @event.Delta.Should().Be(1.01m);
         }
     }
 }

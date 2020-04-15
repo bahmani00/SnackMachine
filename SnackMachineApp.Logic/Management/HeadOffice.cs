@@ -1,6 +1,5 @@
 ﻿using SnackMachineApp.Logic.Core;
 using SnackMachineApp.Logic.SharedKernel;
-using System;
 
 namespace SnackMachineApp.Logic.Management
 {

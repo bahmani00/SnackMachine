@@ -94,6 +94,7 @@ CREATE TABLE [dbo].[Atm](
 	[OneDollarCount] [int] NOT NULL,
 	[FiveDollarCount] [int] NOT NULL,
 	[TwentyDollarCount] [int] NOT NULL,
+	[Amount]  AS ((((([OneCentCount]*(0.01)+[TenCentCount]*(0.1))+[QuarterCount]*(0.25))+[OneDollarCount])+[FiveDollarCount]*(5))+[TwentyDollarCount]*(20)),
  CONSTRAINT [PK_AtmId] PRIMARY KEY CLUSTERED 
 (
 	[AtmId] ASC
@@ -114,6 +115,7 @@ CREATE TABLE [dbo].[HeadOffice](
 	[OneDollarCount] [int] NOT NULL,
 	[FiveDollarCount] [int] NOT NULL,
 	[TwentyDollarCount] [int] NOT NULL,
+	[Amount]  AS ((((([OneCentCount]*(0.01)+[TenCentCount]*(0.1))+[QuarterCount]*(0.25))+[OneDollarCount])+[FiveDollarCount]*(5))+[TwentyDollarCount]*(20)),
  CONSTRAINT [PK_HeadOfficeId] PRIMARY KEY CLUSTERED 
 (
 	[HeadOfficeId] ASC
