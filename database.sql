@@ -191,30 +191,23 @@ GO
 
 --- Begin Insert -------------------------------------------------------------------
 INSERT [dbo].[Ids] ([Id], [NextHigh]) VALUES (N'SlotId', 3)
-GO
 INSERT [dbo].[Ids] ([Id], [NextHigh]) VALUES (N'SnackId', 3)
-GO
 INSERT [dbo].[Ids] ([Id], [NextHigh]) VALUES (N'SnackMachineId', 1)
-GO
+INSERT [dbo].[Ids] ([Id], [NextHigh]) VALUES (N'AtmId', 1)
+INSERT [dbo].[Ids] ([Id], [NextHigh]) VALUES (N'HeadOfficeId', 1)
+
 INSERT [dbo].[Snack] ([SnackId], [Name]) VALUES (1, N'Chocolate')
 INSERT [dbo].[Snack] ([SnackId], [Name]) VALUES (2, N'Soda')
 INSERT [dbo].[Snack] ([SnackId], [Name]) VALUES (3, N'Gum')
-GO
+
 INSERT [dbo].[Slot] ([SlotId], [Position], [SnackMachineId], [Quantity], [Price], [SnackId]) VALUES (1, 1, 1, 16, CAST(3.00000 AS Decimal(19, 5)), 1)
-GO
 INSERT [dbo].[Slot] ([SlotId], [Position], [SnackMachineId], [Quantity], [Price], [SnackId]) VALUES (2, 2, 1, 15, CAST(2.00000 AS Decimal(19, 5)), 2)
-GO
 INSERT [dbo].[Slot] ([SlotId], [Position], [SnackMachineId], [Quantity], [Price], [SnackId]) VALUES (3, 3, 1, 10, CAST(1.00000 AS Decimal(19, 5)), 3)
-GO
 
 INSERT [dbo].[SnackMachine] ([SnackMachineId], [OneCentCount], [TenCentCount], [QuarterCount], [OneDollarCount], [FiveDollarCount], [TwentyDollarCount]) VALUES (1, 4, 2, 2, 13, 1, 2)
-GO
-INSERT INTO [dbo].[Ids] ([Id], [NextHigh]) VALUES (N'AtmId', 1)
-GO
+
 INSERT INTO [dbo].[Atm] ([AtmId], [MoneyCharged], [OneCentCount], [TenCentCount], [QuarterCount], [OneDollarCount], [FiveDollarCount], [TwentyDollarCount]) VALUES (1, 0, 100, 100, 100, 100, 100, 100)
-GO
-INSERT INTO [dbo].[Ids] ([Id], [NextHigh]) VALUES (N'HeadOfficeId', 1)
-GO
+
 INSERT INTO [dbo].[HeadOffice] ([HeadOfficeId], [MoneyCharged], [OneCentCount], [TenCentCount], [QuarterCount], [OneDollarCount], [FiveDollarCount], [TwentyDollarCount]) VALUES (1, 110, 20, 20, 20, 20, 20, 20)
 GO
 --- End Insert -------------------------------------------------------------------
@@ -229,6 +222,33 @@ REFERENCES [dbo].[SnackMachine] ([SnackMachineId])
 GO
 ALTER TABLE [dbo].[Slot] CHECK CONSTRAINT [FK_SnackMachineId_SlotId]
 GO
+
+--- Upgrade 1-------------------------------------------------------------------
+ALTER TABLE [dbo].[Snack]
+	ADD [ImageWidth] [int] DEFAULT 70;
+
+UPDATE [dbo].[Snack] SET ImageWidth = 120 WHERE [SnackId] = 1
+UPDATE [dbo].[Snack] SET ImageWidth = 70 WHERE [SnackId] = 2
+UPDATE [dbo].[Snack] SET ImageWidth = 70 WHERE [SnackId] = 3
+ALTER TABLE [dbo].[Snack] 
+	ALTER COLUMN ImageWidth int NOT NULL;
+
+UPDATE [dbo].[Ids] SET [NextHigh] = 2 WHERE [Id] = N'SnackMachineId'
+INSERT [dbo].[SnackMachine] ([SnackMachineId], [OneCentCount], [TenCentCount], [QuarterCount], [OneDollarCount], [FiveDollarCount], [TwentyDollarCount]) VALUES (2, 40, 20, 20, 130, 10, 20)
+
+UPDATE [dbo].[Snack] SET [NextHigh] = 6 WHERE [Id] = N'SnackId'
+INSERT [dbo].[Snack] ([SnackId], [Name], ImageWidth) VALUES (4, N'Water', 70)
+INSERT [dbo].[Snack] ([SnackId], [Name], ImageWidth) VALUES (5, N'Pepsi', 70)
+INSERT [dbo].[Snack] ([SnackId], [Name], ImageWidth) VALUES (6, N'Soda', 70)
+
+UPDATE [dbo].[Snack] SET [NextHigh] = 6 WHERE [Id] = N'SlotId'
+INSERT [dbo].[Slot] ([SlotId], [Position], [SnackMachineId], [Quantity], [Price], [SnackId]) VALUES (4, 1, 2, 10, CAST(1.00000 AS Decimal(19, 5)), 4)
+INSERT [dbo].[Slot] ([SlotId], [Position], [SnackMachineId], [Quantity], [Price], [SnackId]) VALUES (5, 2, 2, 10, CAST(1.00000 AS Decimal(19, 5)), 5)
+INSERT [dbo].[Slot] ([SlotId], [Position], [SnackMachineId], [Quantity], [Price], [SnackId]) VALUES (6, 3, 2, 10, CAST(1.00000 AS Decimal(19, 5)), 6)
+
+--- Upgrade -------------------------------------------------------------------
+
+
 USE [master]
 GO
 ALTER DATABASE [SnackMachineDb] SET  READ_WRITE 

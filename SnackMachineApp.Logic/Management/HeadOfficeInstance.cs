@@ -9,7 +9,7 @@ namespace SnackMachineApp.Logic.Management
         private static HeadOffice GetDefault()
         {
             var repository = new HeadOfficeRepository();
-            return repository.Get(HeadOfficeId);
+            return repository.GetById(HeadOfficeId);
         }
 
         #region Singleton

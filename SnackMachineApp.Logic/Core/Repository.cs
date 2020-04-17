@@ -6,20 +6,20 @@ namespace SnackMachineApp.Logic.Core
 {
     public abstract class Repository<T> : IRepository<T> where T : AggregateRoot
     {
-        public T Get(long id)
-        {
-            using (var session = SessionFactory.OpenSession())
-            {
-                return session.Get<T>(id);
-            }
-        }
-
         public IList<T> List()
         {
             using (var session = SessionFactory.OpenSession())
             {
                 return session.QueryOver<T>().List<T>();
             };
+        }
+
+        public T GetById(long id)
+        {
+            using (var session = SessionFactory.OpenSession())
+            {
+                return session.Get<T>(id);
+            }
         }
 
         public void Save(T entity)

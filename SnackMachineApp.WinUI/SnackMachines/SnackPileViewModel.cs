@@ -1,6 +1,7 @@
 using System;
-using System.Windows;
+using System.IO;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using SnackMachineApp.Logic.SnackMachines;
 
 namespace SnackMachineApp.WinUI.SnackMachines
@@ -11,27 +12,12 @@ namespace SnackMachineApp.WinUI.SnackMachines
 
         public string Price => _snackPile.Price.ToString("C2");
         public int Amount => _snackPile.Quantity;
-        public int ImageWidth => GetImageWidth(_snackPile.Snack);
-        public ImageSource Image =>
-            (ImageSource)Application.Current.FindResource("img" + _snackPile.Snack.Name);
+        public int ImageWidth => _snackPile.Snack.ImageWidth;
+        public ImageSource Image => new BitmapImage(new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", _snackPile.Snack.Name + ".png")));
 
         public SnackPileViewModel(SnackPile snackPile)
         {
             _snackPile = snackPile;
-        }
-
-        private int GetImageWidth(Snack snack)
-        {
-            if (snack == Snack.Chocolate)
-                return 120;
-
-            if (snack == Snack.Soda)
-                return 70;
-
-            if (snack == Snack.Gum)
-                return 70;
-
-            throw new ArgumentException();
         }
     }
 }

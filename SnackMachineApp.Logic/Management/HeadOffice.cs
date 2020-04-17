@@ -1,5 +1,7 @@
-﻿using SnackMachineApp.Logic.Core;
+﻿using SnackMachineApp.Logic.Atms;
+using SnackMachineApp.Logic.Core;
 using SnackMachineApp.Logic.SharedKernel;
+using SnackMachineApp.Logic.SnackMachines;
 
 namespace SnackMachineApp.Logic.Management
 {
@@ -11,6 +13,18 @@ namespace SnackMachineApp.Logic.Management
         public virtual void ChangeBalance(decimal delta)
         {
             Balance += delta;
+        }
+
+        public virtual void UnloadCashFromSnackMachine(SnackMachine snackMachine)
+        {
+            Money money = snackMachine.UnloadMoney();
+            Cash += money;
+        }
+
+        public virtual void LoadCashToAtm(Atm atm)
+        {
+            atm.LoadMoney(Cash);
+            Cash = Money.None;
         }
     }
 }

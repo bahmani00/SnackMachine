@@ -15,7 +15,7 @@ namespace SnackMachineApp.Logic.Tests
             Initer.Init(ConfigurationManager.ConnectionStrings["AppCnn"].ConnectionString);
 
             var repository = new SnackMachineRepository();
-            var snackMachine = repository.Get(1);
+            var snackMachine = repository.GetById(1);
 
             //Act
             snackMachine.InsertMoney(Dollar);
@@ -25,7 +25,7 @@ namespace SnackMachineApp.Logic.Tests
             repository.Save(snackMachine);
 
             //Assert
-            snackMachine = repository.Get(1);
+            snackMachine = repository.GetById(1);
         }
 
     }

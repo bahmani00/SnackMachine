@@ -8,6 +8,7 @@
                 <ResourceDictionary Source="Common/Images.xaml" />
                 <ResourceDictionary Source="SnackMachines/SnackMachineViewModel.xaml" />
                 <ResourceDictionary Source="Atms/AtmViewModel.xaml" />
+                <ResourceDictionary Source="Management/DashboardViewModel.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

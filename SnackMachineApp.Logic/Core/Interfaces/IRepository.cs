@@ -4,9 +4,9 @@ namespace SnackMachineApp.Logic.Core.Interfaces
 {
     public interface IRepository<T> where T : Entity
     {
-        T Get(long id);
-
         IList<T> List();
+
+        T GetById(long id);
 
         void Save(T entity);
 
