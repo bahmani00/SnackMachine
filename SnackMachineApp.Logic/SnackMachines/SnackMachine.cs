@@ -10,6 +10,9 @@ namespace SnackMachineApp.Logic.SnackMachines
 {
     public class SnackMachine : AggregateRoot
     {
+        //reveal Slots name since it's protected for db Mappings(strong-typing)
+        public static readonly string Slots_Name = nameof(Slots);
+
         public virtual Money MoneyInside { get; protected set; }
         public virtual decimal MoneyInTransaction { get; protected set; }
 
@@ -119,7 +122,7 @@ namespace SnackMachineApp.Logic.SnackMachines
             if (MoneyInTransaction > 0)
                 throw new InvalidOperationException();
 
-            Money money = MoneyInside;
+            var money = MoneyInside;
             MoneyInside = Money.None;
             return money;
         }

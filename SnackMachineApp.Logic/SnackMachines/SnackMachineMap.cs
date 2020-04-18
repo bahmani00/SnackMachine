@@ -1,9 +1,11 @@
 ﻿using FluentNHibernate;
 using FluentNHibernate.Mapping;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace SnackMachineApp.Logic.SnackMachines
 {
-    public class SnackMachineMap : ClassMap<SnackMachine>
+    public class SnackMachineMap : ClassMap<SnackMachine>, IEntityTypeConfiguration<SnackMachine>
     {
         public SnackMachineMap()
         {
@@ -21,10 +23,18 @@ namespace SnackMachineApp.Logic.SnackMachines
                 y.Map(x => x.TwentyDollarCount);
             });
 
-            HasMany<Slot>(Reveal.Member<SnackMachine>("Slots"))//reveal Slots since it's protected
+            HasMany<Slot>(Reveal.Member<SnackMachine>(SnackMachine.Slots_Name))//reveal Slots since it's protected
                .Cascade.SaveUpdate() //Updating all inner objects. ex. Slots as well
                .Not.LazyLoad() //All repositories are working in detached mode(once session is closed, impossible to do Lazy loading)
                .Inverse();
+        }
+
+        public void Configure(EntityTypeBuilder<SnackMachine> builder)
+        {
+            //TODO: Map all the fields
+            builder.HasKey(t => t.Id);
+            //builder.HasMany<SnackMachine, slot>(t => t);
+
         }
     }
 
