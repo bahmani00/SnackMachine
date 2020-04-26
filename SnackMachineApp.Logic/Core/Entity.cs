@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace SnackMachineApp.Logic.Core
 {
@@ -6,6 +7,11 @@ namespace SnackMachineApp.Logic.Core
     {
         public virtual long Id { get; protected set; }
         public virtual IList<string> ValidationMessages { get; protected set; } = new List<string>();
+
+        public virtual bool AnyErrors()
+        {
+            return this.ValidationMessages.Any();
+        }
 
         public override bool Equals(object obj)
         {

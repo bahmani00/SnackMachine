@@ -40,7 +40,7 @@ namespace SnackMachineApp.WinUI.Atms
         {
             if(!_atm.CanWithdrawal(amount))
             {
-                Message = _atm.ValidationMessages.Project();
+                Message = _atm.Project();
                 return;
             }
 

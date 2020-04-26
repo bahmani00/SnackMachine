@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using SnackMachineApp.Logic.Core;
 using System.Linq;
 
 namespace SnackMachineApp.Logic.Utils
 {
     public static class Helper
     {
-        public static string Project(this IList<string> list)
+        public static string Project(this Entity entity)
         {
-            return string.Join(System.Environment.NewLine, list.ToArray());
+            var validateions = entity.ValidationMessages.ToArray();
+            entity.ValidationMessages.Clear();
+            return string.Join(System.Environment.NewLine, validateions);
         }
     }
 

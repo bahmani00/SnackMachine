@@ -73,8 +73,8 @@ namespace SnackMachineApp.Logic.Tests
 
             //Assert
             false.Should().Equals(valid);
-            true.Should().Equals(snackMachine.ValidationMessages.Any());
-            Constants.NoSnackAvailableToBuy.Should().Equals(snackMachine.ValidationMessages.Project());
+            true.Should().Equals(snackMachine.AnyErrors());
+            Constants.NoSnackAvailableToBuy.Should().Equals(snackMachine.Project());
         }
 
         [Fact]
@@ -90,8 +90,8 @@ namespace SnackMachineApp.Logic.Tests
 
             //Assert
             false.Should().Equals(valid);
-            true.Should().Equals(snackMachine.ValidationMessages.Any());
-            Constants.NotEnoughMoneyInserted.Should().Equals(snackMachine.ValidationMessages.Project());
+            true.Should().Equals(snackMachine.AnyErrors());
+            Constants.NotEnoughMoneyInserted.Should().Equals(snackMachine.Project());
         }
 
         [Fact]
@@ -141,8 +141,8 @@ namespace SnackMachineApp.Logic.Tests
 
             //Assert
             false.Should().Equals(valid);
-            true.Should().Equals(snackMachine.ValidationMessages.Any());
-            Constants.NotEnoughChange.Should().Equals(snackMachine.ValidationMessages.Project());
+            true.Should().Equals(snackMachine.AnyErrors());
+            Constants.NotEnoughChange.Should().Equals(snackMachine.Project());
         }
     }
 }

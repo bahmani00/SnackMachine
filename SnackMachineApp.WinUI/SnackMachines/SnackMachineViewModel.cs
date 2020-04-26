@@ -70,7 +70,7 @@ namespace SnackMachineApp.WinUI.SnackMachines
             var pos = Convert.ToInt32(position);
             if (!snackMachine.CanBuySnack(pos))
             {
-                Message = snackMachine.ValidationMessages.Project();
+                Message = snackMachine.Project();
                 return;
             }
 

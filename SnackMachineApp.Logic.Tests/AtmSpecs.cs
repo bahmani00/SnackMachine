@@ -35,8 +35,8 @@ namespace SnackMachineApp.Logic.Tests
             atm.Withdrawal(2m);
 
             //Assert
-            true.Should().Equals(atm.ValidationMessages.Any());
-            Constants.NotEnoughChange.Should().Equals(atm.ValidationMessages.Project());
+            true.Should().Equals(atm.AnyErrors());
+            Constants.NotEnoughChange.Should().Equals(atm.Project());
         }
 
         [Fact]
