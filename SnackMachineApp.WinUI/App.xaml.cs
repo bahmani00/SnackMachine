@@ -7,7 +7,9 @@ namespace SnackMachineApp.Logic.UI
     {
         public App()
         {
-            Initer.Init(ConfigurationManager.ConnectionStrings["AppCnn"].ConnectionString);
+            ContainerSetup.Init(ConfigurationManager.ConnectionStrings["AppCnn"].ConnectionString);
+
+            ContainerSetup.DisplayRegistrations();
         }
     }
 }

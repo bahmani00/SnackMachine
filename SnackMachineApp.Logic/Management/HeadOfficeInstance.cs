@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Autofac;
+using SnackMachineApp.Logic.Utils;
+using System;
 
 namespace SnackMachineApp.Logic.Management
 {
     public static class HeadOfficeInstance
     {
-        private const long HeadOfficeId = 1;
+        public static readonly long HeadOfficeId = 1;
 
         private static HeadOffice GetDefault()
         {
-            var repository = new HeadOfficeRepository();
-            return repository.GetById(HeadOfficeId);
+            return ContainerSetup.Container.Resolve<HeadOffice>(new NamedParameter("HeadOfficeId", HeadOfficeId));
         }
 
         #region Singleton

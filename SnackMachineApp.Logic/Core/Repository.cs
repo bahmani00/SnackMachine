@@ -1,32 +1,33 @@
-﻿using SnackMachineApp.Logic.Core.Interfaces;
+﻿using Autofac;
+using SnackMachineApp.Logic.Core.Interfaces;
+using SnackMachineApp.Logic.Utils;
 using System.Collections.Generic;
 
 namespace SnackMachineApp.Logic.Core
 {
-    public abstract class Repository<T> : IRepository<T> where T : AggregateRoot
+    public class Repository<T> : IRepository<T> where T : AggregateRoot
     {
-        //TODO: inject the persiter by DI
-        private IRepository<T> dbPersister = new NHibernateDbPersister<T>();
-        //private IRepository<T> dbPersister = new EFDbPersister<T>();
+        //TODO: property injecttion
+        private IDbPersister<T> DbPersister { get; set; } = ContainerSetup.Container.Resolve<IDbPersister<T>>();
 
         public IList<T> List()
         {
-            return dbPersister.List();
+            return DbPersister.List();
         }
 
         public T GetById(long id)
         {
-            return dbPersister.GetById(id);
+            return DbPersister.GetById(id);
         }
 
         public void Save(T entity)
         {
-            dbPersister.Save(entity);
+            DbPersister.Save(entity);
         }
 
         public void Delete(T entity)
         {
-            dbPersister.Delete(entity);
+            DbPersister.Delete(entity);
         }
     }
 }

@@ -11,18 +11,18 @@ using SnackMachineApp.Logic.Core;
 
 namespace SnackMachineApp.Logic.Utils
 {
-    internal static class SessionFactory
+    internal class SessionFactory
     {
-        private static ISessionFactory _factory;
+        private ISessionFactory _factory;
 
-        public static ISession OpenSession()
-        {
-            return _factory.OpenSession();
-        }
-
-        public static void Init(string connectionString)
+        public SessionFactory(string connectionString)
         {
             _factory = BuildSessionFactory(connectionString);
+        }
+
+        public ISession OpenSession()
+        {
+            return _factory.OpenSession();
         }
 
         private static ISessionFactory BuildSessionFactory(string connectionString)

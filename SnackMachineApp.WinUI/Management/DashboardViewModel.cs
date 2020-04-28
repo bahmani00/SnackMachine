@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using Autofac;
 using SnackMachineApp.Logic.Atms;
 using SnackMachineApp.Logic.Management;
 using SnackMachineApp.Logic.SnackMachines;
+using SnackMachineApp.Logic.Utils;
 using SnackMachineApp.WinUI.Atms;
 using SnackMachineApp.WinUI.Common;
 using SnackMachineApp.WinUI.SnackMachines;
@@ -29,6 +31,9 @@ namespace SnackMachineApp.WinUI.Management
             _snackMachineRepository = new SnackMachineRepository();
             _atmRepository = new AtmRepository();
             _headOfficeRepository = new HeadOfficeRepository();
+
+            var _ComponentLocator = ContainerSetup.Container.Resolve<IComponentLocator>();
+            var blogPostRepository = _ComponentLocator.ResolveComponent<IHeadOfficeRepository>();
 
             RefreshAll();
 

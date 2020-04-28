@@ -5,10 +5,14 @@ using System.Linq;
 
 namespace SnackMachineApp.Logic.Core
 {
-    public class EFDbPersister<T> : IRepository<T> where T : AggregateRoot
+    public class EFDbPersister<T> : IDbPersister<T> where T : AggregateRoot
     {
-        //TODO: inject the AppDbContext by DI
-        private readonly AppDbContext _dbContext = new AppDbContext();
+        private readonly DbContext _dbContext;
+
+        public EFDbPersister(DbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public IList<T> List()
         {

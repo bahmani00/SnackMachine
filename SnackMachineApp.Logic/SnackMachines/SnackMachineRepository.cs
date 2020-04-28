@@ -1,10 +1,16 @@
 ﻿using SnackMachineApp.Logic.Core;
+using SnackMachineApp.Logic.Core.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SnackMachineApp.Logic.SnackMachines
 {
-    public class SnackMachineRepository : Repository<SnackMachine>
+    public interface ISnackMachineRepository : IRepository<SnackMachine>
+    {
+        IReadOnlyList<SnackMachineDto> GetAll();
+    }
+
+    public class SnackMachineRepository : Repository<SnackMachine>, ISnackMachineRepository
     {
         public IReadOnlyList<SnackMachineDto> GetAll()
         {

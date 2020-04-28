@@ -6,7 +6,7 @@ namespace SnackMachineApp.Logic.Utils
     {
         public static void Init(string connectionString)
         {
-            SessionFactory.Init(connectionString);
+            //SessionFactory.Init(connectionString);
             //DomainEventDispatcher.Init();
 
         }

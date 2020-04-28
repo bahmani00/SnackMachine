@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Compile Remove="SnackMachines\SnackMachineMap - Copy.cs" />
-    <Compile Remove="Utils\ContainerSetup.cs" />
     <Compile Remove="Utils\DatabasePopulator.cs" />
   </ItemGroup>
 

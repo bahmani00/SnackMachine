@@ -15,6 +15,7 @@ namespace SnackMachineApp.WinUI.SnackMachines
         private readonly SnackMachineRepository repository;
 
 
+
         public override string Caption => "Snack Machine";
 
         public Command InsertCentCommand { get; private set; }

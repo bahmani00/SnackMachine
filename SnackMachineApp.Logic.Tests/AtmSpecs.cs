@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using SnackMachineApp.Logic.Atms;
 using SnackMachineApp.Logic.Utils;
-using System.Linq;
 using Xunit;
 using static SnackMachineApp.Logic.SharedKernel.Money;
 

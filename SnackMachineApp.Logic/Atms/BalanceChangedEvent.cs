@@ -5,7 +5,7 @@ namespace SnackMachineApp.Logic.Atms
 {
     public class BalanceChangedEvent : IDomainEvent
     {
-        public DateTime DateOccurred { get; set; } = DateTime.Now;
+        public DateTime DateOccurred { get; } = DateTime.Now;
         public decimal Delta { get; }
 
         public BalanceChangedEvent(decimal delta)
