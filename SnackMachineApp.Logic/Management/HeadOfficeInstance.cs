@@ -1,5 +1,4 @@
-﻿using Autofac;
-using SnackMachineApp.Logic.Utils;
+﻿using SnackMachineApp.Logic.Utils;
 using System;
 
 namespace SnackMachineApp.Logic.Management
@@ -10,7 +9,7 @@ namespace SnackMachineApp.Logic.Management
 
         private static HeadOffice GetDefault()
         {
-            return ObjectFactory.Instance.Resolve<HeadOffice>(new NamedParameter("HeadOfficeId", HeadOfficeId));
+            return ObjectFactory.Instance.Resolve<IHeadOfficeRepository>().GetById(HeadOfficeId);
         }
 
         #region Singleton

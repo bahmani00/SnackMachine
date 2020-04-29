@@ -1,4 +1,5 @@
 ﻿using SnackMachineApp.Logic.Core;
+using System;
 using System.Linq;
 
 namespace SnackMachineApp.Logic.Utils
@@ -9,7 +10,15 @@ namespace SnackMachineApp.Logic.Utils
         {
             var validateions = entity.ValidationMessages.ToArray();
             entity.ValidationMessages.Clear();
-            return string.Join(System.Environment.NewLine, validateions);
+            return string.Join(Environment.NewLine, validateions);
+        }
+
+        public static Type GetInterfaceOfGenericType(Type typeInstance, Type genericType)
+        {
+            return typeInstance.GetInterfaces()
+                .Where(i => i.IsGenericType
+                    && i.GetGenericTypeDefinition() == genericType)
+                .Single().GetGenericTypeDefinition();
         }
     }
 
