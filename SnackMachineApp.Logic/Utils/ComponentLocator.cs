@@ -1,7 +1,16 @@
 ﻿using Autofac;
+using System;
 
 namespace SnackMachineApp.Logic.Utils
 {
+    //Should be independent of any IoC
+    public interface IComponentLocator
+    {
+        object Resolve(Type type);
+
+        T Resolve<T>();
+    }
+
     public class ComponentLocator : IComponentLocator
     {
         private readonly ILifetimeScope _Container;
@@ -11,14 +20,14 @@ namespace SnackMachineApp.Logic.Utils
             _Container = container;
         }
 
-        public T ResolveComponent<T>()
+        public object Resolve(Type type)
+        {
+            return _Container.Resolve(type);
+        }
+
+        public T Resolve<T>()
         {
             return _Container.Resolve<T>();
         }
-    }
-
-    public interface IComponentLocator
-    {
-        T ResolveComponent<T>();
     }
 }

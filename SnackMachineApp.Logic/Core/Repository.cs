@@ -1,5 +1,4 @@
-﻿using Autofac;
-using SnackMachineApp.Logic.Core.Interfaces;
+﻿using SnackMachineApp.Logic.Core.Interfaces;
 using SnackMachineApp.Logic.Utils;
 using System.Collections.Generic;
 
@@ -7,8 +6,8 @@ namespace SnackMachineApp.Logic.Core
 {
     public class Repository<T> : IRepository<T> where T : AggregateRoot
     {
-        //TODO: property injecttion
-        private IDbPersister<T> DbPersister { get; set; } = ContainerSetup.Container.Resolve<IDbPersister<T>>();
+        //TODO: do Field Injection rather Property Injection
+        public IDbPersister<T> DbPersister { get; set; }
 
         public IList<T> List()
         {

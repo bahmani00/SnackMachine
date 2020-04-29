@@ -1,7 +1,12 @@
 ﻿namespace SnackMachineApp.Logic.Atms
 {
+    public interface IPaymentGateway
+    {
+        void ChargePayment(decimal amount);
+    }
+
     //A template for PaymentGateway
-    public class PaymentGateway
+    internal class PaymentGateway : IPaymentGateway
     {
         public void ChargePayment(decimal amount)
         {

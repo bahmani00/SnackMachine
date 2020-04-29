@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using Autofac;
 using SnackMachineApp.Logic.Atms;
 using SnackMachineApp.Logic.Management;
 using SnackMachineApp.Logic.SnackMachines;
@@ -13,9 +12,9 @@ namespace SnackMachineApp.WinUI.Management
 {
     public class DashboardViewModel : ViewModel
     {
-        private readonly SnackMachineRepository _snackMachineRepository;
-        private readonly AtmRepository _atmRepository;
-        private readonly HeadOfficeRepository _headOfficeRepository;
+        private readonly ISnackMachineRepository _snackMachineRepository;
+        private readonly IAtmRepository _atmRepository;
+        private readonly IHeadOfficeRepository _headOfficeRepository;
 
         public HeadOffice HeadOffice { get; }
         public IReadOnlyList<SnackMachineDto> SnackMachines { get; private set; }
@@ -28,12 +27,11 @@ namespace SnackMachineApp.WinUI.Management
         public DashboardViewModel()
         {
             HeadOffice = HeadOfficeInstance.Instance;
-            _snackMachineRepository = new SnackMachineRepository();
-            _atmRepository = new AtmRepository();
-            _headOfficeRepository = new HeadOfficeRepository();
 
-            var _ComponentLocator = ContainerSetup.Container.Resolve<IComponentLocator>();
-            var blogPostRepository = _ComponentLocator.ResolveComponent<IHeadOfficeRepository>();
+            var componentLocator = ObjectFactory.Instance.Resolve<IComponentLocator>();
+            _snackMachineRepository = componentLocator.Resolve<ISnackMachineRepository>();
+            _atmRepository = componentLocator.Resolve<IAtmRepository>();
+            _headOfficeRepository = componentLocator.Resolve<IHeadOfficeRepository>();
 
             RefreshAll();
 

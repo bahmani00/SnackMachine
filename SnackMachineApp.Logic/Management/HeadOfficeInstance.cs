@@ -10,7 +10,7 @@ namespace SnackMachineApp.Logic.Management
 
         private static HeadOffice GetDefault()
         {
-            return ContainerSetup.Container.Resolve<HeadOffice>(new NamedParameter("HeadOfficeId", HeadOfficeId));
+            return ObjectFactory.Instance.Resolve<HeadOffice>(new NamedParameter("HeadOfficeId", HeadOfficeId));
         }
 
         #region Singleton

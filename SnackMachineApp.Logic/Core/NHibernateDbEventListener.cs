@@ -1,4 +1,6 @@
 ﻿using NHibernate.Event;
+using SnackMachineApp.Logic.Core.Interfaces;
+using SnackMachineApp.Logic.Utils;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -35,9 +37,11 @@ namespace SnackMachineApp.Logic.Core
             if (aggregateRoot == null)
                 return;
 
+            var eventDispatcher = ObjectFactory.Instance.Resolve<IDomainEventDispatcher>();
+
             foreach (var domainEvent in aggregateRoot.DomainEvents)
             {
-                DomainEventDispatcher.Dispatch(domainEvent);
+                eventDispatcher.Dispatch(domainEvent);
             }
 
             aggregateRoot.ClearEvents();

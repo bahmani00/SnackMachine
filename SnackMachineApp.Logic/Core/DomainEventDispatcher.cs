@@ -1,4 +1,5 @@
-﻿using SnackMachineApp.Logic.Core.Interfaces;
+﻿using Autofac;
+using SnackMachineApp.Logic.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SnackMachineApp.Logic.Core
 {
-    public class DomainEventDispatcher//: IDomainEventDispatcher
+    public class DomainEventDispatcher: IDomainEventDispatcher
     {
         private static List<Type> _handlers;
 
@@ -19,7 +20,7 @@ namespace SnackMachineApp.Logic.Core
                 .ToList();
         }
 
-        public static Task Dispatch(IDomainEvent domainEvent)
+        public Task Dispatch(IDomainEvent domainEvent)
         {
             foreach (Type handlerType in _handlers)
             {
@@ -28,6 +29,7 @@ namespace SnackMachineApp.Logic.Core
 
                 if (canHandleEvent)
                 {
+                    //TODO: possible to get through DI
                     dynamic handler = Activator.CreateInstance(handlerType);
                     handler.Handle((dynamic)domainEvent);
                 }

@@ -1,5 +1,4 @@
 ﻿using SnackMachineApp.Logic.Utils;
-using System.Configuration;
 
 namespace SnackMachineApp.Logic.UI
 {
@@ -7,9 +6,8 @@ namespace SnackMachineApp.Logic.UI
     {
         public App()
         {
-            ContainerSetup.Init(ConfigurationManager.ConnectionStrings["AppCnn"].ConnectionString);
-
-            ContainerSetup.DisplayRegistrations();
+            //Init object factory
+            ObjectFactory.Instance.GetType();
         }
     }
 }

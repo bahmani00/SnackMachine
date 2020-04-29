@@ -7,7 +7,7 @@ namespace SnackMachineApp.Logic.Management
     {
     }
 
-    public class HeadOfficeRepository : Repository<HeadOffice>, IHeadOfficeRepository
+    internal class HeadOfficeRepository : Repository<HeadOffice>, IHeadOfficeRepository
     {
     }
 }

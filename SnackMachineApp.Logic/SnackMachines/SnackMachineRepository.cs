@@ -10,7 +10,7 @@ namespace SnackMachineApp.Logic.SnackMachines
         IReadOnlyList<SnackMachineDto> GetAll();
     }
 
-    public class SnackMachineRepository : Repository<SnackMachine>, ISnackMachineRepository
+    internal class SnackMachineRepository : Repository<SnackMachine>, ISnackMachineRepository
     {
         public IReadOnlyList<SnackMachineDto> GetAll()
         {

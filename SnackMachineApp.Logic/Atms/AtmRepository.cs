@@ -10,7 +10,7 @@ namespace SnackMachineApp.Logic.Atms
         IReadOnlyList<AtmDto> GetAll();
     }
 
-    public class AtmRepository : Repository<Atm>, IAtmRepository
+    internal class AtmRepository : Repository<Atm>, IAtmRepository
     {
         public IReadOnlyList<AtmDto> GetAll()
         {

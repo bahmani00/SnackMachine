@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SnackMachineApp.Logic.SnackMachines
+﻿namespace SnackMachineApp.Logic.SnackMachines
 {
     public class SnackMachineDto
     {

@@ -5,6 +5,7 @@ using FluentNHibernate.Conventions;
 using FluentNHibernate.Conventions.AcceptanceCriteria;
 using FluentNHibernate.Conventions.Helpers;
 using FluentNHibernate.Conventions.Instances;
+using Logic.Utils;
 using NHibernate;
 using NHibernate.Event;
 using SnackMachineApp.Logic.Core;
@@ -15,9 +16,9 @@ namespace SnackMachineApp.Logic.Utils
     {
         private ISessionFactory _factory;
 
-        public SessionFactory(string connectionString)
+        public SessionFactory(CommandsConnectionString connectionString)
         {
-            _factory = BuildSessionFactory(connectionString);
+            _factory = BuildSessionFactory(connectionString.Value);
         }
 
         public ISession OpenSession()

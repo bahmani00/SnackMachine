@@ -1,4 +1,5 @@
-﻿using SnackMachineApp.Logic.SharedKernel;
+﻿using SnackMachineApp.Logic.Core.Interfaces;
+using SnackMachineApp.Logic.SharedKernel;
 using SnackMachineApp.Logic.SnackMachines;
 using SnackMachineApp.Logic.Utils;
 using SnackMachineApp.WinUI.Common;
@@ -12,9 +13,7 @@ namespace SnackMachineApp.WinUI.SnackMachines
     public class SnackMachineViewModel : ViewModel
     {
         private SnackMachine snackMachine;
-        private readonly SnackMachineRepository repository;
-
-
+        private readonly IMediator mediator;
 
         public override string Caption => "Snack Machine";
 
@@ -53,7 +52,8 @@ namespace SnackMachineApp.WinUI.SnackMachines
         public SnackMachineViewModel(SnackMachine snackMachine)
         {
             this.snackMachine = snackMachine;
-            repository = new SnackMachineRepository();
+            //TODO: pass IComponentLocator to constructor
+            mediator = ObjectFactory.Instance.Resolve<IMediator>();
 
             InsertCentCommand = new Command(() => InsertMoney(Cent));
             InsertTenCentCommand = new Command(() => InsertMoney(TenCent));
@@ -69,14 +69,13 @@ namespace SnackMachineApp.WinUI.SnackMachines
         private void BuySnack(string position)
         {
             var pos = Convert.ToInt32(position);
-            if (!snackMachine.CanBuySnack(pos))
+            mediator.Send(new BuySnackCommand(snackMachine, pos));
+
+            if (snackMachine.AnyErrors())
             {
                 Message = snackMachine.Project();
                 return;
             }
-
-            snackMachine.BuySnack(pos);
-            repository.Save(snackMachine);
 
             NotifyClient("You have bought a snack");
         }

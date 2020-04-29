@@ -2,15 +2,14 @@
 using SnackMachineApp.WinUI.Common;
 using SnackMachineApp.Logic.Utils;
 using SnackMachineApp.Logic.SharedKernel;
+using SnackMachineApp.Logic.Core.Interfaces;
 
 namespace SnackMachineApp.WinUI.Atms
 {
     public class AtmViewModel : ViewModel
     {
         private readonly Atm _atm;
-        private readonly AtmRepository _repository;
-        private readonly PaymentGateway _PaymentGateway;
-
+        private readonly IMediator mediator;
         private string _message;
         public string Message
         {
@@ -30,24 +29,21 @@ namespace SnackMachineApp.WinUI.Atms
         public AtmViewModel(Atm atm)
         {
             _atm = atm;
-            _repository = new AtmRepository();
-            _PaymentGateway = new PaymentGateway();
+
+            mediator = ObjectFactory.Instance.Resolve<IMediator>();
 
             TakeMoneyCommand = new Command<decimal>(x => x > 0, Withdrawal);
         }
 
         private void Withdrawal(decimal amount)
         {
-            if(!_atm.CanWithdrawal(amount))
+            mediator.Send(new WithdrawCommand(_atm, amount));
+
+            if (_atm.AnyErrors())
             {
                 Message = _atm.Project();
                 return;
             }
-
-            _atm.Withdrawal(amount);
-            var charge = amount + _atm.CalculateCommision(amount);
-            _PaymentGateway.ChargePayment(charge);
-            _repository.Save(_atm);
 
             NotifyClient("You have taken " + amount.ToString("C2"));
         }

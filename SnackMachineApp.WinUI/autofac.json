@@ -1,0 +1,74 @@
+{
+  "modules": [
+    { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+DbPersisterRegistrationModule, SnackMachineApp.Logic" },
+    { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+RepositoryRegistrationModule, SnackMachineApp.Logic" },
+    { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+EventHandlersRegistrationModule, SnackMachineApp.Logic" },
+    { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+MediatorRegistrationModule, SnackMachineApp.Logic" },
+    { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+DecoratorsRegistrationModule, SnackMachineApp.Logic" }
+  ],
+  "components": [
+    {
+      "type": "SnackMachineApp.Logic.Utils.ComponentLocator, SnackMachineApp.Logic",
+      "services": [
+        {
+          "type": "SnackMachineApp.Logic.Utils.IComponentLocator, SnackMachineApp.Logic"
+        }
+      ]
+    },
+    {
+      "type": "SnackMachineApp.Logic.Core.Interfaces.Mediator, SnackMachineApp.Logic",
+      "services": [
+        {
+          "type": "SnackMachineApp.Logic.Core.Interfaces.IMediator, SnackMachineApp.Logic"
+        }
+      ],
+      "instanceScope": "singleinstance"
+    },
+    {
+      "type": "SnackMachineApp.Logic.Atms.PaymentGateway, SnackMachineApp.Logic",
+      "services": [
+        {
+          "type": "SnackMachineApp.Logic.Atms.IPaymentGateway, SnackMachineApp.Logic"
+        }
+      ],
+      "instanceScope": "singleinstance"
+    },
+    {
+      "type": "SnackMachineApp.Logic.Core.DomainEventDispatcher, SnackMachineApp.Logic",
+      "services": [
+        {
+          "type": "SnackMachineApp.Logic.Core.Interfaces.IDomainEventDispatcher, SnackMachineApp.Logic"
+        }
+      ],
+      "instanceScope": "singleinstance"
+    },
+    {
+      "type": "SnackMachineApp.Logic.Atms.WithdrawCommandHandler, SnackMachineApp.Logic",
+      "services": [
+        {
+          "type": "SnackMachineApp.Logic.Core.Interfaces.IRequestHandler`2[[SnackMachineApp.Logic.Atms.WithdrawCommand, SnackMachineApp.Logic],[SnackMachineApp.Logic.Atms.Atm, SnackMachineApp.Logic]], SnackMachineApp.Logic"
+        }
+      ],
+      "instanceScope": "singleinstance"
+    },
+    {
+      "type": "SnackMachineApp.Logic.Core.DomainEventDispatcher, SnackMachineApp.Logic",
+      "services": [
+        {
+          "type": "SnackMachineApp.Logic.Core.Interfaces.IDomainEventDispatcher, SnackMachineApp.Logic"
+        }
+      ],
+      "instanceScope": "singleinstance"
+    },
+    {
+      "type": "SnackMachineApp.Logic.SnackMachines.BuySnackCommandHandler, SnackMachineApp.Logic",
+      "services": [
+        {
+          "type": "SnackMachineApp.Logic.Core.Interfaces.IRequestHandler`2[[SnackMachineApp.Logic.SnackMachines.BuySnackCommand, SnackMachineApp.Logic],[SnackMachineApp.Logic.SnackMachines.SnackMachine, SnackMachineApp.Logic]], SnackMachineApp.Logic"
+        }
+      ],
+      "instanceScope": "singleinstance"
+    }
+
+  ]
+}
