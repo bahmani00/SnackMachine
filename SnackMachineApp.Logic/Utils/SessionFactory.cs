@@ -16,9 +16,9 @@ namespace SnackMachineApp.Logic.Utils
     {
         private ISessionFactory _factory;
 
-        public SessionFactory(CommandsConnectionString connectionString)
+        public SessionFactory(CommandsConnectionStringProvider connectionStringProvider)
         {
-            _factory = BuildSessionFactory(connectionString.Value);
+            _factory = BuildSessionFactory(connectionStringProvider.Value);
         }
 
         public ISession OpenSession()

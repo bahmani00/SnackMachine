@@ -100,11 +100,11 @@ namespace SnackMachineApp.Logic.Utils
         {
             protected override void Load(ContainerBuilder builder)
             {
-                var cmdConnectionString = new CommandsConnectionString(ConfigurationManager.ConnectionStrings["AppCnn"].ConnectionString);
-                var queryConnectionString = new QueriesConnectionString(ConfigurationManager.ConnectionStrings["QueryAppCnn"].ConnectionString);
+                var cmdConnectionString = new CommandsConnectionStringProvider(ConfigurationManager.ConnectionStrings["AppCnn"].ConnectionString);
+                var queryConnectionString = new QueriesConnectionStringProvider(ConfigurationManager.ConnectionStrings["QueryAppCnn"].ConnectionString);
                 
-                builder.RegisterInstance(cmdConnectionString).As<CommandsConnectionString>().SingleInstance();
-                builder.RegisterInstance(queryConnectionString).As<QueriesConnectionString>().SingleInstance();
+                builder.RegisterInstance(cmdConnectionString).As<CommandsConnectionStringProvider>().SingleInstance();
+                builder.RegisterInstance(queryConnectionString).As<QueriesConnectionStringProvider>().SingleInstance();
 
                 //RegisterInstance method allows you to register an instance not built by Autofac.
                 //https://stackoverflow.com/questions/31582000/autofac-registerinstance-vs-singleinstance
