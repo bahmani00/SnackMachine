@@ -8,6 +8,12 @@ namespace SnackMachineApp.Logic.UI
         {
             //Init object factory
             ObjectFactory.Instance.GetType();
+
+            using (var scope = ObjectFactory.Instance.CreateScope())
+            {
+                //var processor = scope.ServiceProvider.GetService<IUnitOfWork>();
+                //processor.Handle(theEvent);
+            }
         }
     }
 }

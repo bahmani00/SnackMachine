@@ -54,6 +54,9 @@
     <Reference Include="Autofac.Configuration, Version=5.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\..\..\nugetPackages\Autofac.Configuration.5.1.0\lib\net461\Autofac.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac.Extensions.DependencyInjection, Version=6.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\..\nugetPackages\Autofac.Extensions.DependencyInjection.6.0.0\lib\netstandard2.0\Autofac.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
     <Reference Include="FluentAssertions, Version=5.10.3.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\..\..\nugetPackages\FluentAssertions.5.10.3\lib\net47\FluentAssertions.dll</HintPath>
     </Reference>

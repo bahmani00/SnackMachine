@@ -26,6 +26,7 @@ namespace SnackMachineApp.WinUI.Management
 
         public DashboardViewModel()
         {
+
             HeadOffice = HeadOfficeInstance.Instance;
 
             var componentLocator = ObjectFactory.Instance.Resolve<IComponentLocator>();

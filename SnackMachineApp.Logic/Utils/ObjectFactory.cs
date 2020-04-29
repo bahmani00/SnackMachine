@@ -1,8 +1,10 @@
 ﻿using Autofac;
 using Autofac.Builder;
 using Autofac.Configuration;
+using Autofac.Extensions.DependencyInjection;
 using Logic.Utils;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SnackMachineApp.Logic.Core;
 using SnackMachineApp.Logic.Core.Interfaces;
 using SnackMachineApp.Logic.Management;
@@ -29,25 +31,33 @@ namespace SnackMachineApp.Logic.Utils
 
         public object Resolve(Type type)
         {
-            return _Container.Resolve(type);
+            return _serviceProvider.GetService(type);
         }
 
         public T Resolve<T>()
         {
-            return _Container.Resolve<T>();
+            return _serviceProvider.GetService<T>();
         }
 
-        public T Resolve<T>(NamedParameter namedParameter)
+        public IServiceScope CreateScope()
         {
-            return _Container.Resolve<T>(namedParameter);
+            var serviceScopeFactory = _serviceProvider.GetRequiredService<IServiceScopeFactory>();
+            return serviceScopeFactory.CreateScope();
         }
 
         #region Private
-        private IContainer _Container;
+        private IServiceProvider _serviceProvider;
 
         private void Init()
         {
-            var builder = new ContainerBuilder();           
+            var serviceCollection = new ServiceCollection();
+
+            // The Microsoft.Extensions.Logging package provides this one-liner
+            // to add logging services.
+            serviceCollection.AddLogging();
+
+            var builder = new ContainerBuilder();
+            builder.Populate(serviceCollection);
 
             IConfigurationBuilder config = new ConfigurationBuilder();
             config.AddJsonFile("autofac.json");
@@ -66,34 +76,14 @@ namespace SnackMachineApp.Logic.Utils
                       throw new ArgumentException("Invalid HeadOfficeId");
                   }).SingleInstance();
 
-            _Container = builder.Build();
-        }     
-      
-        public static void DisplayRegistrations(IContainer container)
-        {
-            var registrations = container.ComponentRegistry.Registrations;
-            //.Where(r => typeof(IDbPersister<>).IsAssignableFrom(r.Activator.LimitType))
-            //.Select(r => r.Activator.LimitType);
+            var container = builder.Build();
 
-            foreach (var registration in registrations)
-            {
-                foreach (var service in registration.Services)
-                    Console.Out.WriteLine(service.Description);
-            }
+            _serviceProvider = new AutofacServiceProvider(container);
         }
-
-        private static Type GetIRepositoryType(Type typeInstance, Type genericType)
-        {
-            return typeInstance.GetInterfaces()
-                .Where(i => i.IsGenericType
-                    && i.GetGenericTypeDefinition() == genericType)
-                .Single().GetGenericTypeDefinition();
-        }
-
 
         public void Dispose()
         {
-            _Container?.Dispose();
+            //_Container?.Dispose();
         }
 
         internal class DbPersisterRegistrationModule : Autofac.Module
