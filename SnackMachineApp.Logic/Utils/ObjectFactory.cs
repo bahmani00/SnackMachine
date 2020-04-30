@@ -116,7 +116,7 @@ namespace SnackMachineApp.Logic.Utils
             {
                 //RegisterInstance method allows you to register an instance not built by Autofac.
                 //https://stackoverflow.com/questions/31582000/autofac-registerinstance-vs-singleinstance
-                builder.RegisterType<Model.AdventureContext>().As<DbContext>();
+                //builder.RegisterType<Model.AdventureContext>().As<DbContext>();
                 builder.RegisterGeneric(typeof(EFDbPersister<>)).As(typeof(IDbPersister<>));
             }
         }
