@@ -3,6 +3,7 @@ using Autofac.Builder;
 using Autofac.Configuration;
 using Autofac.Extensions.DependencyInjection;
 using Logic.Utils;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SnackMachineApp.Logic.Core;
@@ -86,7 +87,7 @@ namespace SnackMachineApp.Logic.Utils
             //_Container?.Dispose();
         }
 
-        internal class DbPersisterRegistrationModule : Autofac.Module
+        private class DbConnectionProviderRegistrationModule : Autofac.Module
         {
             protected override void Load(ContainerBuilder builder)
             {
@@ -95,7 +96,13 @@ namespace SnackMachineApp.Logic.Utils
                 
                 builder.RegisterInstance(cmdConnectionString).As<CommandsConnectionStringProvider>().SingleInstance();
                 builder.RegisterInstance(queryConnectionString).As<QueriesConnectionStringProvider>().SingleInstance();
+            }
+        }
 
+        private class NHibernateRegistrationModule : Autofac.Module
+        {
+            protected override void Load(ContainerBuilder builder)
+            {
                 //RegisterInstance method allows you to register an instance not built by Autofac.
                 //https://stackoverflow.com/questions/31582000/autofac-registerinstance-vs-singleinstance
                 builder.RegisterType<SessionFactory>().SingleInstance();
@@ -103,7 +110,18 @@ namespace SnackMachineApp.Logic.Utils
             }
         }
 
-        internal class RepositoryRegistrationModule : Autofac.Module
+        private class EfRegistrationModule : Autofac.Module
+        {
+            protected override void Load(ContainerBuilder builder)
+            {
+                //RegisterInstance method allows you to register an instance not built by Autofac.
+                //https://stackoverflow.com/questions/31582000/autofac-registerinstance-vs-singleinstance
+                builder.RegisterType<Model.AdventureContext>().As<DbContext>();
+                builder.RegisterGeneric(typeof(EFDbPersister<>)).As(typeof(IDbPersister<>));
+            }
+        }
+
+        private class RepositoryRegistrationModule : Autofac.Module
         {
             protected override void Load(ContainerBuilder builder)
             {
@@ -142,7 +160,7 @@ namespace SnackMachineApp.Logic.Utils
             }
         }
 
-        internal class EventHandlersRegistrationModule : Autofac.Module
+        private class EventHandlersRegistrationModule : Autofac.Module
         {
             protected override void Load(ContainerBuilder builder)
             {
@@ -155,7 +173,7 @@ namespace SnackMachineApp.Logic.Utils
             }
         }
 
-        internal class MediatorRegistrationModule : Autofac.Module
+        private class MediatorRegistrationModule : Autofac.Module
         {
             protected override void Load(ContainerBuilder builder)
             {
@@ -168,7 +186,7 @@ namespace SnackMachineApp.Logic.Utils
             }
         }
 
-        internal class DecoratorsRegistrationModule : Autofac.Module
+        private class DecoratorsRegistrationModule : Autofac.Module
         {
             protected override void Load(ContainerBuilder builder)
             {
