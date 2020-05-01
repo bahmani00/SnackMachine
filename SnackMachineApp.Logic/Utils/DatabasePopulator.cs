@@ -1,29 +1,47 @@
-﻿using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
+using SnackMachineApp.Logic.Atms;
+using SnackMachineApp.Logic.Management;
+using SnackMachineApp.Logic.SharedKernel;
+using SnackMachineApp.Logic.SnackMachines;
 
-namespace CleanArchitecture.Core
+namespace SnackMachineApp.Logic.Utils
 {
     public static class DatabasePopulator
     {
-        public static int PopulateDatabase()
+        public static void PopulateDatabase()
         {
-            //if (todoRepository.List<ToDoItem>().Count() >= 5) return 0;
+            using (var context = ObjectFactory.Instance.Resolve<DbContext>())
+            {
+                //context.Database.EnsureDeleted();
+                //context.Database.EnsureCreated();
 
-            //var snackMachine = new SnackMachine();
-            //snackMachine.InsertMoney(Cent);
-            //snackMachine.InsertMoney(TenCent);
-            //snackMachine.InsertMoney(Quarter);
-            //snackMachine.InsertMoney(Dollar);
-            //snackMachine.InsertMoney(FiveDollar);
-            //snackMachine.InsertMoney(TwentyDollar);
-            //for (var position = 0; position < 3; position++)
-            //{
-            //    var snackPile = snackMachine.GetSnackPile(position);
-            //    //snackPile.Price = position;
+                //var snackMachine = new SnackMachine { Id = 1};
+                //snackMachine.InsertMoney(Money.Cent * 100 + Money.TenCent * 100 + Money.Quarter * 100 + 
+                //    Money.Dollar * 100 + Money.FiveDollar * 10 + Money.TwentyDollar * 10);
 
-            //}
+                //snackMachine.LoadSnacks(1, new SnackPile(new Snack(1, "Chocolate"), 20, 1m));
+                //snackMachine.LoadSnacks(2, new SnackPile(new Snack(2, "Cookie"), 20, 2m));
+                //snackMachine.LoadSnacks(3, new SnackPile(new Snack(3, "Gum"), 20, 3m));
 
-            //return todoRepository.List<ToDoItem>().Count;
-            return 0;
+                ////snackMachine.Slots[0].Id = 1;
+                ////snackMachine.Slots[1].Id = 3;
+                ////snackMachine.Slots[2].Id = 3;
+
+                //context.Add(snackMachine);
+
+                //var atm = new Atm() { Id = 1};
+                //atm.LoadMoney(Money.Cent * 100 + Money.TenCent * 100 + Money.Quarter * 100 +
+                //    Money.Dollar * 100 + Money.FiveDollar * 10 + Money.TwentyDollar * 10);
+                //atm.Withdrawal(1.0m);
+                //context.Add(atm);
+
+                //var headOffice = new HeadOffice() { Id = 1 };
+                //headOffice.ChangeBalance(100);
+                //context.Add(headOffice);
+
+
+                //context.SaveChanges();
+            }
         }
     }
 }

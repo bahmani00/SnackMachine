@@ -2,6 +2,7 @@
 using FluentNHibernate.Mapping;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SnackMachineApp.Logic.SharedKernel;
 
 namespace SnackMachineApp.Logic.SnackMachines
 {
@@ -31,14 +32,27 @@ namespace SnackMachineApp.Logic.SnackMachines
 
         public void Configure(EntityTypeBuilder<SnackMachine> builder)
         {
-            //TODO: Map all the fields
-            builder.HasKey(t => t.Id);
-            //builder.HasMany<SnackMachine, slot>(t => t);
+            builder.ToTable(nameof(SnackMachine));
+            builder.HasKey(x => x.Id).HasName("PK_SnackMachineId");
+            builder.Property(x => x.Id).HasColumnName("SnackMachineId").ValueGeneratedNever();
+            builder.Ignore(x => x.ValidationMessages);
+            builder.Ignore(x => x.MoneyInTransaction);
 
+            builder.OwnsOne(x => x.MoneyInside);
+            builder.OwnsOne(typeof(Money), "MoneyInside");
+            builder.OwnsOne(x => x.MoneyInside, nav =>
+            {
+                nav.Property(x => x.OneCentCount).HasColumnName("OneCentCount").IsRequired();
+                nav.Property(x => x.TenCentCount).HasColumnName("TenCentCount").IsRequired();
+                nav.Property(x => x.QuarterCount).HasColumnName("QuarterCount").IsRequired();
+                nav.Property(x => x.OneDollarCount).HasColumnName("OneDollarCount").IsRequired();
+                nav.Property(x => x.FiveDollarCount).HasColumnName("FiveDollarCount").IsRequired();
+                nav.Property(x => x.TwentyDollarCount).HasColumnName("TwentyDollarCount").IsRequired();
+            });
         }
     }
 
-    public class SlotMap : ClassMap<Slot>
+    public class SlotMap : ClassMap<Slot>, IEntityTypeConfiguration<Slot>
     {
         public SlotMap()
         {
@@ -54,15 +68,58 @@ namespace SnackMachineApp.Logic.SnackMachines
 
             References(x => x.SnackMachine);
         }
+
+        public void Configure(EntityTypeBuilder<Slot> builder)
+        {
+            builder.ToTable(nameof(Slot));
+            builder.HasKey(x => x.Id).HasName("PK_SlotId");
+            builder.Property(x => x.Id).HasColumnName("SlotId").ValueGeneratedNever();
+            builder.Ignore(x => x.Name);
+
+            builder.Property(x => x.Position).IsRequired();
+
+            builder.OwnsOne(x => x.SnackPile);
+            builder.OwnsOne(typeof(SnackPile), "SnackPile");
+            builder.OwnsOne(x => x.SnackPile, nav =>
+            {
+                nav.Property(p => p.Price).HasColumnName("Price").IsRequired();
+                nav.Property(p => p.Quantity).HasColumnName("Quantity").IsRequired();
+                //nav.HasOne(p => p.Snack).HasForeignKey("SnackId").HasConstraintName("FK_SlotId_SnackId");
+                //nav.Property(x => x.Snack.Id).HasColumnName("SnackId");//.HasConstraintName("FK_SlotId_SnackId");
+
+                nav.Property<long>("SnackId").HasColumnName("SnackId");
+                nav.HasOne(pp => pp.Snack).WithMany().HasForeignKey("SnackId").HasConstraintName("FK_SlotId_SnackId").IsRequired();
+
+            });
+
+            builder.HasOne(d => d.SnackMachine)
+               .WithMany(SnackMachine.Slots_Name)
+               .HasForeignKey("SnackMachineId")
+               .HasConstraintName("FK_SlotId_SnackMachineId");
+        }
     }
 
-    public class SnackMap : ClassMap<Snack>
+    public class SnackMap : ClassMap<Snack>, IEntityTypeConfiguration<Snack>
     {
         public SnackMap()
         {
             Id(x => x.Id);
             Map(x => x.Name);
             Map(x => x.ImageWidth);
+        }
+
+        public void Configure(EntityTypeBuilder<Snack> builder)
+        {
+            builder.ToTable(nameof(Snack));
+            builder.HasKey(x => x.Id).HasName("PK_SnackId");
+            builder.Property(x => x.Id).HasColumnName("SnackId").ValueGeneratedNever();
+            builder.Ignore(x => x.ValidationMessages);
+
+            builder.Property(x => x.Name)
+                .IsRequired()
+                .HasMaxLength(255);
+
+            builder.Property(x => x.ImageWidth).HasDefaultValueSql("70");
         }
     }
 }

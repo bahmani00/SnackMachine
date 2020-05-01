@@ -1,7 +1,7 @@
 {
   "modules": [
     { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+DbConnectionProviderRegistrationModule, SnackMachineApp.Logic" },
-    { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+NHibernateRegistrationModule, SnackMachineApp.Logic" },
+    { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+EfRegistrationModule, SnackMachineApp.Logic" },
     { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+RepositoryRegistrationModule, SnackMachineApp.Logic" },
     { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+EventHandlersRegistrationModule, SnackMachineApp.Logic" },
     { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+MediatorRegistrationModule, SnackMachineApp.Logic" },
