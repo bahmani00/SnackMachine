@@ -1,25 +1,25 @@
 ﻿namespace Logic.Utils
 {
-    public interface IConnectionStringProvider
+    public interface IConnectionProvider
     {
         string Value { get; }
     }
 
-    public sealed class CommandsConnectionStringProvider : IConnectionStringProvider
+    public sealed class CommandsConnectionProvider : IConnectionProvider
     {
         public string Value { get; }
 
-        public CommandsConnectionStringProvider(string value)
+        public CommandsConnectionProvider(string value)
         {
             Value = value;
         }
     }
 
-    public sealed class QueriesConnectionStringProvider : IConnectionStringProvider
+    public sealed class QueriesConnectionProvider : IConnectionProvider
     {
         public string Value { get; }
 
-        public QueriesConnectionStringProvider(string value)
+        public QueriesConnectionProvider(string value)
         {
             Value = value;
         }

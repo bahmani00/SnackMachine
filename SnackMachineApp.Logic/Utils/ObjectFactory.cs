@@ -4,6 +4,7 @@ using Autofac.Configuration;
 using Autofac.Extensions.DependencyInjection;
 using Logic.Utils;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SnackMachineApp.Logic.Core;
@@ -91,11 +92,11 @@ namespace SnackMachineApp.Logic.Utils
         {
             protected override void Load(ContainerBuilder builder)
             {
-                var cmdConnectionString = new CommandsConnectionStringProvider(ConfigurationManager.ConnectionStrings["AppCnn"].ConnectionString);
-                var queryConnectionString = new QueriesConnectionStringProvider(ConfigurationManager.ConnectionStrings["QueryAppCnn"].ConnectionString);
+                var cmdConnectionString = new CommandsConnectionProvider(ConfigurationManager.ConnectionStrings["AppCnn"].ConnectionString);
+                var queryConnectionString = new QueriesConnectionProvider(ConfigurationManager.ConnectionStrings["QueryAppCnn"].ConnectionString);
                 
-                builder.RegisterInstance(cmdConnectionString).As<CommandsConnectionStringProvider>().SingleInstance();
-                builder.RegisterInstance(queryConnectionString).As<QueriesConnectionStringProvider>().SingleInstance();
+                builder.RegisterInstance(cmdConnectionString).As<CommandsConnectionProvider>().SingleInstance();
+                builder.RegisterInstance(queryConnectionString).As<QueriesConnectionProvider>().SingleInstance();
             }
         }
 
@@ -116,7 +117,7 @@ namespace SnackMachineApp.Logic.Utils
             {
                 //RegisterInstance method allows you to register an instance not built by Autofac.
                 //https://stackoverflow.com/questions/31582000/autofac-registerinstance-vs-singleinstance
-                //builder.RegisterType<Model.AdventureContext>().As<DbContext>();
+                builder.RegisterType<AppDbContext>().As<DbContext>();
                 builder.RegisterGeneric(typeof(EFDbPersister<>)).As(typeof(IDbPersister<>));
             }
         }
@@ -130,33 +131,10 @@ namespace SnackMachineApp.Logic.Utils
                     .As(t => t.GetInterfaces()?.FirstOrDefault(
                         i => i.Name == "I" + t.Name))
                     .PropertiesAutowired();
-                //.WithParameter(new TypedParameter(typeof(string), "easyBlog"));
-
-                //builder.RegisterAssemblyTypes(repositoriesAssembly)
-                //       .Where(t => t.Name.EndsWith("Repository"))
-                //       .AsImplementedInterfaces().PropertiesAutowired();
 
                 //working: builder.RegisterType<HeadOffice>().InjectFields(true);
                 //builder.RegisterType(typeof(Repository<>)).InjectFields();
                 builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).PropertiesAutowired();
-
-
-                //builder.RegisterAssemblyTypes(repositoriesAssembly)
-                //    .Where(t => t.IsClosedTypeOf(typeof(IRepository<>)))
-                //    .As(t => new Autofac.Core.KeyedService("repo2", GetIRepositoryType(t)))
-                //    .PropertiesAutowired();
-
-                //builder.RegisterAssemblyTypes(repositoriesAssembly)
-                //    .AsClosedTypesOf(typeof(Repository<>))
-                //    .OnActivated(args =>
-                //    {
-                //        var type = args.Instance.GetType();
-                //        if (type.GetGenericTypeDefinition() == typeof(Repository<>))
-                //        {
-                //            type.GetField("dbPersister")
-                //            .SetValue(args.Instance, args.Context.Resolve(type.GetInterfaces()[0]));
-                //        }
-                //    });
             }
         }
 

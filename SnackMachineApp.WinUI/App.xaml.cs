@@ -8,6 +8,7 @@ namespace SnackMachineApp.Logic.UI
         {
             //Init object factory
             ObjectFactory.Instance.GetType();
+            DatabasePopulator.PopulateDatabase();
 
             using (var scope = ObjectFactory.Instance.CreateScope())
             {

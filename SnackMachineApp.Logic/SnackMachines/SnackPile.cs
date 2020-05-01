@@ -7,7 +7,8 @@ namespace SnackMachineApp.Logic.SnackMachines
     {
         public static readonly SnackPile Empty = new SnackPile(Snack.None, 0, 0m);
 
-        public Snack Snack { get; }
+        public virtual Snack Snack { get; }
+
         public int Quantity { get; }
         public decimal Price { get; }
 
