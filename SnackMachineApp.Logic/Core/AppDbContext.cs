@@ -2,10 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SnackMachineApp.Logic.Atms;
+using SnackMachineApp.Logic.Core.Interfaces;
 using SnackMachineApp.Logic.Management;
 using SnackMachineApp.Logic.SnackMachines;
 using SnackMachineApp.Logic.Utils;
 using System;
+using System.Linq;
 
 namespace SnackMachineApp.Logic.Core
 {
@@ -52,5 +54,38 @@ namespace SnackMachineApp.Logic.Core
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        private static readonly Type[] EnumerationTypes = { typeof(SnackMachine), typeof(HeadOffice), typeof(Atm) };
+
+        public override int SaveChanges()
+        {
+            var enumerationEntries = ChangeTracker.Entries()
+                .Where(x => EnumerationTypes.Contains(x.Entity.GetType()));
+
+            foreach (var enumerationEntry in enumerationEntries)
+            {
+                enumerationEntry.State = EntityState.Unchanged;
+            }
+
+            var entities = ChangeTracker
+                .Entries()
+                .Where(x => x.Entity is Entity)
+                .Select(x => (Entity)x.Entity)
+                .ToList();
+
+            int result = base.SaveChanges();
+            var eventDispatcher = ObjectFactory.Instance.Resolve<IDomainEventDispatcher>();
+
+            foreach (var entity in entities)
+            {
+                foreach (var domainEvent in entity.DomainEvents)
+                {
+                    eventDispatcher.Dispatch(domainEvent);
+                }
+                entity.ClearEvents();
+            }
+
+            return result;
+        }
     }
 }

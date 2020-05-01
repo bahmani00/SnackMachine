@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using SnackMachineApp.Logic.Core.Interfaces;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace SnackMachineApp.Logic.Core
@@ -6,12 +8,29 @@ namespace SnackMachineApp.Logic.Core
     public class Entity
     {
         public virtual long Id { get; protected set; }
+
+        [NotMapped]
         public virtual IList<string> ValidationMessages { get; protected set; } = new List<string>();
 
         public virtual bool AnyErrors()
         {
             return this.ValidationMessages.Any();
         }
+
+        #region Events
+        private readonly List<IDomainEvent> domainEvents = new List<IDomainEvent>();
+        public virtual IReadOnlyList<IDomainEvent> DomainEvents => domainEvents;
+
+        protected virtual void AddDomainEvent(IDomainEvent newEvent)
+        {
+            domainEvents.Add(newEvent);
+        }
+
+        public virtual void ClearEvents()
+        {
+            domainEvents.Clear();
+        }
+        #endregion Events
 
         public override bool Equals(object obj)
         {
