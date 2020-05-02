@@ -74,7 +74,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SnackMachineApp.Logic\SnackMachineApp.Logic.csproj" />
+    <ProjectReference Include="..\SnackMachineApp.Domain\SnackMachineApp.Domain.csproj" />
   </ItemGroup>
 
 </Project>

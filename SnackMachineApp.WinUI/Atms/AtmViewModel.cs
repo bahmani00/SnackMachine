@@ -1,8 +1,8 @@
-﻿using SnackMachineApp.Logic.Atms;
+﻿using SnackMachineApp.Domain.Atms;
 using SnackMachineApp.WinUI.Common;
-using SnackMachineApp.Logic.Utils;
-using SnackMachineApp.Logic.SharedKernel;
-using SnackMachineApp.Logic.Core.Interfaces;
+using SnackMachineApp.Domain.Utils;
+using SnackMachineApp.Domain.SharedKernel;
+using SnackMachineApp.Domain.Core.Interfaces;
 
 namespace SnackMachineApp.WinUI.Atms
 {
