@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace SnackMachineApp.Logic.Management
 {
-    public class HeadOfficeMap : ClassMap<HeadOffice>, IEntityTypeConfiguration<HeadOffice>
+    internal class HeadOfficeMap : ClassMap<HeadOffice>, IEntityTypeConfiguration<HeadOffice>
     {
         public HeadOfficeMap()
         {

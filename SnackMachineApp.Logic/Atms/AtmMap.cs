@@ -6,7 +6,7 @@ using SnackMachineApp.Logic.SharedKernel;
 
 namespace SnackMachineApp.Logic.SnackMachines
 {
-    public class AtmMap : ClassMap<Atm>, IEntityTypeConfiguration<Atm>
+    internal class AtmMap : ClassMap<Atm>, IEntityTypeConfiguration<Atm>
     {
         public AtmMap()
         {

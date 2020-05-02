@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SnackMachineApp.Logic.Core
 {
-    public class EFDbPersister<T> : IDbPersister<T> where T : AggregateRoot
+    internal class EFDbPersister<T> : IDbPersister<T> where T : AggregateRoot
     {
         private readonly DbContext _dbContext;
 

@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace SnackMachineApp.Logic.Core
 {
-    public partial class AppDbContext : DbContext
+    internal partial class AppDbContext : DbContext
     {
         public virtual DbSet<Atm> Atm { get; set; }
         public virtual DbSet<HeadOffice> HeadOffice { get; set; }
@@ -28,19 +28,12 @@ namespace SnackMachineApp.Logic.Core
 
                 optionsBuilder.UseApplicationServiceProvider(serviceProvider)
                     .UseSqlServer(cnnString.Value,
-                        serverOptions => serverOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null))
-                    .UseLazyLoadingProxies();
-
-                ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
-                {
-                    builder
-                        .AddFilter((category, level) =>
-                            category == DbLoggerCategory.Database.Command.Name && level == LogLevel.Information)
-                        ;//.AddConsole();
-                });
+                        serverOptions => serverOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null));
 
                 optionsBuilder
-                    .UseLoggerFactory(loggerFactory)
+                    .UseLoggerFactory(new LoggerFactory(new[] {
+                        new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider()
+                    }))
                     .EnableSensitiveDataLogging();
             }
         }
@@ -55,12 +48,12 @@ namespace SnackMachineApp.Logic.Core
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-        private static readonly Type[] EnumerationTypes = { typeof(SnackMachine), typeof(HeadOffice), typeof(Atm) };
+        private static readonly Type[] _TrackingTypes = { typeof(SnackMachine), typeof(HeadOffice), typeof(Atm) };
 
         public override int SaveChanges()
         {
             var enumerationEntries = ChangeTracker.Entries()
-                .Where(x => EnumerationTypes.Contains(x.Entity.GetType()));
+                .Where(x => _TrackingTypes.Contains(x.Entity.GetType()));
 
             foreach (var enumerationEntry in enumerationEntries)
             {

@@ -5,7 +5,7 @@
         string Value { get; }
     }
 
-    public sealed class CommandsConnectionProvider : IConnectionProvider
+    internal sealed class CommandsConnectionProvider : IConnectionProvider
     {
         public string Value { get; }
 
@@ -15,7 +15,7 @@
         }
     }
 
-    public sealed class QueriesConnectionProvider : IConnectionProvider
+    internal sealed class QueriesConnectionProvider : IConnectionProvider
     {
         public string Value { get; }
 

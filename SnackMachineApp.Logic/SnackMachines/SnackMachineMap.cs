@@ -6,7 +6,7 @@ using SnackMachineApp.Logic.SharedKernel;
 
 namespace SnackMachineApp.Logic.SnackMachines
 {
-    public class SnackMachineMap : ClassMap<SnackMachine>, IEntityTypeConfiguration<SnackMachine>
+    internal class SnackMachineMap : ClassMap<SnackMachine>, IEntityTypeConfiguration<SnackMachine>
     {
         public SnackMachineMap()
         {
@@ -49,10 +49,15 @@ namespace SnackMachineApp.Logic.SnackMachines
                 nav.Property(x => x.FiveDollarCount).HasColumnName("FiveDollarCount").IsRequired();
                 nav.Property(x => x.TwentyDollarCount).HasColumnName("TwentyDollarCount").IsRequired();
             });
+
+            builder.HasMany<Slot>(SnackMachine.Slots_Name).WithOne(p => p.SnackMachine)
+                .HasConstraintName("FK_SlotId_SnackMachineId")
+                .OnDelete(DeleteBehavior.Cascade)
+                .Metadata.PrincipalToDependent.SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 
-    public class SlotMap : ClassMap<Slot>, IEntityTypeConfiguration<Slot>
+    internal class SlotMap : ClassMap<Slot>, IEntityTypeConfiguration<Slot>
     {
         public SlotMap()
         {
@@ -84,22 +89,19 @@ namespace SnackMachineApp.Logic.SnackMachines
             {
                 nav.Property(p => p.Price).HasColumnName("Price").IsRequired();
                 nav.Property(p => p.Quantity).HasColumnName("Quantity").IsRequired();
-                //nav.HasOne(p => p.Snack).HasForeignKey("SnackId").HasConstraintName("FK_SlotId_SnackId");
-                //nav.Property(x => x.Snack.Id).HasColumnName("SnackId");//.HasConstraintName("FK_SlotId_SnackId");
 
                 nav.Property<long>("SnackId").HasColumnName("SnackId");
                 nav.HasOne(pp => pp.Snack).WithMany().HasForeignKey("SnackId").HasConstraintName("FK_SlotId_SnackId").IsRequired();
-
             });
 
-            builder.HasOne(d => d.SnackMachine)
-               .WithMany(SnackMachine.Slots_Name)
-               .HasForeignKey("SnackMachineId")
-               .HasConstraintName("FK_SlotId_SnackMachineId");
+            //builder.HasOne(d => d.SnackMachine)
+            //   .WithMany(SnackMachine.Slots_Name)
+            //   .HasForeignKey("SnackMachineId")
+            //   .HasConstraintName("FK_SlotId_SnackMachineId");
         }
     }
 
-    public class SnackMap : ClassMap<Snack>, IEntityTypeConfiguration<Snack>
+    internal class SnackMap : ClassMap<Snack>, IEntityTypeConfiguration<Snack>
     {
         public SnackMap()
         {
