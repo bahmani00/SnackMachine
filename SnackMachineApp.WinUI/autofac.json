@@ -1,71 +1,71 @@
 {
   "modules": [
-    { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+DbConnectionProviderRegistrationModule, SnackMachineApp.Logic" },
-    { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+EfRegistrationModule, SnackMachineApp.Logic" },
-    { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+RepositoryRegistrationModule, SnackMachineApp.Logic" },
-    { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+EventHandlersRegistrationModule, SnackMachineApp.Logic" },
-    { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+MediatorRegistrationModule, SnackMachineApp.Logic" },
-    { "type": "SnackMachineApp.Logic.Utils.ObjectFactory+DecoratorsRegistrationModule, SnackMachineApp.Logic" }
+    { "type": "SnackMachineApp.Domain.Utils.ObjectFactory+DbConnectionProviderRegistrationModule, SnackMachineApp.Domain" },
+    { "type": "SnackMachineApp.Domain.Utils.ObjectFactory+EfRegistrationModule, SnackMachineApp.Domain" },
+    { "type": "SnackMachineApp.Domain.Utils.ObjectFactory+RepositoryRegistrationModule, SnackMachineApp.Domain" },
+    { "type": "SnackMachineApp.Domain.Utils.ObjectFactory+EventHandlersRegistrationModule, SnackMachineApp.Domain" },
+    { "type": "SnackMachineApp.Domain.Utils.ObjectFactory+MediatorRegistrationModule, SnackMachineApp.Domain" },
+    { "type": "SnackMachineApp.Domain.Utils.ObjectFactory+DecoratorsRegistrationModule, SnackMachineApp.Domain" }
   ],
   "components": [
     {
-      "type": "SnackMachineApp.Logic.Utils.ComponentLocator, SnackMachineApp.Logic",
+      "type": "SnackMachineApp.Domain.Utils.ComponentLocator, SnackMachineApp.Domain",
       "services": [
         {
-          "type": "SnackMachineApp.Logic.Utils.IComponentLocator, SnackMachineApp.Logic"
+          "type": "SnackMachineApp.Domain.Utils.IComponentLocator, SnackMachineApp.Domain"
         }
       ]
     },
     {
-      "type": "SnackMachineApp.Logic.Core.Interfaces.Mediator, SnackMachineApp.Logic",
+      "type": "SnackMachineApp.Domain.Core.Interfaces.Mediator, SnackMachineApp.Domain",
       "services": [
         {
-          "type": "SnackMachineApp.Logic.Core.Interfaces.IMediator, SnackMachineApp.Logic"
+          "type": "SnackMachineApp.Domain.Core.Interfaces.IMediator, SnackMachineApp.Domain"
         }
       ],
       "instanceScope": "singleinstance"
     },
     {
-      "type": "SnackMachineApp.Logic.Atms.PaymentGateway, SnackMachineApp.Logic",
+      "type": "SnackMachineApp.Domain.Atms.PaymentGateway, SnackMachineApp.Domain",
       "services": [
         {
-          "type": "SnackMachineApp.Logic.Atms.IPaymentGateway, SnackMachineApp.Logic"
+          "type": "SnackMachineApp.Domain.Atms.IPaymentGateway, SnackMachineApp.Domain"
         }
       ],
       "instanceScope": "singleinstance"
     },
     {
-      "type": "SnackMachineApp.Logic.Core.DomainEventDispatcher, SnackMachineApp.Logic",
+      "type": "SnackMachineApp.Domain.Core.DomainEventDispatcher, SnackMachineApp.Domain",
       "services": [
         {
-          "type": "SnackMachineApp.Logic.Core.Interfaces.IDomainEventDispatcher, SnackMachineApp.Logic"
+          "type": "SnackMachineApp.Domain.Core.Interfaces.IDomainEventDispatcher, SnackMachineApp.Domain"
         }
       ],
       "instanceScope": "singleinstance"
     },
     {
-      "type": "SnackMachineApp.Logic.Atms.WithdrawCommandHandler, SnackMachineApp.Logic",
+      "type": "SnackMachineApp.Domain.Atms.WithdrawCommandHandler, SnackMachineApp.Domain",
       "services": [
         {
-          "type": "SnackMachineApp.Logic.Core.Interfaces.IRequestHandler`2[[SnackMachineApp.Logic.Atms.WithdrawCommand, SnackMachineApp.Logic],[SnackMachineApp.Logic.Atms.Atm, SnackMachineApp.Logic]], SnackMachineApp.Logic"
+          "type": "SnackMachineApp.Domain.Core.Interfaces.IRequestHandler`2[[SnackMachineApp.Domain.Atms.WithdrawCommand, SnackMachineApp.Domain],[SnackMachineApp.Domain.Atms.Atm, SnackMachineApp.Domain]], SnackMachineApp.Domain"
         }
       ],
       "instanceScope": "singleinstance"
     },
     {
-      "type": "SnackMachineApp.Logic.Core.DomainEventDispatcher, SnackMachineApp.Logic",
+      "type": "SnackMachineApp.Domain.Core.DomainEventDispatcher, SnackMachineApp.Domain",
       "services": [
         {
-          "type": "SnackMachineApp.Logic.Core.Interfaces.IDomainEventDispatcher, SnackMachineApp.Logic"
+          "type": "SnackMachineApp.Domain.Core.Interfaces.IDomainEventDispatcher, SnackMachineApp.Domain"
         }
       ],
       "instanceScope": "singleinstance"
     },
     {
-      "type": "SnackMachineApp.Logic.SnackMachines.BuySnackCommandHandler, SnackMachineApp.Logic",
+      "type": "SnackMachineApp.Domain.SnackMachines.BuySnackCommandHandler, SnackMachineApp.Domain",
       "services": [
         {
-          "type": "SnackMachineApp.Logic.Core.Interfaces.IRequestHandler`2[[SnackMachineApp.Logic.SnackMachines.BuySnackCommand, SnackMachineApp.Logic],[SnackMachineApp.Logic.SnackMachines.SnackMachine, SnackMachineApp.Logic]], SnackMachineApp.Logic"
+          "type": "SnackMachineApp.Domain.Core.Interfaces.IRequestHandler`2[[SnackMachineApp.Domain.SnackMachines.BuySnackCommand, SnackMachineApp.Domain],[SnackMachineApp.Domain.SnackMachines.SnackMachine, SnackMachineApp.Domain]], SnackMachineApp.Domain"
         }
       ],
       "instanceScope": "singleinstance"

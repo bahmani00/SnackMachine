@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachineApp.WinUI", "SnackMachineApp.WinUI\SnackMachineApp.WinUI.csproj", "{C40A1E49-A0AD-413B-B3AF-BCC0CAA2FB07}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachineApp.Logic", "SnackMachineApp.Logic\SnackMachineApp.Logic.csproj", "{FA24174B-BF17-4662-895B-BE96297794BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachineApp.Domain", "SnackMachineApp.Domain\SnackMachineApp.Domain.csproj", "{FA24174B-BF17-4662-895B-BE96297794BC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachineApp.Logic.Tests", "SnackMachineApp.Logic.Tests\SnackMachineApp.Logic.Tests.csproj", "{F77A745A-D620-4233-931C-1F7E79F8F51F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachineApp.Domain.Tests", "SnackMachineApp.Domain.Tests\SnackMachineApp.Domain.Tests.csproj", "{F77A745A-D620-4233-931C-1F7E79F8F51F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{28941B9A-2C0A-4A48-A464-D30441E4DDCA}"
 	ProjectSection(SolutionItems) = preProject

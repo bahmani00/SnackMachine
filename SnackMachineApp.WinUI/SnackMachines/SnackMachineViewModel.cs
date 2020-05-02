@@ -1,12 +1,12 @@
-﻿using SnackMachineApp.Logic.Core.Interfaces;
-using SnackMachineApp.Logic.SharedKernel;
-using SnackMachineApp.Logic.SnackMachines;
-using SnackMachineApp.Logic.Utils;
+﻿using SnackMachineApp.Domain.Core.Interfaces;
+using SnackMachineApp.Domain.SharedKernel;
+using SnackMachineApp.Domain.SnackMachines;
+using SnackMachineApp.Domain.Utils;
 using SnackMachineApp.WinUI.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static SnackMachineApp.Logic.SharedKernel.Money;
+using static SnackMachineApp.Domain.SharedKernel.Money;
 
 namespace SnackMachineApp.WinUI.SnackMachines
 {

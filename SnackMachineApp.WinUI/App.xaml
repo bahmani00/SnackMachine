@@ -1,4 +1,4 @@
-﻿<Application x:Class="SnackMachineApp.Logic.UI.App"
+﻿<Application x:Class="SnackMachineApp.WinUI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="Common/MainWindow.xaml">

@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using SnackMachineApp.Logic.SnackMachines;
+using SnackMachineApp.Domain.SnackMachines;
 
 namespace SnackMachineApp.WinUI.SnackMachines
 {

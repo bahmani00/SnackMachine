@@ -1,6 +1,6 @@
-﻿using SnackMachineApp.Logic.Utils;
+﻿using SnackMachineApp.Domain.Utils;
 
-namespace SnackMachineApp.Logic.UI
+namespace SnackMachineApp.WinUI
 {
     public partial class App
     {

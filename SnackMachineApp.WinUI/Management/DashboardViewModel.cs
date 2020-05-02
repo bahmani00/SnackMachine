@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using SnackMachineApp.Logic.Atms;
-using SnackMachineApp.Logic.Management;
-using SnackMachineApp.Logic.SnackMachines;
-using SnackMachineApp.Logic.Utils;
+using SnackMachineApp.Domain.Atms;
+using SnackMachineApp.Domain.Management;
+using SnackMachineApp.Domain.SnackMachines;
+using SnackMachineApp.Domain.Utils;
 using SnackMachineApp.WinUI.Atms;
 using SnackMachineApp.WinUI.Common;
 using SnackMachineApp.WinUI.SnackMachines;
