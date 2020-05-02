@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SnackMachineApp.Domain.Core;
 using SnackMachineApp.Domain.Core.Interfaces;
 using SnackMachineApp.Domain.Management;
+using SnackMachineApp.Domain.SeedWork;
 using System;
 using System.Configuration;
 using System.Linq;

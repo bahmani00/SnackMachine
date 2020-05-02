@@ -1,5 +1,5 @@
 ﻿using SnackMachineApp.Domain.Core;
-using SnackMachineApp.Domain.Core.Interfaces;
+using SnackMachineApp.Domain.SeedWork;
 using System.Collections.Generic;
 using System.Linq;
 

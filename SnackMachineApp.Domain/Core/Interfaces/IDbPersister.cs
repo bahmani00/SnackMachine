@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SnackMachineApp.Domain.SeedWork;
+using System.Collections.Generic;
 
 namespace SnackMachineApp.Domain.Core.Interfaces
 {

@@ -1,4 +1,4 @@
-﻿namespace SnackMachineApp.Domain.Core
+﻿namespace SnackMachineApp.Domain.SeedWork
 {
     public abstract class ValueObject<T> where T : ValueObject<T>
     {

@@ -1,5 +1,5 @@
 ﻿using Ardalis.GuardClauses;
-using SnackMachineApp.Domain.Core;
+using SnackMachineApp.Domain.SeedWork;
 using System;
 using System.Collections.Generic;
 

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using SnackMachineApp.Domain.Atms;
 using SnackMachineApp.Domain.Core.Interfaces;
 using SnackMachineApp.Domain.Management;
+using SnackMachineApp.Domain.SeedWork;
 using SnackMachineApp.Domain.SnackMachines;
 using SnackMachineApp.Domain.Utils;
 using System;

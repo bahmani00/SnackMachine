@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SnackMachineApp.Domain.Core.Interfaces
+namespace SnackMachineApp.Domain.SeedWork
 {
     public interface IRepository<T> where T : Entity
     {

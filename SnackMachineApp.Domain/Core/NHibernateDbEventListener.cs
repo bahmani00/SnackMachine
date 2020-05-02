@@ -1,5 +1,6 @@
 ﻿using NHibernate.Event;
 using SnackMachineApp.Domain.Core.Interfaces;
+using SnackMachineApp.Domain.SeedWork;
 using SnackMachineApp.Domain.Utils;
 using System.Threading;
 using System.Threading.Tasks;

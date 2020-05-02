@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace SnackMachineApp.Domain.Core
+namespace SnackMachineApp.Domain.SeedWork
 {
     public class Entity
     {
@@ -14,7 +14,7 @@ namespace SnackMachineApp.Domain.Core
 
         public virtual bool AnyErrors()
         {
-            return this.ValidationMessages.Any();
+            return ValidationMessages.Any();
         }
 
         #region Events
