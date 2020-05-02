@@ -2,14 +2,16 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SnackMachineApp.Logic.Atms;
+using SnackMachineApp.Logic.Core.Interfaces;
 using SnackMachineApp.Logic.Management;
 using SnackMachineApp.Logic.SnackMachines;
 using SnackMachineApp.Logic.Utils;
 using System;
+using System.Linq;
 
 namespace SnackMachineApp.Logic.Core
 {
-    public partial class AppDbContext : DbContext
+    internal partial class AppDbContext : DbContext
     {
         public virtual DbSet<Atm> Atm { get; set; }
         public virtual DbSet<HeadOffice> HeadOffice { get; set; }
@@ -26,19 +28,12 @@ namespace SnackMachineApp.Logic.Core
 
                 optionsBuilder.UseApplicationServiceProvider(serviceProvider)
                     .UseSqlServer(cnnString.Value,
-                        serverOptions => serverOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null))
-                    .UseLazyLoadingProxies();
-
-                ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
-                {
-                    builder
-                        .AddFilter((category, level) =>
-                            category == DbLoggerCategory.Database.Command.Name && level == LogLevel.Information)
-                        ;//.AddConsole();
-                });
+                        serverOptions => serverOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null));
 
                 optionsBuilder
-                    .UseLoggerFactory(loggerFactory)
+                    .UseLoggerFactory(new LoggerFactory(new[] {
+                        new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider()
+                    }))
                     .EnableSensitiveDataLogging();
             }
         }
@@ -52,5 +47,38 @@ namespace SnackMachineApp.Logic.Core
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        private static readonly Type[] _TrackingTypes = { typeof(SnackMachine), typeof(HeadOffice), typeof(Atm) };
+
+        public override int SaveChanges()
+        {
+            var enumerationEntries = ChangeTracker.Entries()
+                .Where(x => _TrackingTypes.Contains(x.Entity.GetType()));
+
+            foreach (var enumerationEntry in enumerationEntries)
+            {
+                enumerationEntry.State = EntityState.Unchanged;
+            }
+
+            var entities = ChangeTracker
+                .Entries()
+                .Where(x => x.Entity is Entity)
+                .Select(x => (Entity)x.Entity)
+                .ToList();
+
+            int result = base.SaveChanges();
+            var eventDispatcher = ObjectFactory.Instance.Resolve<IDomainEventDispatcher>();
+
+            foreach (var entity in entities)
+            {
+                foreach (var domainEvent in entity.DomainEvents)
+                {
+                    eventDispatcher.Dispatch(domainEvent);
+                }
+                entity.ClearEvents();
+            }
+
+            return result;
+        }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SnackMachineApp.Logic.Core
 {
-    public class DomainEventDispatcher: IDomainEventDispatcher
+    internal class DomainEventDispatcher: IDomainEventDispatcher
     {
         private static List<Type> _handlers;
 
