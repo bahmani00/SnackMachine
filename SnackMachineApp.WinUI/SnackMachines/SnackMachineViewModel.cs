@@ -1,7 +1,9 @@
-﻿using SnackMachineApp.Domain.Core.Interfaces;
+﻿using SnackMachineApp.Application.Seedwork;
+using SnackMachineApp.Application.SnackMachines;
 using SnackMachineApp.Domain.SharedKernel;
 using SnackMachineApp.Domain.SnackMachines;
 using SnackMachineApp.Domain.Utils;
+using SnackMachineApp.Infrastructure;
 using SnackMachineApp.WinUI.Common;
 using System;
 using System.Collections.Generic;

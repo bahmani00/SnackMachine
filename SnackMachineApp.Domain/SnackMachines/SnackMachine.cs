@@ -1,4 +1,4 @@
-﻿using SnackMachineApp.Domain.Core;
+﻿using SnackMachineApp.Domain.SeedWork;
 using SnackMachineApp.Domain.SharedKernel;
 using SnackMachineApp.Domain.Utils;
 using System;

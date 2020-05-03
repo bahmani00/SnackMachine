@@ -34,7 +34,7 @@
   
   
   <ItemGroup>
-    <ProjectReference Include="..\SnackMachineApp.Logic\SnackMachineApp.Domain.csproj" />
+    <ProjectReference Include="..\SnackMachineApp.Domain\SnackMachineApp.Domain.csproj" />
   </ItemGroup>
 
 </Project>

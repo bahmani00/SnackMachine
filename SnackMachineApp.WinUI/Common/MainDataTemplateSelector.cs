@@ -8,13 +8,13 @@ namespace SnackMachineApp.WinUI.Common
     {
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (item == null || Application.Current == null)
+            if (item == null || System.Windows.Application.Current == null)
             {
                 return null;
             }
 
             string name = item.GetType().Name;
-            DataTemplate template = (DataTemplate)Application.Current.TryFindResource(name);
+            DataTemplate template = (DataTemplate)System.Windows.Application.Current.TryFindResource(name);
 
             if (template == null)
             {

@@ -6,11 +6,12 @@
 
   <ItemGroup>
     <Compile Remove="Model\**" />
-    <Compile Remove="NewFolder\**" />
     <EmbeddedResource Remove="Model\**" />
-    <EmbeddedResource Remove="NewFolder\**" />
     <None Remove="Model\**" />
-    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Utils\ComponentLocator.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,4 @@
-﻿using SnackMachineApp.Domain.Core;
-
-namespace SnackMachineApp.Domain.Utils
+﻿namespace SnackMachineApp.Domain.Utils
 {
     public static class Initer
     {

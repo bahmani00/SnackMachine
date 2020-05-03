@@ -1,4 +1,4 @@
-﻿using SnackMachineApp.Domain.Core;
+﻿using SnackMachineApp.Domain.SeedWork;
 
 namespace SnackMachineApp.Domain.SnackMachines
 {
