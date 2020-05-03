@@ -3,7 +3,7 @@
     { "type": "SnackMachineApp.Infrastructure.ObjectFactory+DbConnectionProviderRegistrationModule, SnackMachineApp.Infrastructure" },
     { "type": "SnackMachineApp.Infrastructure.ObjectFactory+NHibernateRegistrationModule, SnackMachineApp.Infrastructure" },
     { "type": "SnackMachineApp.Infrastructure.ObjectFactory+RepositoryRegistrationModule, SnackMachineApp.Infrastructure" },
-    { "type": "SnackMachineApp.Infrastructure.ObjectFactory+EventHandlersRegistrationModule, SnackMachineApp.Infrastructure" },
+    { "type": "SnackMachineApp.Infrastructure.ObjectFactory+DomainEventHandlersRegistrationModule, SnackMachineApp.Infrastructure" },
     { "type": "SnackMachineApp.Infrastructure.ObjectFactory+MediatorRegistrationModule, SnackMachineApp.Infrastructure" },
     { "type": "SnackMachineApp.Infrastructure.ObjectFactory+DecoratorsRegistrationModule, SnackMachineApp.Infrastructure" }
   ],

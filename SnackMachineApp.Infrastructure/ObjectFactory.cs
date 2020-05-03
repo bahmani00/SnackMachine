@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SnackMachineApp.Domain.Management;
-using SnackMachineApp.Domain.Seedwork;
 using SnackMachineApp.Domain.SeedWork;
 using SnackMachineApp.Infrastructure.Data;
 using SnackMachineApp.Infrastructure.Data.NHibernate;
@@ -141,15 +140,25 @@ namespace SnackMachineApp.Infrastructure
             }
         }
 
-        private class EventHandlersRegistrationModule : Autofac.Module
+        private class DomainEventHandlersRegistrationModule : Autofac.Module
         {
             protected override void Load(ContainerBuilder builder)
             {
-                builder.RegisterAssemblyTypes(typeof(IDomainEventHandler<>).Assembly)
-                    .Where(t => t.Name.EndsWith("EventHandler")).AsImplementedInterfaces();
+                //When hosting applications in IIS all assemblies are loaded into the AppDomain when the application first starts, 
+                //but when the AppDomain is recycled by IIS the assemblies are then only loaded on demand.
+                //System.Web.Compilation.BuildManager.GetReferencedAssemblies().Cast<Assembly>();
+                //https://autofaccn.readthedocs.io/en/latest/register/scanning.html
 
-                //builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                //    .AsClosedTypesOf(typeof(IDomainEventHandler<>));
+                builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+                        .Where(t => t.Name.EndsWith("EventHandler") &&
+                            t.GetInterfaces().Any(y => y.IsGenericType && 
+                            y.GetGenericTypeDefinition() == typeof(IDomainEventHandler<>)))
+                        .AsImplementedInterfaces();
+
+                builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+                    .Where(t => t.Name.EndsWith("EventHandler") &&
+                            t.GetInterfaces().Any(y => y.GetType() == typeof(IDomainEventHandler)))
+                    .AsClosedTypesOf(typeof(IDomainEventHandler));
 
             }
         }

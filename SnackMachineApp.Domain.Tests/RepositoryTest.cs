@@ -1,7 +1,6 @@
 ﻿using SnackMachineApp.Domain.SnackMachines;
-using SnackMachineApp.Domain.Utils;
+using SnackMachineApp.Infrastructure;
 using System;
-using System.Configuration;
 using Xunit;
 using static SnackMachineApp.Domain.SharedKernel.Money;
 
@@ -11,7 +10,7 @@ namespace SnackMachineApp.Domain.Tests
     {
         public RepositoryTest()
         {
-            ObjectFactory.Instance.GetType();//.Init(ConfigurationManager.ConnectionStrings["AppCnn"].ConnectionString);
+            ObjectFactory.Instance.GetType();
         }
         public void Dispose()
         {
