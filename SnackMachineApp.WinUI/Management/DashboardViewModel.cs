@@ -3,7 +3,7 @@ using System.Windows;
 using SnackMachineApp.Domain.Atms;
 using SnackMachineApp.Domain.Management;
 using SnackMachineApp.Domain.SnackMachines;
-using SnackMachineApp.Domain.Utils;
+using SnackMachineApp.Infrastructure;
 using SnackMachineApp.WinUI.Atms;
 using SnackMachineApp.WinUI.Common;
 using SnackMachineApp.WinUI.SnackMachines;
@@ -29,10 +29,9 @@ namespace SnackMachineApp.WinUI.Management
 
             HeadOffice = HeadOfficeInstance.Instance;
 
-            var componentLocator = ObjectFactory.Instance.Resolve<IComponentLocator>();
-            _snackMachineRepository = componentLocator.Resolve<ISnackMachineRepository>();
-            _atmRepository = componentLocator.Resolve<IAtmRepository>();
-            _headOfficeRepository = componentLocator.Resolve<IHeadOfficeRepository>();
+            _snackMachineRepository = ObjectFactory.Instance.Resolve<ISnackMachineRepository>();
+            _atmRepository = ObjectFactory.Instance.Resolve<IAtmRepository>();
+            _headOfficeRepository = ObjectFactory.Instance.Resolve<IHeadOfficeRepository>();
 
             RefreshAll();
 

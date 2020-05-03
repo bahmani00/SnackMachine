@@ -1,11 +1,10 @@
-﻿using SnackMachineApp.Domain.Core.Interfaces;
+﻿using SnackMachineApp.Domain.Seedwork;
 using System;
 
 namespace SnackMachineApp.Domain.Atms
 {
-    public class BalanceChangedEvent : IDomainEvent
+    public class BalanceChangedEvent : DomainEventBase
     {
-        public DateTime DateOccurred { get; } = DateTime.Now;
         public decimal Delta { get; }
 
         public BalanceChangedEvent(decimal delta)

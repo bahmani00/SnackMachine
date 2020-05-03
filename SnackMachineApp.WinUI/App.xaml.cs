@@ -1,4 +1,5 @@
-﻿using SnackMachineApp.Domain.Utils;
+﻿using SnackMachineApp.Infrastructure;
+using SnackMachineApp.Infrastructure.Data;
 
 namespace SnackMachineApp.WinUI
 {
