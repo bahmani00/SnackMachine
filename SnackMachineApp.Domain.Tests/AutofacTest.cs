@@ -1,8 +1,9 @@
 ﻿using FluentAssertions;
+using SnackMachineApp.Application.Management;
 using SnackMachineApp.Domain.Atms;
-using SnackMachineApp.Domain.Core.Interfaces;
 using SnackMachineApp.Domain.SnackMachines;
-using SnackMachineApp.Domain.Utils;
+using SnackMachineApp.Infrastructure;
+using SnackMachineApp.Infrastructure.Data;
 using System;
 using Xunit;
 
