@@ -2,12 +2,10 @@
 using Microsoft.Extensions.Logging;
 using SnackMachineApp.Domain.Atms;
 using SnackMachineApp.Domain.Management;
-using SnackMachineApp.Domain.SeedWork;
 using SnackMachineApp.Domain.SnackMachines;
 using SnackMachineApp.Infrastructure;
 using SnackMachineApp.Infrastructure.Data;
 using System;
-using System.Linq;
 
 namespace SnackMachineApp.Interface.Data
 {
@@ -48,37 +46,37 @@ namespace SnackMachineApp.Interface.Data
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-        private static readonly Type[] _TrackingTypes = { typeof(SnackMachine), typeof(HeadOffice), typeof(Atm) };
+        //private static readonly Type[] _TrackingTypes = { typeof(SnackMachine), typeof(HeadOffice), typeof(Atm) };
 
-        public override int SaveChanges()
-        {
-            var enumerationEntries = ChangeTracker.Entries()
-                .Where(x => _TrackingTypes.Contains(x.Entity.GetType()));
+        //public override int SaveChanges()
+        //{
+        //    var enumerationEntries = ChangeTracker.Entries()
+        //        .Where(x => _TrackingTypes.Contains(x.Entity.GetType()));
 
-            foreach (var enumerationEntry in enumerationEntries)
-            {
-                enumerationEntry.State = EntityState.Unchanged;
-            }
+        //    foreach (var enumerationEntry in enumerationEntries)
+        //    {
+        //        enumerationEntry.State = EntityState.Unchanged;
+        //    }
 
-            var entities = ChangeTracker
-                .Entries()
-                .Where(x => x.Entity is Entity)
-                .Select(x => (Entity)x.Entity)
-                .ToList();
+        //    var entities = ChangeTracker
+        //        .Entries()
+        //        .Where(x => x.Entity is Entity)
+        //        .Select(x => (Entity)x.Entity)
+        //        .ToList();
 
-            int result = base.SaveChanges();
-            var eventDispatcher = ObjectFactory.Instance.Resolve<IDomainEventDispatcher>();
+        //    int result = base.SaveChanges();
+        //    var eventDispatcher = ObjectFactory.Instance.Resolve<IDomainEventDispatcher>();
 
-            foreach (var entity in entities)
-            {
-                foreach (var domainEvent in entity.DomainEvents)
-                {
-                    eventDispatcher.Dispatch(domainEvent);
-                }
-                entity.ClearEvents();
-            }
+        //    foreach (var entity in entities)
+        //    {
+        //        foreach (var domainEvent in entity.DomainEvents)
+        //        {
+        //            eventDispatcher.Dispatch(domainEvent);
+        //        }
+        //        entity.ClearEvents();
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
     }
 }

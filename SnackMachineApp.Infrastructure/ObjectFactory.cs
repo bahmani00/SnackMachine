@@ -9,9 +9,11 @@ using Microsoft.Extensions.DependencyInjection;
 using SnackMachineApp.Domain.Management;
 using SnackMachineApp.Domain.SeedWork;
 using SnackMachineApp.Infrastructure.Data;
+using SnackMachineApp.Infrastructure.Data.EntityFramework;
 using SnackMachineApp.Infrastructure.Data.NHibernate;
 using SnackMachineApp.Infrastructure.Repositories;
 using SnackMachineApp.Interface.Data;
+using SnackMachineApp.Interface.Data.EntityFramework;
 using System;
 using System.Configuration;
 using System.Linq;
@@ -109,6 +111,7 @@ namespace SnackMachineApp.Infrastructure
                 //RegisterInstance method allows you to register an instance not built by Autofac.
                 //https://stackoverflow.com/questions/31582000/autofac-registerinstance-vs-singleinstance
                 builder.RegisterType<SessionFactory>().SingleInstance();
+                builder.RegisterType<NHibernateUnitOfWork>().As<ITransactionUnitOfWork>().InstancePerLifetimeScope();
                 builder.RegisterGeneric(typeof(NHibernateDbPersister<>)).As(typeof(IDbPersister<>));
             }
         }
@@ -119,6 +122,7 @@ namespace SnackMachineApp.Infrastructure
             {
                 //RegisterInstance method allows you to register an instance not built by Autofac.
                 //https://stackoverflow.com/questions/31582000/autofac-registerinstance-vs-singleinstance
+                builder.RegisterType<EfUnitOfWork>().As<ITransactionUnitOfWork>().InstancePerLifetimeScope();
                 builder.RegisterType<AppDbContext>().As<DbContext>();
                 builder.RegisterGeneric(typeof(EFDbPersister<>)).As(typeof(IDbPersister<>));
             }

@@ -5,17 +5,20 @@ using System.Collections.Generic;
 
 namespace SnackMachineApp.Infrastructure.Data.NHibernate
 {
-    internal class NHibernateDbPersister<T> : IDbPersister<T> where T : AggregateRoot
+    public class NHibernateRepository<T> : IRepository<T> where T : AggregateRoot
     {
         private readonly NHibernateUnitOfWork _unitOfWork;
 
-        public NHibernateDbPersister(ITransactionUnitOfWork unitOfWork)
+        public NHibernateRepository(ITransactionUnitOfWork unitOfWork)
         {
             if (unitOfWork == null)
                 throw new ArgumentNullException("unitOfWork");
 
             _unitOfWork = (NHibernateUnitOfWork)unitOfWork;
         }
+
+        //TODO: do Field Injection rather Property Injection
+        //public IDbPersister<T> DbPersister { get; set; }
 
         protected ISession Session
         {
@@ -52,6 +55,5 @@ namespace SnackMachineApp.Infrastructure.Data.NHibernate
         {
             Session.Delete(entity);
         }
-
     }
 }
