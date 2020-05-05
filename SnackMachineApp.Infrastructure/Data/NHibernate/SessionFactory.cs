@@ -54,7 +54,7 @@ namespace SnackMachineApp.Infrastructure.Data.NHibernate
             return configuration.BuildSessionFactory();
         }
 
-        public class TableNameConvention : IClassConvention
+        private class TableNameConvention : IClassConvention
         {
             public void Apply(IClassInstance instance)
             {
@@ -62,7 +62,7 @@ namespace SnackMachineApp.Infrastructure.Data.NHibernate
             }
         }
 
-        public class HiLoConvention : IIdConvention
+        private class HiLoConvention : IIdConvention
         {
             public void Apply(IIdentityInstance instance)
             {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SnackMachineApp.Domain.Seedwork
+namespace SnackMachineApp.Domain.SeedWork
 {
     public class DomainEventBase : IDomainEvent
     {

@@ -1,4 +1,4 @@
-﻿using SnackMachineApp.Domain.Seedwork;
+﻿using SnackMachineApp.Domain.SeedWork;
 using System.Threading.Tasks;
 
 namespace SnackMachineApp.Infrastructure

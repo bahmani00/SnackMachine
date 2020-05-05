@@ -1,6 +1,7 @@
 ﻿using SnackMachineApp.Application.Seedwork;
 using SnackMachineApp.Domain.Atms;
-using SnackMachineApp.Infrastructure;
+using SnackMachineApp.Infrastructure.Data;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SnackMachineApp.Application.Atms
 {
@@ -25,14 +26,40 @@ namespace SnackMachineApp.Application.Atms
                 request.Atm.Withdrawal(request.Amount);
                 var charge = request.Amount + request.Atm.CalculateCommision(request.Amount);
 
-                var paymentGateway = ObjectFactory.Instance.Resolve<IPaymentGateway>();
+                var paymentGateway = Infrastructure.ObjectFactory.Instance.Resolve<IPaymentGateway>();
                 paymentGateway.ChargePayment(charge);
 
-                var atmRepository = ObjectFactory.Instance.Resolve<IAtmRepository>();
-                atmRepository.Save(request.Atm);
+                //Save(request);
+                SaveInScope(request);
             }
 
             return request.Atm;
         }
+
+        private void Save(WithdrawCommand request)
+        {
+            var atmRepository = Infrastructure.ObjectFactory.Instance.Resolve<IAtmRepository>();
+            atmRepository.Save(request.Atm);
+        }
+
+        private void SaveInScope(WithdrawCommand request)
+        {
+            using (var scope = Infrastructure.ObjectFactory.Instance.CreateScope())
+            using (var transaction = scope.ServiceProvider.GetService<ITransactionUnitOfWork>())
+            using (var unitOfWork = transaction.BeginTransaction())
+            {
+                try
+                {
+                    var atmRepository = scope.ServiceProvider.GetService<IAtmRepository>();
+                    atmRepository.Save(request.Atm);
+                    //throw new System.Exception();
+                }
+                catch (System.Exception exc)
+                {
+                    unitOfWork.Rollback();
+                }
+            }
+        }
+
     }
 }

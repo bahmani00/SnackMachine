@@ -1,18 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SnackMachineApp.Domain.SeedWork;
 using SnackMachineApp.Infrastructure.Data;
+using SnackMachineApp.Infrastructure.Data.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SnackMachineApp.Interface.Data
+namespace SnackMachineApp.Interface.Data.EntityFramework
 {
     internal class EFDbPersister<T> : IDbPersister<T> where T : AggregateRoot
     {
         private readonly DbContext _dbContext;
+        private readonly EfUnitOfWork _unitOfWork;
 
-        public EFDbPersister(DbContext dbContext)
+        public EFDbPersister(ITransactionUnitOfWork unitOfWork)
         {
-            _dbContext = dbContext;
+            if (unitOfWork == null)
+                throw new ArgumentNullException("unitOfWork");
+
+            _unitOfWork = (EfUnitOfWork)unitOfWork;
+            _dbContext = _unitOfWork.Context;
         }
 
         public IList<T> List()
@@ -39,13 +46,11 @@ namespace SnackMachineApp.Interface.Data
             //TODO: implement Add
             //https://stackoverflow.com/questions/15045763/what-does-the-dbcontext-entry-do
             _dbContext.Entry(entity).State = EntityState.Modified;
-            _dbContext.SaveChanges();
         }
 
         public void Delete(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
-            _dbContext.SaveChanges();
         }
     }
 }
