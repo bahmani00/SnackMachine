@@ -1,4 +1,4 @@
-﻿using SnackMachineApp.Domain.Seedwork;
+﻿using SnackMachineApp.Domain.SeedWork;
 using Microsoft.EntityFrameworkCore;
 
 namespace SnackMachineApp.Infrastructure.Data.EntityFramework
@@ -14,7 +14,6 @@ namespace SnackMachineApp.Infrastructure.Data.EntityFramework
 
         public void Dispose()
         {
-            //Context?.Dispose();
         }
 
         public IUnitOfWork BeginTransaction()

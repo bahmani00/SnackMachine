@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SnackMachineApp.Domain.Seedwork
+namespace SnackMachineApp.Domain.SeedWork
 {
     /// <summary>
     /// Contract for ‘UnitOfWork pattern’. For more

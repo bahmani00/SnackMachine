@@ -1,5 +1,5 @@
 ﻿using NHibernate;
-using SnackMachineApp.Domain.Seedwork;
+using SnackMachineApp.Domain.SeedWork;
 
 namespace SnackMachineApp.Infrastructure.Data.NHibernate
 {

@@ -35,6 +35,7 @@ namespace SnackMachineApp.Application.Atms
 
             return request.Atm;
         }
+
         private void Save(WithdrawCommand request)
         {
             var atmRepository = Infrastructure.ObjectFactory.Instance.Resolve<IAtmRepository>();
