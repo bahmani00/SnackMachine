@@ -5,18 +5,6 @@ using System;
 
 namespace SnackMachineApp.Application.SnackMachines
 {
-    public class BuySnackCommand : IRequest<SnackMachine>
-    {
-        public BuySnackCommand(SnackMachine snackMachine, int position)
-        {
-            SnackMachine = snackMachine;
-            Position = position;
-        }
-
-        public SnackMachine SnackMachine { get; }
-        public int Position { get; }
-    }
-
     internal class BuySnackCommandHandler : IRequestHandler<BuySnackCommand, SnackMachine>
     {
         public SnackMachine Handle(BuySnackCommand request)

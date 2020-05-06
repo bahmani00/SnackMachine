@@ -1,5 +1,7 @@
-﻿using SnackMachineApp.Application.Management;
+﻿using SnackMachineApp.Application.Atms;
+using SnackMachineApp.Application.Management;
 using SnackMachineApp.Application.Seedwork;
+using SnackMachineApp.Application.SnackMachines;
 using SnackMachineApp.Domain.Atms;
 using SnackMachineApp.Domain.Management;
 using SnackMachineApp.Domain.SnackMachines;
@@ -14,8 +16,6 @@ namespace SnackMachineApp.WinUI.Management
 {
     public class DashboardViewModel : ViewModel
     {
-        private readonly ISnackMachineRepository _snackMachineRepository;
-        private readonly IAtmRepository _atmRepository;
         private readonly IMediator _mediator;
 
         public HeadOffice HeadOffice { get; private set; }
@@ -32,8 +32,6 @@ namespace SnackMachineApp.WinUI.Management
             HeadOffice = HeadOfficeInstance.Instance;
 
             _mediator = ObjectFactory.Instance.Resolve<IMediator>();
-            _snackMachineRepository = ObjectFactory.Instance.Resolve<ISnackMachineRepository>();
-            _atmRepository = ObjectFactory.Instance.Resolve<IAtmRepository>();
 
             RefreshAll();
 
@@ -57,7 +55,7 @@ namespace SnackMachineApp.WinUI.Management
 
         private void ShowAtm(AtmDto atmDto)
         {
-            var atm = _atmRepository.GetById(atmDto.Id);
+            var atm = _mediator.Send(new GetAtmQuery(atmDto.Id));
 
             if (atm == null)
                 return;
@@ -80,7 +78,7 @@ namespace SnackMachineApp.WinUI.Management
 
         private void ShowSnackMachine(SnackMachineDto snackMachineDto)
         {
-            var snackMachine = _snackMachineRepository.GetById(snackMachineDto.Id);
+            var snackMachine = _mediator.Send(new GetSnackMachineQuery(snackMachineDto.Id));
 
             if (snackMachine == null)
             {
@@ -94,8 +92,8 @@ namespace SnackMachineApp.WinUI.Management
 
         private void RefreshAll()
         {
-            SnackMachines = _snackMachineRepository.GetAll();
-            Atms = _atmRepository.GetAll();
+            SnackMachines = _mediator.Send(new GetSnackMachinesQuery());
+            Atms = _mediator.Send(new GetAtmsQuery());
 
             Notify(nameof(Atms));
             Notify(nameof(SnackMachines));

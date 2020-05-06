@@ -34,10 +34,10 @@ namespace SnackMachineApp.WinUI.Atms
 
             mediator = ObjectFactory.Instance.Resolve<IMediator>();
 
-            TakeMoneyCommand = new Command<decimal>(x => x > 0, Withdrawal);
+            TakeMoneyCommand = new Command<decimal>(x => x > 0, Withdraw);
         }
 
-        private void Withdrawal(decimal amount)
+        private void Withdraw(decimal amount)
         {
             mediator.Send(new WithdrawCommand(_atm, amount));
 
