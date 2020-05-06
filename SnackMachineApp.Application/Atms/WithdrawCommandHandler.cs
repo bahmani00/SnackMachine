@@ -17,13 +17,13 @@ namespace SnackMachineApp.Application.Atms
                 var paymentGateway = Infrastructure.ObjectFactory.Instance.Resolve<IPaymentGateway>();
                 paymentGateway.ChargePayment(charge);
 
-                SaveAtm(request);
+                UpdateAtm(request);
             }
 
             return request.Atm;
         }
 
-        private void SaveAtm(WithdrawCommand request)
+        private void UpdateAtm(WithdrawCommand request)
         {
             using (var scope = new DatabaseScope())
             {
