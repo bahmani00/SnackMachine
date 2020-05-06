@@ -1,6 +1,7 @@
-﻿using SnackMachineApp.Application.Seedwork;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SnackMachineApp.Application.Seedwork;
 using SnackMachineApp.Domain.SnackMachines;
-using SnackMachineApp.Infrastructure;
+using System;
 
 namespace SnackMachineApp.Application.SnackMachines
 {
@@ -23,8 +24,23 @@ namespace SnackMachineApp.Application.SnackMachines
             if (request.SnackMachine.CanBuySnack(request.Position))
             {
                 request.SnackMachine.BuySnack(request.Position);
-                var repository = ObjectFactory.Instance.Resolve<ISnackMachineRepository>();
-                repository.Save(request.SnackMachine);
+
+                using (var scope = new DatabaseScope())
+                {
+                    scope.Execute(() => {
+                        try
+                        {
+                            var repository = scope.ServiceProvider.GetService<ISnackMachineRepository>();
+                            repository.Save(request.SnackMachine);
+                        }
+                        catch (Exception exc)
+                        {
+                            exc.ToString();
+
+                            //TODO: do sth with exc
+                        }
+                    });
+                }
             }
 
             return request.SnackMachine;

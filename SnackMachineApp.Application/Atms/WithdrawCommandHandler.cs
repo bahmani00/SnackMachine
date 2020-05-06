@@ -1,7 +1,7 @@
-﻿using SnackMachineApp.Application.Seedwork;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SnackMachineApp.Application.Seedwork;
 using SnackMachineApp.Domain.Atms;
-using SnackMachineApp.Infrastructure.Data;
-using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace SnackMachineApp.Application.Atms
 {
@@ -29,35 +29,29 @@ namespace SnackMachineApp.Application.Atms
                 var paymentGateway = Infrastructure.ObjectFactory.Instance.Resolve<IPaymentGateway>();
                 paymentGateway.ChargePayment(charge);
 
-                //Save(request);
-                SaveInScope(request);
+                SaveAtm(request);
             }
 
             return request.Atm;
         }
 
-        private void Save(WithdrawCommand request)
+        private void SaveAtm(WithdrawCommand request)
         {
-            var atmRepository = Infrastructure.ObjectFactory.Instance.Resolve<IAtmRepository>();
-            atmRepository.Save(request.Atm);
-        }
-
-        private void SaveInScope(WithdrawCommand request)
-        {
-            using (var scope = Infrastructure.ObjectFactory.Instance.CreateScope())
-            using (var transaction = scope.ServiceProvider.GetService<ITransactionUnitOfWork>())
-            using (var unitOfWork = transaction.BeginTransaction())
+            using (var scope = new DatabaseScope())
             {
-                try
-                {
-                    var atmRepository = scope.ServiceProvider.GetService<IAtmRepository>();
-                    atmRepository.Save(request.Atm);
-                    //throw new System.Exception();
-                }
-                catch (System.Exception exc)
-                {
-                    unitOfWork.Rollback();
-                }
+                scope.Execute(() => {
+                    try
+                    {
+                        var atmRepository = scope.ServiceProvider.GetService<IAtmRepository>();
+                        atmRepository.Save(request.Atm);
+                    }
+                    catch (Exception exc)
+                    {
+                        exc.ToString();
+
+                        //TODO: do sth with exc
+                    }
+                });
             }
         }
 

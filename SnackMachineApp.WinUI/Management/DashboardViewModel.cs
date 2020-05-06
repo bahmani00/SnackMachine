@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using SnackMachineApp.Application.Management;
+using SnackMachineApp.Application.Seedwork;
 using SnackMachineApp.Domain.Atms;
 using SnackMachineApp.Domain.Management;
 using SnackMachineApp.Domain.SnackMachines;
@@ -7,6 +7,8 @@ using SnackMachineApp.Infrastructure;
 using SnackMachineApp.WinUI.Atms;
 using SnackMachineApp.WinUI.Common;
 using SnackMachineApp.WinUI.SnackMachines;
+using System.Collections.Generic;
+using System.Windows;
 
 namespace SnackMachineApp.WinUI.Management
 {
@@ -14,9 +16,9 @@ namespace SnackMachineApp.WinUI.Management
     {
         private readonly ISnackMachineRepository _snackMachineRepository;
         private readonly IAtmRepository _atmRepository;
-        private readonly IHeadOfficeRepository _headOfficeRepository;
+        private readonly IMediator _mediator;
 
-        public HeadOffice HeadOffice { get; }
+        public HeadOffice HeadOffice { get; private set; }
         public IReadOnlyList<SnackMachineDto> SnackMachines { get; private set; }
         public IReadOnlyList<AtmDto> Atms { get; private set; }
         public Command<SnackMachineDto> ShowSnackMachineCommand { get; private set; }
@@ -29,9 +31,9 @@ namespace SnackMachineApp.WinUI.Management
 
             HeadOffice = HeadOfficeInstance.Instance;
 
+            _mediator = ObjectFactory.Instance.Resolve<IMediator>();
             _snackMachineRepository = ObjectFactory.Instance.Resolve<ISnackMachineRepository>();
             _atmRepository = ObjectFactory.Instance.Resolve<IAtmRepository>();
-            _headOfficeRepository = ObjectFactory.Instance.Resolve<IHeadOfficeRepository>();
 
             RefreshAll();
 
@@ -48,14 +50,7 @@ namespace SnackMachineApp.WinUI.Management
 
         private void LoadCashToAtm(AtmDto atmDto)
         {
-            var atm = _atmRepository.GetById(atmDto.Id);
-
-            if (atm == null)
-                return;
-
-            HeadOffice.LoadCashToAtm(atm);
-            _atmRepository.Save(atm);
-            _headOfficeRepository.Save(HeadOffice);
+            HeadOffice = _mediator.Send(new LoadCashToAtmCommand(HeadOffice.Id, atmDto.Id));
 
             RefreshAll();
         }
@@ -78,14 +73,7 @@ namespace SnackMachineApp.WinUI.Management
 
         private void UnloadCash(SnackMachineDto snackMachineDto)
         {
-            var snackMachine = _snackMachineRepository.GetById(snackMachineDto.Id);
-
-            if (snackMachine == null)
-                return;
-
-            HeadOffice.UnloadCashFromSnackMachine(snackMachine);
-            _snackMachineRepository.Save(snackMachine);
-            _headOfficeRepository.Save(HeadOffice);
+            HeadOffice = _mediator.Send(new UnloadCashFromSnackMachineCommand(snackMachineDto.Id, HeadOffice.Id));
 
             RefreshAll();
         }

@@ -11,9 +11,10 @@ namespace SnackMachineApp.Infrastructure.Data.NHibernate
         {
             get
             {
-                return _session == null || !_session.IsOpen
-                    ? (_session = ObjectFactory.Instance.Resolve<SessionFactory>().OpenSession())
-                    : _session;
+                if (_session == null || !_session.IsOpen)
+                    _session = ObjectFactory.Instance.Resolve<SessionFactory>().OpenSession();
+                
+                return _session;
             }
         }
 

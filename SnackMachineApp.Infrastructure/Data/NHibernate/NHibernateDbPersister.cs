@@ -35,12 +35,16 @@ namespace SnackMachineApp.Infrastructure.Data.NHibernate
 
         public IList<T> List()
         {
-            return Session.QueryOver<T>().List<T>();
+            //TODO: remove using
+            using (Session)
+                return Session.QueryOver<T>().List<T>();
         }
 
         public T GetById(long id)
         {
-            return Session.Get<T>(id);
+            //TODO: remove using
+            using (Session)
+                return Session.Get<T>(id);
         }
 
         public void Save(T entity)
