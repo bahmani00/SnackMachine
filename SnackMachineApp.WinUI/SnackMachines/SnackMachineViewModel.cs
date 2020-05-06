@@ -84,13 +84,13 @@ namespace SnackMachineApp.WinUI.SnackMachines
 
         private void ReturnMoney()
         {
-            snackMachine.ReturnMoney();
+            mediator.Send(new ReturnMoneyCommand(snackMachine));
             NotifyClient("Money was returned");
         }
 
         private void InsertMoney(Money coinOrNote)
         {
-            snackMachine.InsertMoney(coinOrNote);
+            mediator.Send(new InsertMoneyCommand(snackMachine, coinOrNote));
             NotifyClient("You have inserted: " + coinOrNote);
         }
 

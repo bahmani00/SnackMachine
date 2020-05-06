@@ -5,18 +5,6 @@ using System;
 
 namespace SnackMachineApp.Application.Atms
 {
-    public class WithdrawCommand : IRequest<Atm>
-    {
-        public WithdrawCommand(Atm atm, decimal amount)
-        {
-            Atm = atm;
-            Amount = amount;
-        }
-
-        public Atm Atm { get; }
-        public decimal Amount { get; }
-    }
-
     internal class WithdrawCommandHandler : IRequestHandler<WithdrawCommand, Atm>
     {
         public Atm Handle(WithdrawCommand request)
