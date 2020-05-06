@@ -45,6 +45,24 @@
       "instanceScope": "singleinstance"
     },
     {
+      "type": "SnackMachineApp.Application.Management.LoadCashToAtmCommandHandler, SnackMachineApp.Application",
+      "services": [
+        {
+          "type": "SnackMachineApp.Application.Seedwork.IRequestHandler`2[[SnackMachineApp.Application.Management.LoadCashToAtmCommand, SnackMachineApp.Application],[SnackMachineApp.Domain.Management.HeadOffice, SnackMachineApp.Domain]], SnackMachineApp.Application"
+        }
+      ],
+      "instanceScope": "singleinstance"
+    },
+    {
+      "type": "SnackMachineApp.Application.Management.UnloadCashFromSnackMachineCommandHandler, SnackMachineApp.Application",
+      "services": [
+        {
+          "type": "SnackMachineApp.Application.Seedwork.IRequestHandler`2[[SnackMachineApp.Application.Management.UnloadCashFromSnackMachineCommand, SnackMachineApp.Application],[SnackMachineApp.Domain.Management.HeadOffice, SnackMachineApp.Domain]], SnackMachineApp.Application"
+        }
+      ],
+      "instanceScope": "singleinstance"
+    },
+    {
       "type": "SnackMachineApp.Infrastructure.DomainEventDispatcher, SnackMachineApp.Infrastructure",
       "services": [
         {

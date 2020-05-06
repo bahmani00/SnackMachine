@@ -26,7 +26,7 @@ namespace SnackMachineApp.Domain.Tests
         public void ContainerSetup_BalanceChangedEventHandler_Works()
         {
             //Arranage
-            var handler = ObjectFactory.Instance.Resolve<BalanceChangedEventHandler>();
+            var handler = ObjectFactory.Instance.Resolve<BalanceChangedDomainEventHandler>();
 
             //Act
             Action action = () => handler.Handle(null);
