@@ -9,13 +9,7 @@ namespace SnackMachineApp.WinUI
         {
             //Init object factory
             ObjectFactory.Instance.GetType();
-            DatabasePopulator.PopulateDatabase();
-
-            using (var scope = ObjectFactory.Instance.CreateScope())
-            {
-                //var processor = scope.ServiceProvider.GetService<IUnitOfWork>();
-                //processor.Handle(theEvent);
-            }
+            //DatabasePopulator.PopulateDatabase();
         }
     }
 }

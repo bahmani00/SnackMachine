@@ -8,22 +8,30 @@ namespace SnackMachineApp.Application.Management
 {
     public class UnloadCashFromSnackMachineCommandHandler : IRequestHandler<UnloadCashFromSnackMachineCommand, HeadOffice>
     {
+        private readonly IServiceProvider serviceProvider;
+
+        public UnloadCashFromSnackMachineCommandHandler(IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider;
+        }
+
         public HeadOffice Handle(UnloadCashFromSnackMachineCommand request)
         {
-            var snackMachineRepository = Infrastructure.ObjectFactory.Instance.Resolve<ISnackMachineRepository>();
+            var snackMachineRepository = serviceProvider.GetService<ISnackMachineRepository>();
             var snackMachine = snackMachineRepository.GetById(request.SnackMachineId);
             if (snackMachine == null)
                 return null;
 
-            var headOffice = HeadOfficeInstance.Instance;
+            var headOfficeRepository = serviceProvider.GetService<IHeadOfficeRepository>();
+            var headOffice = headOfficeRepository.GetById(request.HeadOfficeId);
 
-            using (var scope = new DatabaseScope())
+            using (var scope = new DatabaseScope(serviceProvider))
             {
                 scope.Execute(() => {
                     try
                     {
-                        snackMachineRepository = scope.ServiceProvider.GetService<ISnackMachineRepository>();
-                        var headOfficeRepository = scope.ServiceProvider.GetService<IHeadOfficeRepository>();
+                        snackMachineRepository = scope.GetService<ISnackMachineRepository>();
+                        headOfficeRepository = scope.GetService<IHeadOfficeRepository>();
 
                         headOffice.UnloadCashFromSnackMachine(snackMachine);
                         snackMachineRepository.Save(snackMachine);

@@ -1,11 +1,10 @@
-﻿using SnackMachineApp.Application.Atms;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SnackMachineApp.Application.Atms;
 using SnackMachineApp.Application.Management;
 using SnackMachineApp.Application.Seedwork;
 using SnackMachineApp.Application.SnackMachines;
-using SnackMachineApp.Domain.Atms;
 using SnackMachineApp.Domain.Management;
-using SnackMachineApp.Domain.SnackMachines;
-using SnackMachineApp.Infrastructure;
+using SnackMachineApp.Domain.Utils;
 using SnackMachineApp.WinUI.Atms;
 using SnackMachineApp.WinUI.Common;
 using SnackMachineApp.WinUI.SnackMachines;
@@ -28,10 +27,8 @@ namespace SnackMachineApp.WinUI.Management
 
         public DashboardViewModel()
         {
-
-            HeadOffice = HeadOfficeInstance.Instance;
-
-            _mediator = ObjectFactory.Instance.Resolve<IMediator>();
+            _mediator = Infrastructure.ObjectFactory.Instance.GetService<IMediator>();
+            HeadOffice = _mediator.Send(new GetHeadOfficeQuery(Constants.HeadOfficeId));
 
             RefreshAll();
 
@@ -48,14 +45,14 @@ namespace SnackMachineApp.WinUI.Management
 
         private void LoadCashToAtm(AtmDto atmDto)
         {
-            HeadOffice = _mediator.Send(new LoadCashToAtmCommand(HeadOffice.Id, atmDto.Id));
+            HeadOffice = _mediator.Send(new LoadCashToAtmCommand(HeadOffice.Id, atmDto.AtmId));
 
             RefreshAll();
         }
 
         private void ShowAtm(AtmDto atmDto)
         {
-            var atm = _mediator.Send(new GetAtmQuery(atmDto.Id));
+            var atm = _mediator.Send(new GetAtmQuery(atmDto.AtmId));
 
             if (atm == null)
                 return;
@@ -71,14 +68,14 @@ namespace SnackMachineApp.WinUI.Management
 
         private void UnloadCash(SnackMachineDto snackMachineDto)
         {
-            HeadOffice = _mediator.Send(new UnloadCashFromSnackMachineCommand(snackMachineDto.Id, HeadOffice.Id));
+            HeadOffice = _mediator.Send(new UnloadCashFromSnackMachineCommand(snackMachineDto.SnackMachineId, HeadOffice.Id));
 
             RefreshAll();
         }
 
         private void ShowSnackMachine(SnackMachineDto snackMachineDto)
         {
-            var snackMachine = _mediator.Send(new GetSnackMachineQuery(snackMachineDto.Id));
+            var snackMachine = _mediator.Send(new GetSnackMachineQuery(snackMachineDto.SnackMachineId));
 
             if (snackMachine == null)
             {

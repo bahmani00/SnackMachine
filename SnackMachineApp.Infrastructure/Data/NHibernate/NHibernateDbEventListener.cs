@@ -11,6 +11,13 @@ namespace SnackMachineApp.Infrastructure.Data.NHibernate
         IPostUpdateEventListener,
         IPostCollectionUpdateEventListener
     {
+        private readonly IDomainEventDispatcher _domainEventDispatcher;
+
+        public NHibernateDbEventListener(IDomainEventDispatcher domainEventDispatcher)
+        {
+            this._domainEventDispatcher = domainEventDispatcher;
+        }
+
         public void OnPostUpdate(PostUpdateEvent ev)
         {
             DispatchEvents(ev.Entity as AggregateRoot);
@@ -36,11 +43,9 @@ namespace SnackMachineApp.Infrastructure.Data.NHibernate
             if (aggregateRoot == null)
                 return;
 
-            var eventDispatcher = ObjectFactory.Instance.Resolve<IDomainEventDispatcher>();
-
             foreach (var domainEvent in aggregateRoot.DomainEvents)
             {
-                eventDispatcher.Dispatch(domainEvent);
+                _domainEventDispatcher.Dispatch(domainEvent);
             }
 
             aggregateRoot.ClearEvents();

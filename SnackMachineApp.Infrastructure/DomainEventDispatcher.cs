@@ -7,10 +7,16 @@ namespace SnackMachineApp.Infrastructure
 {
     internal class DomainEventDispatcher : IDomainEventDispatcher
     {
+        private readonly IEnumerable<IDomainEventHandler> handlers;
+
+        public DomainEventDispatcher(IEnumerable<IDomainEventHandler> handlers)
+        {
+            this.handlers = handlers;
+        }
+
         public Task Dispatch(IDomainEvent domainEvent)
         {
-            var _handlers = ObjectFactory.Instance.Resolve<IEnumerable<IDomainEventHandler>>();
-            foreach (var handler in _handlers)
+            foreach (var handler in handlers)
             {
                 bool canHandleEvent = handler.GetType().GetInterfaces()
                     .Any(x => x.GenericTypeArguments[0] == domainEvent.GetType());

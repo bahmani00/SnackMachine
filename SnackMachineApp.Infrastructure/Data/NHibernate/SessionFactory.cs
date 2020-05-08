@@ -12,11 +12,11 @@ namespace SnackMachineApp.Infrastructure.Data.NHibernate
 {
     internal class SessionFactory
     {
-        private ISessionFactory _factory;
+        private readonly ISessionFactory _factory;
 
-        public SessionFactory(CommandsConnectionProvider connectionStringProvider)
+        public SessionFactory(CommandsConnectionProvider connectionStringProvider, IDomainEventDispatcher domainEventDispatcher)
         {
-            _factory = BuildSessionFactory(connectionStringProvider.Value);
+            _factory = BuildSessionFactory(connectionStringProvider.Value, domainEventDispatcher);
         }
 
         public ISession OpenSession()
@@ -24,7 +24,7 @@ namespace SnackMachineApp.Infrastructure.Data.NHibernate
             return _factory.OpenSession();
         }
 
-        private static ISessionFactory BuildSessionFactory(string connectionString)
+        private static ISessionFactory BuildSessionFactory(string connectionString, IDomainEventDispatcher domainEventDispatcher)
         {
             FluentConfiguration configuration = Fluently.Configure()
                 .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))
@@ -42,13 +42,13 @@ namespace SnackMachineApp.Infrastructure.Data.NHibernate
                      //to create db tables
                      //new SchemaExport(x).Execute(true, true, false);
                      x.EventListeners.PostCommitUpdateEventListeners =
-                         new IPostUpdateEventListener[] { new NHibernateDbEventListener() };
+                         new IPostUpdateEventListener[] { new NHibernateDbEventListener(domainEventDispatcher) };
                      x.EventListeners.PostCommitInsertEventListeners =
-                         new IPostInsertEventListener[] { new NHibernateDbEventListener() };
+                         new IPostInsertEventListener[] { new NHibernateDbEventListener(domainEventDispatcher) };
                      x.EventListeners.PostCommitDeleteEventListeners =
-                         new IPostDeleteEventListener[] { new NHibernateDbEventListener() };
+                         new IPostDeleteEventListener[] { new NHibernateDbEventListener(domainEventDispatcher) };
                      x.EventListeners.PostCollectionUpdateEventListeners =
-                         new IPostCollectionUpdateEventListener[] { new NHibernateDbEventListener() };
+                         new IPostCollectionUpdateEventListener[] { new NHibernateDbEventListener(domainEventDispatcher) };
                  });
 
             return configuration.BuildSessionFactory();

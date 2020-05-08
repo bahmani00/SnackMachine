@@ -1,29 +1,22 @@
-﻿using SnackMachineApp.Domain.SnackMachines;
-using SnackMachineApp.Infrastructure;
-using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SnackMachineApp.Domain.SnackMachines;
 using Xunit;
 using static SnackMachineApp.Domain.SharedKernel.Money;
 
 namespace SnackMachineApp.Domain.Tests
 {
-    public class RepositoryTest : IDisposable
+    public class RepositoryTest
     {
         public RepositoryTest()
         {
-            ObjectFactory.Instance.GetType();
-        }
-        public void Dispose()
-        {
-            ObjectFactory.Instance.Dispose();
+            Infrastructure.ObjectFactory.Instance.GetType();
         }
 
         [Fact]
         public void Save_LoadSnackMachin_then_BuySnack_changes_are_Saved_in_database()
         {
             //Arranage
-            //Initer.Init(ConfigurationManager.ConnectionStrings["AppCnn"].ConnectionString);
-
-            var repository = ObjectFactory.Instance.Resolve<ISnackMachineRepository>();
+            var repository = Infrastructure.ObjectFactory.Instance.GetService<ISnackMachineRepository>();
             var snackMachine = repository.GetById(1);
 
             //Act

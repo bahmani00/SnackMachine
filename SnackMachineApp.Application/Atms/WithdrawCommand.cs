@@ -5,13 +5,13 @@ namespace SnackMachineApp.Application.Atms
 {
     public class WithdrawCommand : IRequest<Atm>
     {
-        public WithdrawCommand(Atm atm, decimal amount)
+        public WithdrawCommand(long atmId, decimal amount)
         {
-            Atm = atm;
+            AtmId = atmId;
             Amount = amount;
         }
 
-        public Atm Atm { get; }
+        public long AtmId { get; }
         public decimal Amount { get; }
     }
 }

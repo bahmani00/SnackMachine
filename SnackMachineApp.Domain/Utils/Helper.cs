@@ -29,5 +29,8 @@ namespace SnackMachineApp.Domain.Utils
         public static readonly string NoSnackAvailableToBuy = "The snack pile is empty.";
 
         public static readonly string InvalidAmount = "Invalid amount";
+
+        public static readonly long HeadOfficeId = 1;
+
     }
 }

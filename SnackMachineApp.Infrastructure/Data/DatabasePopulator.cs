@@ -10,7 +10,7 @@ namespace SnackMachineApp.Infrastructure.Data
     {
         public static void PopulateDatabase()
         {
-            using (var context = ObjectFactory.Instance.Resolve<DbContext>())
+           // using (var context = ObjectFactory.Instance.Resolve<DbContext>())
             {
                 //context.Database.EnsureDeleted();
                 //context.Database.EnsureCreated();
