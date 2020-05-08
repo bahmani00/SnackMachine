@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:management="clr-namespace:DddInPractice.UI.Management">
+                    xmlns:management="clr-namespace:SnackMachineApp.WinUI.Management">
     <DataTemplate x:Key="DashboardViewModel" DataType="management:DashboardViewModel">
 
         <DockPanel>
@@ -39,7 +39,7 @@
                     </DataGrid.InputBindings>
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                        <DataGridTextColumn Header="Id" Binding="{Binding SnackMachineId}" />
                         <DataGridTextColumn Header="MoneyInside" Binding="{Binding MoneyInside, StringFormat={}{0:C2}}" />
                     </DataGrid.Columns>
                 </DataGrid>
@@ -60,7 +60,7 @@
                             CommandParameter="{Binding Atms/}"/>
                     </DataGrid.InputBindings>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                        <DataGridTextColumn Header="Id" Binding="{Binding AtmId}" />
                         <DataGridTextColumn Header="Cash" Binding="{Binding Cash, StringFormat={}{0:C2}}" />
                     </DataGrid.Columns>
                 </DataGrid>

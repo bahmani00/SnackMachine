@@ -3,10 +3,8 @@ using Autofac.Builder;
 using Autofac.Configuration;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SnackMachineApp.Domain.Management;
 using SnackMachineApp.Domain.SeedWork;
 using SnackMachineApp.Infrastructure.Data;
 using SnackMachineApp.Infrastructure.Data.EntityFramework;
@@ -16,12 +14,14 @@ using SnackMachineApp.Interface.Data;
 using SnackMachineApp.Interface.Data.EntityFramework;
 using System;
 using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 
 namespace SnackMachineApp.Infrastructure
 {
-    public sealed class ObjectFactory : IDisposable
+    public sealed class ObjectFactory : IServiceProvider
     {
         #region Singleton
         private static readonly Lazy<ObjectFactory> _lazy = new Lazy<ObjectFactory>(() => new ObjectFactory());
@@ -34,21 +34,9 @@ namespace SnackMachineApp.Infrastructure
         }
 
         #endregion
-
-        public object Resolve(Type type)
+        public object GetService(Type type)
         {
             return _serviceProvider.GetService(type);
-        }
-
-        public T Resolve<T>()
-        {
-            return _serviceProvider.GetService<T>();
-        }
-
-        public IServiceScope CreateScope()
-        {
-            var serviceScopeFactory = _serviceProvider.GetRequiredService<IServiceScopeFactory>();
-            return serviceScopeFactory.CreateScope();
         }
 
         #region Private
@@ -72,24 +60,10 @@ namespace SnackMachineApp.Infrastructure
 
             builder.RegisterModule(configModule);
 
-            builder.Register((c, p) =>
-                  {
-                      var headOfficeId = p.Named<long>("HeadOfficeId");
-                      if (headOfficeId == 1)
-                      {
-                          return c.Resolve<IRepository<HeadOffice>>().GetById(headOfficeId);
-                      }
-                      throw new ArgumentException("Invalid HeadOfficeId");
-                  }).SingleInstance();
-
+           
             var container = builder.Build();
 
             _serviceProvider = new AutofacServiceProvider(container);
-        }
-
-        public void Dispose()
-        {
-            //_Container?.Dispose();
         }
 
         private class DbConnectionProviderRegistrationModule : Autofac.Module
@@ -97,10 +71,22 @@ namespace SnackMachineApp.Infrastructure
             protected override void Load(ContainerBuilder builder)
             {
                 var cmdConnectionString = new CommandsConnectionProvider(ConfigurationManager.ConnectionStrings["AppCnn"].ConnectionString);
-                var queryConnectionString = new QueriesConnectionProvider(ConfigurationManager.ConnectionStrings["QueryAppCnn"].ConnectionString);
 
                 builder.RegisterInstance(cmdConnectionString).As<CommandsConnectionProvider>().SingleInstance();
+            }
+        }
+
+        private class DapperRegistrationModule : Autofac.Module
+        {
+            protected override void Load(ContainerBuilder builder)
+            {
+                var queryConnectionString = new QueriesConnectionProvider(ConfigurationManager.ConnectionStrings["QueryAppCnn"].ConnectionString);
                 builder.RegisterInstance(queryConnectionString).As<QueriesConnectionProvider>().SingleInstance();
+
+                builder.Register(c => new SqlConnection(c.Resolve<QueriesConnectionProvider>().Value))
+                    .As<IDbConnection>();
+
+                builder.RegisterType<DapperRepositor1y>();
             }
         }
 
@@ -198,7 +184,6 @@ namespace SnackMachineApp.Infrastructure
         }
 
         #endregion Private
-
     }
 
     public static class AutofacExtensions

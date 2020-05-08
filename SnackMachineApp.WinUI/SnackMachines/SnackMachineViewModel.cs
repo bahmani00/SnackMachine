@@ -1,4 +1,5 @@
-﻿using SnackMachineApp.Application.Seedwork;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SnackMachineApp.Application.Seedwork;
 using SnackMachineApp.Application.SnackMachines;
 using SnackMachineApp.Domain.SharedKernel;
 using SnackMachineApp.Domain.SnackMachines;
@@ -54,8 +55,7 @@ namespace SnackMachineApp.WinUI.SnackMachines
         public SnackMachineViewModel(SnackMachine snackMachine)
         {
             this.snackMachine = snackMachine;
-            //TODO: pass IComponentLocator to constructor
-            mediator = ObjectFactory.Instance.Resolve<IMediator>();
+            mediator = Infrastructure.ObjectFactory.Instance.GetService<IMediator>();
 
             InsertCentCommand = new Command(() => InsertMoney(Cent));
             InsertTenCentCommand = new Command(() => InsertMoney(TenCent));

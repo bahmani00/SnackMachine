@@ -5,6 +5,6 @@ namespace SnackMachineApp.Domain.Atms
 {
     public interface IAtmRepository: IRepository<Atm>
     {
-        IReadOnlyList<AtmDto> GetAll();
+        //IReadOnlyList<Atm> GetAll();
     }
 }

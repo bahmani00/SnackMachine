@@ -5,22 +5,17 @@ using System;
 namespace SnackMachineApp.Application
 {
     //TODO: choose a better name
-    internal class DatabaseScope : IDisposable
+    internal class DatabaseScope : IServiceProvider, IDisposable
     {
         private readonly IServiceScope scope;
 
-        public DatabaseScope()
+        public DatabaseScope(IServiceProvider serviceProvider)
         {
-            this.scope = Infrastructure.ObjectFactory.Instance.CreateScope();
-            this.ServiceProvider = scope.ServiceProvider;
+            this.scope = serviceProvider.CreateScope();
+            //this.ServiceProvider = scope.ServiceProvider;
         }
 
-        public IServiceProvider ServiceProvider { get; }
-
-        public void Dispose()
-        {
-            scope.Dispose();
-        }
+        //public IServiceProvider ServiceProvider { get; }
 
         public void Execute(Action action)
         {
@@ -38,6 +33,16 @@ namespace SnackMachineApp.Application
                     throw;
                 }
             }
+        }
+
+        public object GetService(Type serviceType)
+        {
+            return scope.ServiceProvider.GetService(serviceType);
+        }
+
+        public void Dispose()
+        {
+            scope.Dispose();
         }
     }
 }

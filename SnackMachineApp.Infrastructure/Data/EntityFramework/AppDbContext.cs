@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SnackMachineApp.Domain.Atms;
 using SnackMachineApp.Domain.Management;
 using SnackMachineApp.Domain.SnackMachines;
-using SnackMachineApp.Infrastructure;
 using SnackMachineApp.Infrastructure.Data;
 using System;
 
@@ -11,6 +11,13 @@ namespace SnackMachineApp.Interface.Data
 {
     internal partial class AppDbContext : DbContext
     {
+        private readonly IServiceProvider serviceProvider;
+
+        public AppDbContext(IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider;
+        }
+
         public virtual DbSet<Atm> Atm { get; set; }
         public virtual DbSet<HeadOffice> HeadOffice { get; set; }
         public virtual DbSet<SnackMachine> SnackMachine { get; set; }
@@ -19,8 +26,7 @@ namespace SnackMachineApp.Interface.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var serviceProvider = ObjectFactory.Instance.Resolve<IServiceProvider>();
-                var cnnString = ObjectFactory.Instance.Resolve<CommandsConnectionProvider>();
+                var cnnString = serviceProvider.GetService<CommandsConnectionProvider>();
 
                 optionsBuilder.UseApplicationServiceProvider(serviceProvider)
                     .UseSqlServer(cnnString.Value,

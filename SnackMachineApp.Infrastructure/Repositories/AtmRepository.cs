@@ -11,12 +11,5 @@ namespace SnackMachineApp.Infrastructure.Repositories
             : base(unitOfWork)
         {
         }
-
-        public IReadOnlyList<AtmDto> GetAll()
-        {
-            return List()
-                .Select(AtmDto.From)
-                .ToList();
-        }
     }
 }

@@ -28,7 +28,7 @@ namespace SnackMachineApp.Domain.Atms
             var amountWithCommision = amount + CalculateCommision(amount);
             MoneyCharged += amountWithCommision;
 
-            AddDomainEvent(new BalanceChangedEvent(amountWithCommision));
+            AddDomainEvent(new BalanceChangedEvent(amountWithCommision, Constants.HeadOfficeId));
         }
 
         public virtual decimal CalculateCommision(decimal amount)

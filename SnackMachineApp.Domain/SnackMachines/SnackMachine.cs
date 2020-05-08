@@ -18,9 +18,13 @@ namespace SnackMachineApp.Domain.SnackMachines
 
         protected virtual IList<Slot> Slots { get; set; }
 
-        public SnackMachine()
+        public SnackMachine():this(None)
         {
-            MoneyInside = None;
+
+        }
+        public SnackMachine(Money moneyInside)
+        {
+            MoneyInside = moneyInside;
             MoneyInTransaction = 0;
 
             //By default, 3 slots

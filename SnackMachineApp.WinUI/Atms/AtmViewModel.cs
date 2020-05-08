@@ -1,16 +1,16 @@
-﻿using SnackMachineApp.Domain.Atms;
-using SnackMachineApp.WinUI.Common;
-using SnackMachineApp.Domain.Utils;
-using SnackMachineApp.Domain.SharedKernel;
-using SnackMachineApp.Application.Seedwork;
-using SnackMachineApp.Infrastructure;
+﻿using Microsoft.Extensions.DependencyInjection;
 using SnackMachineApp.Application.Atms;
+using SnackMachineApp.Application.Seedwork;
+using SnackMachineApp.Domain.Atms;
+using SnackMachineApp.Domain.SharedKernel;
+using SnackMachineApp.Domain.Utils;
+using SnackMachineApp.WinUI.Common;
 
 namespace SnackMachineApp.WinUI.Atms
 {
     public class AtmViewModel : ViewModel
     {
-        private readonly Atm _atm;
+        private Atm _atm;
         private readonly IMediator mediator;
         private string _message;
         public string Message
@@ -32,14 +32,14 @@ namespace SnackMachineApp.WinUI.Atms
         {
             _atm = atm;
 
-            mediator = ObjectFactory.Instance.Resolve<IMediator>();
+            mediator = Infrastructure.ObjectFactory.Instance.GetService<IMediator>();
 
             TakeMoneyCommand = new Command<decimal>(x => x > 0, Withdraw);
         }
 
         private void Withdraw(decimal amount)
         {
-            mediator.Send(new WithdrawCommand(_atm, amount));
+            _atm = mediator.Send(new WithdrawCommand(_atm.Id, amount));
 
             if (_atm.AnyErrors())
             {

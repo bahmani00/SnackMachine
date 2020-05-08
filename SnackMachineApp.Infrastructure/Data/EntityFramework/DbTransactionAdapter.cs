@@ -7,10 +7,12 @@ namespace SnackMachineApp.Infrastructure.Data.EntityFramework
     public class DbTransactionAdapter : IUnitOfWork
     {
         private readonly DbContext _context;
+        private readonly IDomainEventDispatcher _domainEventDispatcher;
 
-        public DbTransactionAdapter(DbContext context)
+        public DbTransactionAdapter(DbContext context, IDomainEventDispatcher domainEventDispatcher)
         {
             this._context = context;
+            this._domainEventDispatcher = domainEventDispatcher;
         }
 
         public void Commit()
@@ -33,13 +35,11 @@ namespace SnackMachineApp.Infrastructure.Data.EntityFramework
                 .Select(x => (Entity)x.Entity)
                 .ToList();
 
-            var eventDispatcher = ObjectFactory.Instance.Resolve<IDomainEventDispatcher>();
-
             foreach (var entity in entities)
             {
                 foreach (var domainEvent in entity.DomainEvents)
                 {
-                    eventDispatcher.Dispatch(domainEvent);
+                    _domainEventDispatcher.Dispatch(domainEvent);
                 }
                 entity.ClearEvents();
             }

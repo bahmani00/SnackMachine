@@ -1,6 +1,8 @@
 {
   "modules": [
+    { "type": "SnackMachineApp.Application.AutoMapperModule, SnackMachineApp.Application" },
     { "type": "SnackMachineApp.Infrastructure.ObjectFactory+DbConnectionProviderRegistrationModule, SnackMachineApp.Infrastructure" },
+    { "type": "SnackMachineApp.Infrastructure.ObjectFactory+DapperRegistrationModule, SnackMachineApp.Infrastructure" },
     { "type": "SnackMachineApp.Infrastructure.ObjectFactory+NHibernateRegistrationModule, SnackMachineApp.Infrastructure" },
     { "type": "SnackMachineApp.Infrastructure.ObjectFactory+RepositoryRegistrationModule, SnackMachineApp.Infrastructure" },
     { "type": "SnackMachineApp.Infrastructure.ObjectFactory+DomainEventHandlersRegistrationModule, SnackMachineApp.Infrastructure" },
@@ -58,12 +60,21 @@
       "type": "SnackMachineApp.Application.Atms.GetAtmsQueryHandler, SnackMachineApp.Application",
       "services": [
         {
-          "type": "SnackMachineApp.Application.Seedwork.IRequestHandler`2[[SnackMachineApp.Application.Atms.GetAtmsQuery, SnackMachineApp.Application],[System.Collections.Generic.IReadOnlyList`1[[SnackMachineApp.Domain.Atms.AtmDto, SnackMachineApp.Domain]], System.Private.CoreLib]], SnackMachineApp.Application"
+          "type": "SnackMachineApp.Application.Seedwork.IRequestHandler`2[[SnackMachineApp.Application.Atms.GetAtmsQuery, SnackMachineApp.Application],[System.Collections.Generic.IReadOnlyList`1[[SnackMachineApp.Application.Atms.AtmDto, SnackMachineApp.Application]], System.Private.CoreLib]], SnackMachineApp.Application"
         }
       ],
       "instanceScope": "singleinstance"
     },
 
+    {
+      "type": "SnackMachineApp.Application.Management.GetHeadOfficeQueryHandler, SnackMachineApp.Application",
+      "services": [
+        {
+          "type": "SnackMachineApp.Application.Seedwork.IRequestHandler`2[[SnackMachineApp.Application.Management.GetHeadOfficeQuery, SnackMachineApp.Application],[SnackMachineApp.Domain.Management.HeadOffice, SnackMachineApp.Domain]], SnackMachineApp.Application"
+        }
+      ],
+      "instanceScope": "singleinstance"
+    },
     {
       "type": "SnackMachineApp.Application.Management.LoadCashToAtmCommandHandler, SnackMachineApp.Application",
       "services": [
@@ -97,7 +108,7 @@
       "type": "SnackMachineApp.Application.SnackMachines.GetSnackMachinesQueryHandler, SnackMachineApp.Application",
       "services": [
         {
-          "type": "SnackMachineApp.Application.Seedwork.IRequestHandler`2[[SnackMachineApp.Application.SnackMachines.GetSnackMachinesQuery, SnackMachineApp.Application],[System.Collections.Generic.IReadOnlyList`1[[SnackMachineApp.Domain.SnackMachines.SnackMachineDto, SnackMachineApp.Domain]], System.Private.CoreLib]], SnackMachineApp.Application"
+          "type": "SnackMachineApp.Application.Seedwork.IRequestHandler`2[[SnackMachineApp.Application.SnackMachines.GetSnackMachinesQuery, SnackMachineApp.Application],[System.Collections.Generic.IReadOnlyList`1[[SnackMachineApp.Application.SnackMachines.SnackMachineDto, SnackMachineApp.Application]], System.Private.CoreLib]], SnackMachineApp.Application"
         }
       ],
       "instanceScope": "singleinstance"

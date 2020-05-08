@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="automapper" Version="9.0.0" />
+    <PackageReference Include="Dapper" Version="2.0.35" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SnackMachineApp.Domain\SnackMachineApp.Domain.csproj" />
   </ItemGroup>
 

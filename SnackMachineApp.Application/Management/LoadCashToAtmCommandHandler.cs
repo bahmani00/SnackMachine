@@ -8,23 +8,28 @@ namespace SnackMachineApp.Application.Management
 {
     public class LoadCashToAtmCommandHandler : IRequestHandler<LoadCashToAtmCommand, HeadOffice>
     {
+        private readonly IServiceProvider serviceProvider;
+
+        public LoadCashToAtmCommandHandler(IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider;
+        }
+
         public HeadOffice Handle(LoadCashToAtmCommand request)
         {
-            var atmRepository = Infrastructure.ObjectFactory.Instance.Resolve<IAtmRepository>();
-            var atm = atmRepository.GetById(request.AtmId);
+            var headOfficeRepository = serviceProvider.GetService<IHeadOfficeRepository>();
+            var headOffice = headOfficeRepository.GetById(request.HeadOfficeId);
 
-            if (atm == null)
-                return null;
-
-            var headOffice = HeadOfficeInstance.Instance;
-
-            using (var scope = new DatabaseScope())
+            using (var scope = new DatabaseScope(serviceProvider))
             {
                 scope.Execute(() => {
                     try
                     {
-                        atmRepository = scope.ServiceProvider.GetService<IAtmRepository>();
-                        var headOfficeRepository = scope.ServiceProvider.GetService<IHeadOfficeRepository>();
+                        var atmRepository = serviceProvider.GetService<IAtmRepository>();
+                        var atm = atmRepository.GetById(request.AtmId);
+
+                        atmRepository = scope.GetService<IAtmRepository>();
+                        headOfficeRepository = scope.GetService<IHeadOfficeRepository>();
 
                         headOffice.LoadCashToAtm(atm);
                         atmRepository.Save(atm);

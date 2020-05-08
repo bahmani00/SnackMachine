@@ -7,31 +7,40 @@ namespace SnackMachineApp.Application.Atms
 {
     internal class WithdrawCommandHandler : IRequestHandler<WithdrawCommand, Atm>
     {
-        public Atm Handle(WithdrawCommand request)
+        private readonly IServiceProvider serviceProvider;
+
+        public WithdrawCommandHandler(IServiceProvider serviceProvider)
         {
-            if (request.Atm.CanWithdrawal(request.Amount))
-            {
-                request.Atm.Withdrawal(request.Amount);
-                var charge = request.Amount + request.Atm.CalculateCommision(request.Amount);
-
-                var paymentGateway = Infrastructure.ObjectFactory.Instance.Resolve<IPaymentGateway>();
-                paymentGateway.ChargePayment(charge);
-
-                UpdateAtm(request);
-            }
-
-            return request.Atm;
+            this.serviceProvider = serviceProvider;
         }
 
-        private void UpdateAtm(WithdrawCommand request)
+        public Atm Handle(WithdrawCommand request)
         {
-            using (var scope = new DatabaseScope())
+            var atmRepository = serviceProvider.GetService<IAtmRepository>();
+            var atm = atmRepository.GetById(request.AtmId);
+            if (atm.CanWithdrawal(request.Amount))
+            {
+                atm.Withdrawal(request.Amount);
+                var charge = request.Amount + atm.CalculateCommision(request.Amount);
+
+                var paymentGateway = serviceProvider.GetService<IPaymentGateway>();
+                paymentGateway.ChargePayment(charge);
+
+                UpdateAtm(atm);
+            }
+
+            return atm;
+        }
+
+        private void UpdateAtm(Atm atm)
+        {
+            using (var scope = new DatabaseScope(serviceProvider))
             {
                 scope.Execute(() => {
                     try
                     {
-                        var atmRepository = scope.ServiceProvider.GetService<IAtmRepository>();
-                        atmRepository.Save(request.Atm);
+                        var atmRepository = scope.GetService<IAtmRepository>();
+                        atmRepository.Save(atm);
                     }
                     catch (Exception exc)
                     {
