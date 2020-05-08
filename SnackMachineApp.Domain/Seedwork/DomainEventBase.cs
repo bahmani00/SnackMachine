@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SnackMachineApp.Domain.SharedKernel;
+using System;
 
 namespace SnackMachineApp.Domain.SeedWork
 {
@@ -6,7 +7,7 @@ namespace SnackMachineApp.Domain.SeedWork
     {
         public DomainEventBase()
         {
-            DateOccurred = DateTime.Now;
+            DateOccurred = SystemClock.Now;
         }
 
         public DateTime DateOccurred { get; }
