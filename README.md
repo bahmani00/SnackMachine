@@ -10,11 +10,13 @@ DDD implementation of Snack Machine, coming from [design-in-practice](https://ap
 ## Libraries used
 
 * **Mediator pattern** - process(request) delegator inside [Application\Seedwork](https://github.com/bahmani00/SnackMachine/tree/master/SnackMachineApp.Application/Seedwork).
+* **Dapper** - to query database
+* **GuardClauses** - use [GuardClauses](https://github.com/ardalis/GuardClauses)
+* **FluentValidation, xUnit** - for unit testing
 * **AutoMapper** - define mappings between Domain Entities and DTOs.
-* **FluentValidation** - a deceptively simple way of validating requests coming into MediatR. Better than attribute validation.
 * **NHibernate** - .Net ORM to access data.
 * **Entity Framework Core** - MS .Net ORM to access data.
-* **Autofac** - Dependency Injection library to wire project's dependencies into .Net built-in DI(ServiceCollection).
+* **Autofac & .Net DependencyInjection** - Dependency Injection library to wire project's dependencies into .Net built-in DI(ServiceCollection).
 
 ## Getting started
 
