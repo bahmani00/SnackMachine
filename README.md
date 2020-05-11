@@ -23,6 +23,16 @@ DDD implementation of Snack Machine, coming from [design-in-practice](https://ap
 1. Clone the repo.
 2. Run 'database.sql' on sql server.
 3. Set ConnectionString on 'App.config'
+
+## Vocabularies
+
+1. Seedwork
+2. Mediator
+3. UnitOfWork
+4. Domain Event
+5. Anemic class
+
+
 3. Run the WPF project
 4. Switch to either NHibernate or Ef through `autofac.json`.
 
