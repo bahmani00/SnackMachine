@@ -49,44 +49,15 @@ namespace SnackMachineApp.Domain.SharedKernel
             TwentyDollarCount += twentyDollarCount;
         }
 
+        public static Money From(decimal amount)
+        {
+            return new Money(100, 10, 4, 1_000_000, 1_000_000, 1_000_000).Allocate(amount);
+        }
+
         internal static bool Validate(Money money)
         {
             var valids = new List<Money> { Cent, TenCent, Quarter, Dollar, FiveDollar, TwentyDollar };
             return valids.Contains(money);
-        }
-
-        protected override bool EqualsCore(Money other)
-        {
-            return OneCentCount == other.OneCentCount &&
-                    TenCentCount == other.TenCentCount &&
-                    QuarterCount == other.QuarterCount &&
-                    OneDollarCount == other.OneDollarCount &&
-                    FiveDollarCount == other.FiveDollarCount &&
-                    TwentyDollarCount == other.TwentyDollarCount;
-        }
-
-        protected override int GetHashCodeCore()
-        {
-            unchecked
-            {
-                // 23 & 31 should be coprime
-                var hash = 23;
-                hash = hash * 31 ^ OneCentCount;
-                hash = hash * 31 ^ TenCentCount;
-                hash = hash * 31 ^ QuarterCount;
-                hash = hash * 31 ^ OneDollarCount;
-                hash = hash * 31 ^ FiveDollarCount;
-                hash = hash * 31 ^ TwentyDollarCount;
-                return hash;
-            };
-        }
-
-        public override string ToString()
-        {
-            if (Amount < 1)
-                return "¢" + (Amount * 100).ToString("0");
-
-            return "$" + Amount.ToString("0.00");
         }
 
         public bool CanAllocate(decimal amount)
@@ -129,6 +100,40 @@ namespace SnackMachineApp.Domain.SharedKernel
                 oneDollarCount,
                 fiveDollarCount,
                 twentyDollarCount);
+        }
+               
+        protected override bool EqualsCore(Money other)
+        {
+            return OneCentCount == other.OneCentCount &&
+                    TenCentCount == other.TenCentCount &&
+                    QuarterCount == other.QuarterCount &&
+                    OneDollarCount == other.OneDollarCount &&
+                    FiveDollarCount == other.FiveDollarCount &&
+                    TwentyDollarCount == other.TwentyDollarCount;
+        }
+
+        protected override int GetHashCodeCore()
+        {
+            unchecked
+            {
+                // 23 & 31 should be coprime
+                var hash = 23;
+                hash = hash * 31 ^ OneCentCount;
+                hash = hash * 31 ^ TenCentCount;
+                hash = hash * 31 ^ QuarterCount;
+                hash = hash * 31 ^ OneDollarCount;
+                hash = hash * 31 ^ FiveDollarCount;
+                hash = hash * 31 ^ TwentyDollarCount;
+                return hash;
+            };
+        }
+
+        public override string ToString()
+        {
+            if (Amount < 1)
+                return "¢" + (Amount * 100).ToString("0");
+
+            return "$" + Amount.ToString("0.00");
         }
 
         public static Money operator +(Money m1, Money m2) =>

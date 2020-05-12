@@ -1,27 +1,22 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SnackMachineApp.Application.Seedwork;
+using SnackMachineApp.Domain.Atms;
 using SnackMachineApp.Domain.Management;
-using SnackMachineApp.Domain.SnackMachines;
 using System;
 
 namespace SnackMachineApp.Application.Management
 {
-    public class UnloadCashFromSnackMachineCommandHandler : IRequestHandler<UnloadCashFromSnackMachineCommand, HeadOffice>
+    public class TransferCashToAtmCommandHandler : IRequestHandler<TransferCashToAtmCommand, HeadOffice>
     {
         private readonly IServiceProvider serviceProvider;
 
-        public UnloadCashFromSnackMachineCommandHandler(IServiceProvider serviceProvider)
+        public TransferCashToAtmCommandHandler(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
         }
 
-        public HeadOffice Handle(UnloadCashFromSnackMachineCommand request)
+        public HeadOffice Handle(TransferCashToAtmCommand request)
         {
-            var snackMachineRepository = serviceProvider.GetService<ISnackMachineRepository>();
-            var snackMachine = snackMachineRepository.GetById(request.SnackMachineId);
-            if (snackMachine == null)
-                return null;
-
             var headOfficeRepository = serviceProvider.GetService<IHeadOfficeRepository>();
             var headOffice = headOfficeRepository.GetById(request.HeadOfficeId);
 
@@ -30,11 +25,14 @@ namespace SnackMachineApp.Application.Management
                 scope.Execute(() => {
                     try
                     {
-                        snackMachineRepository = scope.GetService<ISnackMachineRepository>();
+                        var atmRepository = serviceProvider.GetService<IAtmRepository>();
+                        var atm = atmRepository.GetById(request.AtmId);
+
+                        atmRepository = scope.GetService<IAtmRepository>();
                         headOfficeRepository = scope.GetService<IHeadOfficeRepository>();
 
-                        headOffice.UnloadCashFromSnackMachine(snackMachine);
-                        snackMachineRepository.Save(snackMachine);
+                        headOffice.TransferCashToAtm(atm);
+                        atmRepository.Save(atm);
                         headOfficeRepository.Save(headOffice);
                     }
                     catch (Exception exc)

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SnackMachineApp.Domain.SnackMachines;
+using SnackMachineApp.Infrastructure.IoC;
+using System;
 using Xunit;
 using static SnackMachineApp.Domain.SharedKernel.Money;
 
@@ -7,16 +9,18 @@ namespace SnackMachineApp.Domain.Tests
 {
     public class RepositoryTest
     {
+        private IServiceProvider serviceProvider;
+
         public RepositoryTest()
         {
-            Infrastructure.ObjectFactory.Instance.GetType();
+            serviceProvider = ContainerSetup.Init();
         }
 
         [Fact]
         public void Save_LoadSnackMachin_then_BuySnack_changes_are_Saved_in_database()
         {
             //Arranage
-            var repository = Infrastructure.ObjectFactory.Instance.GetService<ISnackMachineRepository>();
+            var repository = serviceProvider.GetService<ISnackMachineRepository>();
             var snackMachine = repository.GetById(1);
 
             //Act

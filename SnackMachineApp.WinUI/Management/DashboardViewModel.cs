@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using SnackMachineApp.Application.Atms;
+﻿using SnackMachineApp.Application.Atms;
 using SnackMachineApp.Application.Management;
 using SnackMachineApp.Application.Seedwork;
 using SnackMachineApp.Application.SnackMachines;
@@ -20,32 +19,34 @@ namespace SnackMachineApp.WinUI.Management
         public HeadOffice HeadOffice { get; private set; }
         public IReadOnlyList<SnackMachineDto> SnackMachines { get; private set; }
         public IReadOnlyList<AtmDto> Atms { get; private set; }
+        
         public Command<SnackMachineDto> ShowSnackMachineCommand { get; private set; }
-        public Command<SnackMachineDto> UnloadCashCommand { get; private set; }
+        public Command<SnackMachineDto> TransferInCashFromSnackMachineCommand { get; private set; }
+        
         public Command<AtmDto> ShowAtmCommand { get; private set; }
-        public Command<AtmDto> LoadCashToAtmCommand { get; private set; }
+        public Command<AtmDto> TransferCashToAtmCommand { get; private set; }
 
-        public DashboardViewModel()
+        public DashboardViewModel(IMediator mediator)
         {
-            _mediator = Infrastructure.ObjectFactory.Instance.GetService<IMediator>();
+            _mediator = mediator;
             HeadOffice = _mediator.Send(new GetHeadOfficeQuery(Constants.HeadOfficeId));
 
             RefreshAll();
 
             ShowSnackMachineCommand = new Command<SnackMachineDto>(x => x != null, ShowSnackMachine);
-            UnloadCashCommand = new Command<SnackMachineDto>(CanUnloadCash, UnloadCash);
+            TransferInCashFromSnackMachineCommand = new Command<SnackMachineDto>(CanTransferInCashFromSnackMachine, TransferInCashFromSnackMachine);
             ShowAtmCommand = new Command<AtmDto>(x => x != null, ShowAtm);
-            LoadCashToAtmCommand = new Command<AtmDto>(CanLoadCashToAtm, LoadCashToAtm);
+            TransferCashToAtmCommand = new Command<AtmDto>(CanTransferCashToAtm, TransferCashToAtm);
         }
 
-        private bool CanLoadCashToAtm(AtmDto atmDto)
+        private bool CanTransferCashToAtm(AtmDto atmDto)
         {
             return atmDto != null && HeadOffice.Cash.Amount > 0;
         }
 
-        private void LoadCashToAtm(AtmDto atmDto)
+        private void TransferCashToAtm(AtmDto atmDto)
         {
-            HeadOffice = _mediator.Send(new LoadCashToAtmCommand(HeadOffice.Id, atmDto.AtmId));
+            HeadOffice = _mediator.Send(new TransferCashToAtmCommand(HeadOffice.Id, atmDto.AtmId));
 
             RefreshAll();
         }
@@ -57,18 +58,18 @@ namespace SnackMachineApp.WinUI.Management
             if (atm == null)
                 return;
 
-            _dialogService.ShowDialog(new AtmViewModel(atm));
+            _dialogService.ShowDialog(new AtmViewModel(_mediator, atm));
             RefreshAll();
         }
 
-        private bool CanUnloadCash(SnackMachineDto snackMachineDto)
+        private bool CanTransferInCashFromSnackMachine(SnackMachineDto snackMachineDto)
         {
             return snackMachineDto != null && snackMachineDto.MoneyInside > 0;
         }
 
-        private void UnloadCash(SnackMachineDto snackMachineDto)
+        private void TransferInCashFromSnackMachine(SnackMachineDto snackMachineDto)
         {
-            HeadOffice = _mediator.Send(new UnloadCashFromSnackMachineCommand(snackMachineDto.SnackMachineId, HeadOffice.Id));
+            HeadOffice = _mediator.Send(new TransferInCashFromSnackMachineCommand(snackMachineDto.SnackMachineId, HeadOffice.Id));
 
             RefreshAll();
         }
@@ -83,7 +84,7 @@ namespace SnackMachineApp.WinUI.Management
                 return;
             }
 
-            _dialogService.ShowDialog(new SnackMachineViewModel(snackMachine));
+            _dialogService.ShowDialog(new SnackMachineViewModel(_mediator, snackMachine));
             RefreshAll();
         }
 

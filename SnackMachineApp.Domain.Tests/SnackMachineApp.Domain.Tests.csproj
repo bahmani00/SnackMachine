@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\SnackMachineApp.WinUI\App.config">
+    <Content Include="..\SnackMachineApp.WinUI\App.config">
       <Link>App.config</Link>
-    </None>
-    <None Include="..\SnackMachineApp.WinUI\autofac.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\SnackMachineApp.WinUI\autofac.json">
       <Link>autofac.json</Link>
-    </None>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   
   
@@ -40,6 +42,16 @@
     <ProjectReference Include="..\SnackMachineApp.Application\SnackMachineApp.Application.csproj" />
     <ProjectReference Include="..\SnackMachineApp.Domain\SnackMachineApp.Domain.csproj" />
     <ProjectReference Include="..\SnackMachineApp.Infrastructure\SnackMachineApp.Infrastructure.csproj" />
+  </ItemGroup>
+  
+  
+  <ItemGroup>
+    <Compile Update="AtmSpecs.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Update="AutofacTest.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
 
 </Project>

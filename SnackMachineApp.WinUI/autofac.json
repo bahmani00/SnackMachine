@@ -1,13 +1,13 @@
 {
   "modules": [
     { "type": "SnackMachineApp.Application.AutoMapperModule, SnackMachineApp.Application" },
-    { "type": "SnackMachineApp.Infrastructure.ObjectFactory+DbConnectionProviderRegistrationModule, SnackMachineApp.Infrastructure" },
-    { "type": "SnackMachineApp.Infrastructure.ObjectFactory+DapperRegistrationModule, SnackMachineApp.Infrastructure" },
-    { "type": "SnackMachineApp.Infrastructure.ObjectFactory+NHibernateRegistrationModule, SnackMachineApp.Infrastructure" },
-    { "type": "SnackMachineApp.Infrastructure.ObjectFactory+RepositoryRegistrationModule, SnackMachineApp.Infrastructure" },
-    { "type": "SnackMachineApp.Infrastructure.ObjectFactory+DomainEventHandlersRegistrationModule, SnackMachineApp.Infrastructure" },
-    { "type": "SnackMachineApp.Infrastructure.ObjectFactory+MediatorRegistrationModule, SnackMachineApp.Infrastructure" },
-    { "type": "SnackMachineApp.Infrastructure.ObjectFactory+DecoratorsRegistrationModule, SnackMachineApp.Infrastructure" }
+    { "type": "SnackMachineApp.Infrastructure.IoC.DbConnectionProviderRegistrationModule, SnackMachineApp.Infrastructure" },
+    { "type": "SnackMachineApp.Infrastructure.IoC.DapperRegistrationModule, SnackMachineApp.Infrastructure" },
+    { "type": "SnackMachineApp.Infrastructure.IoC.NHibernateRegistrationModule, SnackMachineApp.Infrastructure" },
+    { "type": "SnackMachineApp.Infrastructure.IoC.RepositoryRegistrationModule, SnackMachineApp.Infrastructure" },
+    { "type": "SnackMachineApp.Infrastructure.IoC.DomainEventHandlersRegistrationModule, SnackMachineApp.Infrastructure" },
+    { "type": "SnackMachineApp.Infrastructure.IoC.MediatorRegistrationModule, SnackMachineApp.Infrastructure" },
+    { "type": "SnackMachineApp.Infrastructure.IoC.DecoratorsRegistrationModule, SnackMachineApp.Infrastructure" }
   ],
   "components": [
     {
@@ -76,19 +76,19 @@
       "instanceScope": "singleinstance"
     },
     {
-      "type": "SnackMachineApp.Application.Management.LoadCashToAtmCommandHandler, SnackMachineApp.Application",
+      "type": "SnackMachineApp.Application.Management.TransferCashToAtmCommandHandler, SnackMachineApp.Application",
       "services": [
         {
-          "type": "SnackMachineApp.Application.Seedwork.IRequestHandler`2[[SnackMachineApp.Application.Management.LoadCashToAtmCommand, SnackMachineApp.Application],[SnackMachineApp.Domain.Management.HeadOffice, SnackMachineApp.Domain]], SnackMachineApp.Application"
+          "type": "SnackMachineApp.Application.Seedwork.IRequestHandler`2[[SnackMachineApp.Application.Management.TransferCashToAtmCommand, SnackMachineApp.Application],[SnackMachineApp.Domain.Management.HeadOffice, SnackMachineApp.Domain]], SnackMachineApp.Application"
         }
       ],
       "instanceScope": "singleinstance"
     },
     {
-      "type": "SnackMachineApp.Application.Management.UnloadCashFromSnackMachineCommandHandler, SnackMachineApp.Application",
+      "type": "SnackMachineApp.Application.Management.TransferInCashFromSnackMachineCommandHandler, SnackMachineApp.Application",
       "services": [
         {
-          "type": "SnackMachineApp.Application.Seedwork.IRequestHandler`2[[SnackMachineApp.Application.Management.UnloadCashFromSnackMachineCommand, SnackMachineApp.Application],[SnackMachineApp.Domain.Management.HeadOffice, SnackMachineApp.Domain]], SnackMachineApp.Application"
+          "type": "SnackMachineApp.Application.Seedwork.IRequestHandler`2[[SnackMachineApp.Application.Management.TransferInCashFromSnackMachineCommand, SnackMachineApp.Application],[SnackMachineApp.Domain.Management.HeadOffice, SnackMachineApp.Domain]], SnackMachineApp.Application"
         }
       ],
       "instanceScope": "singleinstance"
