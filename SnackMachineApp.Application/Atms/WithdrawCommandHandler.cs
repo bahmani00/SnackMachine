@@ -18,9 +18,9 @@ namespace SnackMachineApp.Application.Atms
         {
             var atmRepository = serviceProvider.GetService<IAtmRepository>();
             var atm = atmRepository.GetById(request.AtmId);
-            if (atm.CanWithdrawal(request.Amount))
+            if (atm.CanWithdraw(request.Amount))
             {
-                atm.Withdrawal(request.Amount);
+                atm.Withdraw(request.Amount);
                 var charge = request.Amount + atm.CalculateCommision(request.Amount);
 
                 var paymentGateway = serviceProvider.GetService<IPaymentGateway>();

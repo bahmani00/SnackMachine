@@ -16,7 +16,7 @@ namespace SnackMachineApp.Domain.Tests
             atm.LoadMoney(Dollar);
 
             //Act
-            atm.Withdrawal(1m);
+            atm.Withdraw(1m);
 
             //Assert
             atm.MoneyInside.Amount.Should().Be(0m);
@@ -31,7 +31,7 @@ namespace SnackMachineApp.Domain.Tests
             atm.LoadMoney(Dollar);
 
             //Act
-            atm.Withdrawal(2m);
+            atm.Withdraw(2m);
 
             //Assert
             true.Should().Equals(atm.AnyErrors());
@@ -46,7 +46,7 @@ namespace SnackMachineApp.Domain.Tests
             atm.LoadMoney(Cent);
 
             //Act
-            atm.Withdrawal(Cent.Amount);
+            atm.Withdraw(Cent.Amount);
 
             //Assert
             atm.MoneyInside.Amount.Should().Be(0m);
@@ -61,7 +61,7 @@ namespace SnackMachineApp.Domain.Tests
             atm.LoadMoney(Dollar + TenCent);
 
             //Act
-            atm.Withdrawal(1.1m);
+            atm.Withdraw(1.1m);
 
             //Assert
             atm.MoneyInside.Amount.Should().Be(0m);
@@ -76,7 +76,7 @@ namespace SnackMachineApp.Domain.Tests
             atm.LoadMoney(Dollar);
 
             //Act
-            atm.Withdrawal(1m);
+            atm.Withdraw(1m);
 
             //Assert
             var @event = atm.DomainEvents[0] as BalanceChangedEvent;

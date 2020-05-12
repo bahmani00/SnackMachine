@@ -1,12 +1,14 @@
-﻿namespace SnackMachineApp.WinUI.Common
+﻿using SnackMachineApp.Application.Seedwork;
+
+namespace SnackMachineApp.WinUI.Common
 {
     public partial class MainWindow
     {
-        public MainWindow()
+        public MainWindow(IMediator mediator)
         {
             InitializeComponent();
 
-            DataContext = new MainViewModel();
+            DataContext = new MainViewModel(mediator);
         }
     }
 }

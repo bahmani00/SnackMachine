@@ -144,19 +144,19 @@ namespace SnackMachineApp.Domain.Tests
             Constants.NotEnoughChange.Should().Equals(snackMachine.Project());
         }
 
-        [Fact]
-        public void BuySnack_Can_buy_snack_if_enough_change_in_machine()
-        {
-            var snackMachine = new SnackMachine(Dollar + Dollar);
-            snackMachine.LoadSnacks(1, new SnackPile(Snack.None, 1, 3m));
-            snackMachine.InsertMoney(FiveDollar);
+        //[Fact]
+        //public void BuySnack_Can_buy_snack_if_enough_change_in_machine()
+        //{
+        //    var snackMachine = new SnackMachine(Dollar + Dollar);
+        //    snackMachine.LoadSnacks(1, new SnackPile(Snack.None, 1, 3m));
+        //    snackMachine.InsertMoney(FiveDollar);
 
-            var valid = snackMachine.CanBuySnack(1);
+        //    var valid = snackMachine.CanBuySnack(1);
 
-            //Assert
-            true.Should().Equals(valid);
-            false.Should().Equals(snackMachine.AnyErrors());
-            snackMachine.Project().Should().Be(string.Empty);
-        }
+        //    //Assert
+        //    true.Should().Equals(valid);
+        //    false.Should().Equals(snackMachine.AnyErrors());
+        //    snackMachine.Project().Should().Be(string.Empty);
+        //}
     }
 }

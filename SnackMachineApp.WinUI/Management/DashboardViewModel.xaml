@@ -26,7 +26,7 @@
 
                 <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Orientation="Horizontal" Margin="5 10 0 0">
                     <Button FontSize="15" Padding="5" Command="{Binding ShowSnackMachineCommand}" CommandParameter="{Binding ElementName=grdSnackMachines, Path=SelectedItem}" Content="Show" />
-                    <Button FontSize="15" Padding="5" Command="{Binding UnloadCashCommand}" CommandParameter="{Binding ElementName=grdSnackMachines, Path=SelectedItem}" Content="Unload cash" />
+                    <Button FontSize="15" Padding="5" Command="{Binding TransferInCashFromSnackMachineCommand}" CommandParameter="{Binding ElementName=grdSnackMachines, Path=SelectedItem}" Content="Transfer Cash to HeadOffice" />
                 </StackPanel>
 
                 <DataGrid Margin="5 2 0 0" Grid.Column="0" Grid.Row="2" ItemsSource="{Binding SnackMachines}" IsReadOnly="True" AutoGenerateColumns="False"
@@ -48,7 +48,7 @@
 
                 <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Orientation="Horizontal" Margin="5 10 0 0">
                     <Button FontSize="15" Padding="5" Command="{Binding ShowAtmCommand}" CommandParameter="{Binding ElementName=grdAtms, Path=SelectedItem}" Content="Show" />
-                    <Button FontSize="15" Padding="5" Command="{Binding LoadCashToAtmCommand}" CommandParameter="{Binding ElementName=grdAtms, Path=SelectedItem}" Content="Load cash" />
+                    <Button FontSize="15" Padding="5" Command="{Binding TransferCashToAtmCommand}" CommandParameter="{Binding ElementName=grdAtms, Path=SelectedItem}" Content="Transfer Cash from HeadOffice to Atm" />
                 </StackPanel>
 
                 <DataGrid Margin="5 2 0 0" Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Atms}" IsReadOnly="True" AutoGenerateColumns="False"

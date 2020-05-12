@@ -17,9 +17,9 @@ namespace SnackMachineApp.Domain.Atms
             MoneyInside += money;
         }
 
-        public virtual void Withdrawal(decimal amount)
+        public virtual void Withdraw(decimal amount)
         {
-            if (!CanWithdrawal(amount))
+            if (!CanWithdraw(amount))
                 return;
 
             var output = MoneyInside.Allocate(amount);
@@ -37,7 +37,7 @@ namespace SnackMachineApp.Domain.Atms
             return Math.Ceiling(commission * 100) / 100m;
         }
 
-        public virtual bool CanWithdrawal(decimal amount)
+        public virtual bool CanWithdraw(decimal amount)
         {
             ValidationMessages.Clear();
 

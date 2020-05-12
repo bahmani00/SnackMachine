@@ -4,6 +4,7 @@ using SnackMachineApp.Application.Management;
 using SnackMachineApp.Domain.Atms;
 using SnackMachineApp.Domain.SnackMachines;
 using SnackMachineApp.Infrastructure.Data;
+using SnackMachineApp.Infrastructure.IoC;
 using System;
 using Xunit;
 
@@ -15,8 +16,7 @@ namespace SnackMachineApp.Domain.Tests
 
         public AutofacTest()
         {
-            Infrastructure.ObjectFactory.Instance.GetType();
-            serviceProvider = Infrastructure.ObjectFactory.Instance.GetService<IServiceProvider>();
+            serviceProvider = ContainerSetup.Init();
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace SnackMachineApp.Domain.Tests
         public void ContainerSetup_IDbPersister_Works()
         {
             //Arranage
-            var dbPersister = Infrastructure.ObjectFactory.Instance.GetService<IDbPersister<SnackMachine>>();
+            var dbPersister = serviceProvider.GetService<IDbPersister<SnackMachine>>();
 
             //Act
             Func<SnackMachine> action = () => dbPersister.GetById(1);
@@ -51,7 +51,7 @@ namespace SnackMachineApp.Domain.Tests
         public void ContainerSetup_IDbPersister_Fields_are_set()
         {
             //Arranage
-            var repository = Infrastructure.ObjectFactory.Instance.GetService<IAtmRepository>();
+            var repository = serviceProvider.GetService<IAtmRepository>();
 
             //Act
             Func<Atm> action = () => repository.GetById(1);
@@ -65,7 +65,7 @@ namespace SnackMachineApp.Domain.Tests
         public void ContainerSetup_Repository_Works()
         {
             //Arranage
-            var repository = Infrastructure.ObjectFactory.Instance.GetService<IAtmRepository>();
+            var repository = serviceProvider.GetService<IAtmRepository>();
 
             //Act
             Func<Atm> action = () => repository.GetById(1);

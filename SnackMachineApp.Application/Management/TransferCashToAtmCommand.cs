@@ -3,9 +3,9 @@ using SnackMachineApp.Domain.Management;
 
 namespace SnackMachineApp.Application.Management
 {
-    public class LoadCashToAtmCommand: IRequest<HeadOffice>
+    public class TransferCashToAtmCommand: IRequest<HeadOffice>
     {
-        public LoadCashToAtmCommand(long headOfficeId, long atmId)
+        public TransferCashToAtmCommand(long headOfficeId, long atmId)
         {
             HeadOfficeId = headOfficeId;
             AtmId = atmId;

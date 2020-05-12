@@ -15,13 +15,13 @@ namespace SnackMachineApp.Domain.Management
             Balance += delta;
         }
 
-        public virtual void UnloadCashFromSnackMachine(SnackMachine snackMachine)
+        public virtual void TransferInCashFromSnackMachine(SnackMachine snackMachine)
         {
             Money money = snackMachine.UnloadMoney();
             Cash += money;
         }
 
-        public virtual void LoadCashToAtm(Atm atm)
+        public virtual void TransferCashToAtm(Atm atm)
         {
             atm.LoadMoney(Cash);
             Cash = Money.None;

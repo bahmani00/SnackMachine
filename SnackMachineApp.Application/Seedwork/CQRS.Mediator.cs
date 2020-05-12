@@ -1,5 +1,4 @@
-﻿using SnackMachineApp.Infrastructure;
-using System;
+﻿using System;
 
 namespace SnackMachineApp.Application.Seedwork
 {
