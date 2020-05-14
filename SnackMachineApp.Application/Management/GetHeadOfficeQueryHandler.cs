@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SnackMachineApp.Application.Seedwork;
 using SnackMachineApp.Domain.Management;
-using SnackMachineApp.Infrastructure.Data;
+using SnackMachineApp.Domain.SeedWork;
 using System;
 
 namespace SnackMachineApp.Application.Management
@@ -17,13 +17,9 @@ namespace SnackMachineApp.Application.Management
 
         public HeadOffice Handle(GetHeadOfficeQuery request)
         {
-            using (var dapper = serviceProvider.GetService<DapperRepositor1y>())
-            {
-                var repository = serviceProvider.GetService<IHeadOfficeRepository>();
-                return repository.GetById(request.HeadOfficeId);
-                //Func<Atm, Money, Atm> func = (a, m) => { a.MoneyInside = g; return a; };
-                //return dapper.Query<Atm, Money>($"SELECT * FROM {nameof(Atm)} WHERE {nameof(Atm)}Id={request.AtmId}", func);
-            }
+            var repository = serviceProvider.GetService<IRepository<HeadOffice>>();
+
+            return repository.GetById(request.HeadOfficeId);
         }
     }
 }

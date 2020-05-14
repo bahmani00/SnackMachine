@@ -5,14 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Model\**" />
-    <EmbeddedResource Remove="Model\**" />
-    <None Remove="Model\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="SharedKernel\MoneyValidator.cs" />
-    <Compile Remove="Utils\ComponentLocator.cs" />
   </ItemGroup>
 
   <ItemGroup>

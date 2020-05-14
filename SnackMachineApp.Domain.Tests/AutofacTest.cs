@@ -6,6 +6,7 @@ using SnackMachineApp.Domain.SnackMachines;
 using SnackMachineApp.Infrastructure.Data;
 using SnackMachineApp.Infrastructure.IoC;
 using System;
+using System.Configuration;
 using Xunit;
 
 namespace SnackMachineApp.Domain.Tests
@@ -16,7 +17,11 @@ namespace SnackMachineApp.Domain.Tests
 
         public AutofacTest()
         {
-            serviceProvider = ContainerSetup.Init();
+            var connectionString = ConfigurationManager.ConnectionStrings["AppCnn"].ConnectionString;
+            var ioCContainer = ConfigurationManager.AppSettings["IoCContainer"];
+            var dbORM = ConfigurationManager.AppSettings["ORM"];
+
+            serviceProvider = ContainerSetup.Init(ioCContainer, connectionString, dbORM);
         }
 
         [Fact]

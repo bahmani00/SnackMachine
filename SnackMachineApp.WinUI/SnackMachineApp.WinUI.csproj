@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="autofac.json" />
     <None Remove="Images\10c.png" />
     <None Remove="Images\1c.png" />
     <None Remove="Images\1d.png" />
@@ -21,10 +20,11 @@
     <None Remove="Images\Pepsi.png" />
     <None Remove="Images\Soda.png" />
     <None Remove="Images\Water.png" />
+    <None Remove="ioc_modules.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="autofac.json">
+    <Content Include="ioc_modules.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\10c.png">
