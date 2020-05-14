@@ -17,13 +17,8 @@ namespace SnackMachineApp.Application.Atms
 
         public Atm Handle(GetAtmQuery request)
         {
-            using (var dapper = serviceProvider.GetService<DapperRepositor1y>())
-            {
-                var repository = serviceProvider.GetService<IAtmRepository>();
-                return repository.GetById(request.AtmId);
-                //Func<Atm, Money, Atm> func = (a, m) => { a.MoneyInside = g; return a; };
-                //return dapper.Query<Atm, Money>($"SELECT * FROM {nameof(Atm)} WHERE {nameof(Atm)}Id={request.AtmId}", func);
-            }
+            var repository = serviceProvider.GetService<IAtmRepository>();
+            return repository.GetById(request.AtmId);
         }
     }
 }

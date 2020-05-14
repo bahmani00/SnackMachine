@@ -1,0 +1,11 @@
+{
+  "modules": [
+    { "type": "SnackMachineApp.Application.AutoMapperModule, SnackMachineApp.Application" },
+    { "type": "SnackMachineApp.Application.MediatorRegistrationModule, SnackMachineApp.Application" },
+    { "type": "SnackMachineApp.Application.DomainEventHandlersRegistrationModule, SnackMachineApp.Application" },
+    { "type": "SnackMachineApp.Infrastructure.IoC.DomainEventDispatcherRegistrationModule, SnackMachineApp.Infrastructure" },
+    { "type": "SnackMachineApp.Infrastructure.IoC.DapperRegistrationModule, SnackMachineApp.Infrastructure" },
+    { "type": "SnackMachineApp.Infrastructure.IoC.RepositoryRegistrationModule, SnackMachineApp.Infrastructure" },
+    { "type": "SnackMachineApp.Infrastructure.IoC.DecoratorsRegistrationModule, SnackMachineApp.Infrastructure" }
+  ]
+}

@@ -17,7 +17,7 @@ namespace SnackMachineApp.Application.Seedwork
             Type[] typeArgs = { request.GetType(), typeof(TResponse) };
             Type handlerType = type.MakeGenericType(typeArgs);
 
-            //TODO: remove dynamic and ObjectFactory
+            //TODO: remove dynamic
             dynamic handler = serviceProvider.GetService(handlerType);
             return handler.Handle((dynamic)request);
         }

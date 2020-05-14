@@ -5,8 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="IoC\DependencyInjection.cs" />
+    <Compile Remove="IoC\LightInject2.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="automapper" Version="9.0.0" />
     <PackageReference Include="Dapper" Version="2.0.35" />
+    <PackageReference Include="LightInject" Version="6.3.3" />
+    <PackageReference Include="LightInject.Microsoft.DependencyInjection" Version="3.3.1" />
+    <PackageReference Include="lightInject.Source" Version="6.3.3" />
+    <PackageReference Include="System.Text.Json" Version="4.7.2" />
   </ItemGroup>
 
   <ItemGroup>

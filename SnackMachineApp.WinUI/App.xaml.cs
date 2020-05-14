@@ -2,6 +2,7 @@
 using SnackMachineApp.Application.Seedwork;
 using SnackMachineApp.Infrastructure.IoC;
 using SnackMachineApp.WinUI.Common;
+using System.Configuration;
 using System.Windows;
 
 namespace SnackMachineApp.WinUI
@@ -12,7 +13,11 @@ namespace SnackMachineApp.WinUI
         {
             base.OnStartup(e);
 
-            var serviceProvider = ContainerSetup.Init();
+            var connectionString = ConfigurationManager.ConnectionStrings["AppCnn"].ConnectionString;
+            var ioCContainer = ConfigurationManager.AppSettings["IoCContainer"];
+            var dbORM = ConfigurationManager.AppSettings["ORM"];
+
+            var serviceProvider = ContainerSetup.Init(ioCContainer, connectionString, dbORM);
             var mediator = serviceProvider.GetService<IMediator>();
 
             var mainWindow = new MainWindow(mediator);

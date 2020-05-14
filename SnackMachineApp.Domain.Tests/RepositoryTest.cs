@@ -2,6 +2,7 @@
 using SnackMachineApp.Domain.SnackMachines;
 using SnackMachineApp.Infrastructure.IoC;
 using System;
+using System.Configuration;
 using Xunit;
 using static SnackMachineApp.Domain.SharedKernel.Money;
 
@@ -13,7 +14,11 @@ namespace SnackMachineApp.Domain.Tests
 
         public RepositoryTest()
         {
-            serviceProvider = ContainerSetup.Init();
+            var connectionString = ConfigurationManager.ConnectionStrings["AppCnn"].ConnectionString;
+            var ioCContainer = ConfigurationManager.AppSettings["IoCContainer"];
+            var dbORM = ConfigurationManager.AppSettings["ORM"];
+
+            serviceProvider = ContainerSetup.Init(ioCContainer, connectionString, dbORM);
         }
 
         [Fact]

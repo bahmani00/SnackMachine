@@ -11,8 +11,8 @@
       <Link>App.config</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="..\SnackMachineApp.WinUI\autofac.json">
-      <Link>autofac.json</Link>
+    <Content Include="..\SnackMachineApp.WinUI\ioc_modules.json">
+      <Link>ioc_modules.json</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -23,10 +23,13 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
+    <PackageReference Include="LightInject" Version="6.3.3" />
+    <PackageReference Include="LightInject.Microsoft.DependencyInjection" Version="3.3.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.3" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.3" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="System.Text.Json" Version="4.7.2" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
