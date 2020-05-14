@@ -14,9 +14,12 @@ DDD implementation of Snack Machine, coming from [design-in-practice](https://ap
 * **GuardClauses** - use [GuardClauses](https://github.com/ardalis/GuardClauses)
 * **FluentValidation, xUnit** - for unit testing
 * **AutoMapper** - define mappings between Domain Entities and DTOs.
+* (Configs to setup either Ef or nHibernate as ORM)
 * **NHibernate** - .Net ORM to access data.
 * **Entity Framework Core** - MS .Net ORM to access data.
+* (Configs to setup either LightInject or Autofac as IoC)
 * **Autofac & .Net DependencyInjection** - Dependency Injection library to wire project's dependencies into .Net built-in DI(ServiceCollection).
+* **LightInject & .Net DependencyInjection** - Dependency Injection library to wire project's dependencies into .Net built-in DI(ServiceCollection).
 
 ## Getting started
 
@@ -24,7 +27,8 @@ DDD implementation of Snack Machine, coming from [design-in-practice](https://ap
 2. Run 'database.sql' on sql server.
 3. Set ConnectionString on 'App.config'
 3. Run the WPF project
-4. Switch to either NHibernate or Ef through `autofac.json`.
+4. Switch to either NHibernate or Ef through app.config.
+5. Switch to either LightInject or Autofac through app.config.
 
 ## Vocabularies
 
@@ -33,6 +37,7 @@ DDD implementation of Snack Machine, coming from [design-in-practice](https://ap
 3. UnitOfWork
 4. Domain Event
 5. Anemic class
+6. IoC
 
 ## TODOs
 
