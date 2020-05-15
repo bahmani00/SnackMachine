@@ -6,6 +6,8 @@
 
 DDD implementation of Snack Machine, coming from [design-in-practice](https://app.pluralsight.com/library/courses/domain-driven-design-in-practice/) course.
 
+## Give a Star! :star:
+If you like or are using this project please give it a star. Thanks!
 
 ## Libraries used
 
