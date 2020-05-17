@@ -11,7 +11,7 @@ If you like or are using this project please give it a star. Thanks!
 
 ## Libraries used
 
-* **Mediator pattern** - process(request) delegator inside [Application\Seedwork](https://github.com/bahmani00/SnackMachine/tree/master/SnackMachineApp.Application/Seedwork).
+* **Mediator pattern** - (my custom) process requests delegator inside [Application\Seedwork](https://github.com/bahmani00/SnackMachine/tree/master/SnackMachineApp.Application/Seedwork).
 * **Dapper** - to query database
 * **GuardClauses** - use [GuardClauses](https://github.com/ardalis/GuardClauses)
 * **FluentValidation, xUnit** - for unit testing
