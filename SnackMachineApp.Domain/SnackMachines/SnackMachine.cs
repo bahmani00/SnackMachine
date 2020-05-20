@@ -79,10 +79,10 @@ namespace SnackMachineApp.Domain.SnackMachines
             return true;
         }
 
-        public virtual void BuySnack(int position)
+        public virtual bool BuySnack(int position)
         {
             if (!CanBuySnack(position))
-                return;
+                return false;
 
             var slot = GetSlot(position);
             slot.SnackPile = slot.SnackPile.SubtaractOne();
@@ -90,6 +90,8 @@ namespace SnackMachineApp.Domain.SnackMachines
             var change = MoneyInside.Allocate(MoneyInTransaction - slot.SnackPile.Price);
             MoneyInside -= change;
             MoneyInTransaction = 0;
+
+            return true;
         }
 
         public virtual void LoadSnacks(int position, SnackPile snackPile)

@@ -1,12 +1,14 @@
 ﻿using NHibernate;
 using SnackMachineApp.Domain.SeedWork;
+using System.Data;
 
 namespace SnackMachineApp.Infrastructure.Data.NHibernate
 {
-    internal class NHibernateUnitOfWork : ITransactionUnitOfWork
+    internal class NHibernateUnitOfWork : IUnitOfWork
     {
-        private ISession _session;
         private readonly SessionFactory sessionFactory;
+        private ISession _session;
+        private ITransaction _transaction;
 
         public NHibernateUnitOfWork(SessionFactory sessionFactory)
         {
@@ -18,21 +20,36 @@ namespace SnackMachineApp.Infrastructure.Data.NHibernate
             get
             {
                 if (_session == null || !_session.IsOpen)
-                    //_session = ObjectFactory.Instance.Resolve<SessionFactory>().OpenSession();
                     _session = sessionFactory.OpenSession();
 
                 return _session;
             }
         }
 
-        public void Dispose()
+        internal ITransaction BeginTransaction()
         {
-            _session?.Dispose();
+            if (_transaction == null || !_transaction.IsActive)
+                _transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted);
+
+            return _transaction;
         }
 
-        public IUnitOfWork BeginTransaction()
+        public void Commit()
         {
-            return new DbTransactionAdapter(Session.BeginTransaction());
+            if (_transaction?.IsActive == true) _transaction.Commit();
+        }
+
+        public void Rollback()
+        {
+            if (_transaction?.IsActive == true) _transaction.Rollback();
+        }
+
+        public void Dispose()
+        {
+            Rollback();
+
+            _transaction?.Dispose();
+            _session?.Dispose();
         }
     }
 }

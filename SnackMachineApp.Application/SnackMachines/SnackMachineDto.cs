@@ -1,6 +1,4 @@
-﻿using SnackMachineApp.Domain.SnackMachines;
-
-namespace SnackMachineApp.Application.SnackMachines
+﻿namespace SnackMachineApp.Application.SnackMachines
 {
     public class SnackMachineDto
     {

@@ -31,6 +31,7 @@ namespace SnackMachineApp.Infrastructure.IoC
             return (IServiceProvider)cantainer;
         }
     }
+
     public class DomainEventDispatcherRegistrationModule : Autofac.Module, ICompositionRoot
     {
         protected override void Load(ContainerBuilder builder)
@@ -69,14 +70,16 @@ namespace SnackMachineApp.Infrastructure.IoC
             //RegisterInstance method allows you to register an instance not built by Autofac.
             //https://stackoverflow.com/questions/31582000/autofac-registerinstance-vs-singleinstance
             builder.RegisterType<SessionFactory>().SingleInstance();
-            builder.RegisterType<NHibernateUnitOfWork>().As<ITransactionUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<NHibernateUnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(NHibernateDbPersister<>)).As(typeof(IDbPersister<>));
         }
 
         public void Compose(IServiceRegistry serviceRegistry)
         {
             serviceRegistry.RegisterSingleton<SessionFactory>();
-            serviceRegistry.Register<ITransactionUnitOfWork, NHibernateUnitOfWork>(new PerScopeLifetime());
+
+            serviceRegistry.Register<IUnitOfWork, NHibernateUnitOfWork>(new PerScopeLifetime());
+
             serviceRegistry.Register(typeof(IDbPersister<>), typeof(NHibernateDbPersister<>));
         }
     }
@@ -87,14 +90,14 @@ namespace SnackMachineApp.Infrastructure.IoC
         {
             //RegisterInstance method allows you to register an instance not built by Autofac.
             //https://stackoverflow.com/questions/31582000/autofac-registerinstance-vs-singleinstance
-            builder.RegisterType<EfUnitOfWork>().As<ITransactionUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<EfUnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
             builder.RegisterType<AppDbContext>().As<DbContext>();
             builder.RegisterGeneric(typeof(EFDbPersister<>)).As(typeof(IDbPersister<>));
         }
         
         public void Compose(IServiceRegistry serviceRegistry)
         {
-            serviceRegistry.Register<ITransactionUnitOfWork, EfUnitOfWork>(new PerScopeLifetime());
+            serviceRegistry.Register<IUnitOfWork, EfUnitOfWork>(new PerScopeLifetime());
             serviceRegistry.Register<DbContext, AppDbContext>();
             serviceRegistry.Register(typeof(IDbPersister<>), typeof(EFDbPersister<>));
         }
