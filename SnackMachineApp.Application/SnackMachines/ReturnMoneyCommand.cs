@@ -3,7 +3,7 @@ using SnackMachineApp.Domain.SnackMachines;
 
 namespace SnackMachineApp.Application.SnackMachines
 {
-    public class ReturnMoneyCommand : IRequest<SnackMachine>
+    public class ReturnMoneyCommand : ICommand<SnackMachine>
     {
         public ReturnMoneyCommand(SnackMachine snackMachine)
         {
@@ -11,5 +11,15 @@ namespace SnackMachineApp.Application.SnackMachines
         }
 
         public SnackMachine SnackMachine { get; }
+    }
+
+    internal class ReturnMoneyCommandHandler : ICommandHandler<ReturnMoneyCommand, SnackMachine>
+    {
+        public SnackMachine Handle(ReturnMoneyCommand request)
+        {
+            request.SnackMachine.ReturnMoney();
+
+            return request.SnackMachine;
+        }
     }
 }

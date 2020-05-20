@@ -13,7 +13,7 @@ namespace SnackMachineApp.Interface.Data.EntityFramework
         private readonly DbContext _dbContext;
         private readonly EfUnitOfWork _unitOfWork;
 
-        public EFDbPersister(ITransactionUnitOfWork unitOfWork)
+        public EFDbPersister(IUnitOfWork unitOfWork)
         {
             if (unitOfWork == null)
                 throw new ArgumentNullException("unitOfWork");
@@ -51,6 +51,11 @@ namespace SnackMachineApp.Interface.Data.EntityFramework
         public void Delete(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
+        }
+
+        public void Dispose()
+        {
+            _unitOfWork?.Dispose();
         }
     }
 }

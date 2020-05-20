@@ -7,14 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\SnackMachineApp.WinUI\App.config">
+    <Compile Remove="AtmSpecs.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\SnackMachineApp.WinUI\App.config">
       <Link>App.config</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Content Include="..\SnackMachineApp.WinUI\ioc_modules.json">
       <Link>ioc_modules.json</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="AtmSpecs.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   
   

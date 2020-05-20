@@ -17,10 +17,10 @@ namespace SnackMachineApp.Domain.Atms
             MoneyInside += money;
         }
 
-        public virtual void Withdraw(decimal amount)
+        public virtual bool Withdraw(decimal amount)
         {
             if (!CanWithdraw(amount))
-                return;
+                return false;
 
             var output = MoneyInside.Allocate(amount);
             MoneyInside -= output;
@@ -29,6 +29,8 @@ namespace SnackMachineApp.Domain.Atms
             MoneyCharged += amountWithCommision;
 
             AddDomainEvent(new BalanceChangedEvent(amountWithCommision, Constants.HeadOfficeId));
+
+            return true;
         }
 
         public virtual decimal CalculateCommision(decimal amount)

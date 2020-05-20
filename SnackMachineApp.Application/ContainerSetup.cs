@@ -1,44 +1,13 @@
 ﻿using Autofac;
-using AutoMapper;
 using LightInject;
-using SnackMachineApp.Application.Atms;
 using SnackMachineApp.Application.Management;
 using SnackMachineApp.Application.Seedwork;
-using SnackMachineApp.Application.SnackMachines;
-using SnackMachineApp.Domain.Atms;
-using SnackMachineApp.Domain.SnackMachines;
 using SnackMachineApp.Infrastructure;
 using System;
 using System.Linq;
 
 namespace SnackMachineApp.Application
 {
-    public class AutoMapperModule : Module, ICompositionRoot
-    {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.Register(context => new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<AtmDto, Atm>();
-                cfg.CreateMap<SnackMachineDto, SnackMachine>();
-                //cfg.CreateMap<HeadOfficeDto, HeadOffice>();
-            })).AsSelf().SingleInstance();
-
-            builder.Register(c =>
-            {
-                //This resolves a new context that can be used later.
-                var context = c.Resolve<IComponentContext>();
-                var config = context.Resolve<MapperConfiguration>();
-                return config.CreateMapper(context.Resolve);
-            })
-            .As<IMapper>()
-            .InstancePerLifetimeScope();
-        }
-
-        public void Compose(IServiceRegistry serviceRegistry)
-        {
-        }
-    }
     public class DomainEventHandlersRegistrationModule : Autofac.Module, ICompositionRoot
     {
         protected override void Load(ContainerBuilder builder)
@@ -73,6 +42,16 @@ namespace SnackMachineApp.Application
                        t.GetInterfaces().Any(y => y.IsGenericType &&
                        y.GetGenericTypeDefinition() == typeof(IRequestHandler<,>)))
                .As(t => t.GetInterfaces().First(i => i.Name == typeof(IRequestHandler<,>).Name));
+
+            builder.RegisterAssemblyTypes(typeof(ICommandHandler<,>).Assembly)
+             .Where(t => t.Name.EndsWith("CommandHandler") &&
+                     t.GetInterfaces().Any(y => y.IsGenericType &&
+                     y.GetGenericTypeDefinition() == typeof(ICommandHandler<,>)))
+             .As(t => t.GetInterfaces().First(i => i.Name == typeof(ICommandHandler<,>).Name));
+
+            builder.RegisterGenericDecorator(
+                typeof(UnitOfWorkRequestHandlerDecorator<,>),
+                typeof(IRequestHandler<,>));
         }
 
         public void Compose(IServiceRegistry serviceRegistry)
@@ -82,6 +61,13 @@ namespace SnackMachineApp.Application
 
             serviceRegistry.RegisterAssembly(typeof(IRequestHandler<,>).Assembly,
                 (s, _) => s.IsGenericType && s.GetGenericTypeDefinition() == typeof(IRequestHandler<,>));
+
+            serviceRegistry.RegisterAssembly(typeof(ICommandHandler<,>).Assembly,
+                (s, _) => s.IsGenericType && s.GetGenericTypeDefinition() == typeof(ICommandHandler<,>));
+
+            serviceRegistry.Decorate(
+                typeof(IRequestHandler<,>),
+                typeof(UnitOfWorkRequestHandlerDecorator<,>));
         }
     }
 

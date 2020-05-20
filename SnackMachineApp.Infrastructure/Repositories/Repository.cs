@@ -27,5 +27,10 @@ namespace SnackMachineApp.Infrastructure.Repositories
         {
             DbPersister.Delete(entity);
         }
+
+        public void Dispose()
+        {
+            DbPersister.Dispose();
+        }
     }
 }

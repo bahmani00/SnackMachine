@@ -6,7 +6,6 @@ using System.Text.Json;
 
 namespace SnackMachineApp.Infrastructure.IoC
 {
-    //Disclamer: https://github.com/dotnetcore/AspectCore-Framework/blob/1640a332c707d6583281d25989d02940ce981cc9/src/AspectCore.Extensions.LightInject/LightInjectExtensions.cs
     internal static class LightInjectExtensions
     {
         public static IServiceRegistry RegisterSingleton<T, TImpl>(this IServiceRegistry services, string name = default)
@@ -33,16 +32,15 @@ namespace SnackMachineApp.Infrastructure.IoC
                 method.MakeGenericMethod(Type.GetType(module.type)).Invoke(services, null);
             }
         }
-    }
 
+        private class Rootobject
+        {
+            public Module[] modules { get; set; }
+        }
 
-    public class Rootobject
-    {
-        public Module[] modules { get; set; }
-    }
-
-    public class Module
-    {
-        public string type { get; set; }
+        private class Module
+        {
+            public string type { get; set; }
+        }
     }
 }

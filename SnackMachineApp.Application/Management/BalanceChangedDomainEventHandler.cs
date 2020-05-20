@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using SnackMachineApp.Domain.Atms;
 using SnackMachineApp.Domain.Management;
+using SnackMachineApp.Domain.SeedWork;
 using SnackMachineApp.Infrastructure;
 using System;
 using System.Threading.Tasks;
@@ -20,26 +21,25 @@ namespace SnackMachineApp.Application.Management
         public Task Handle(BalanceChangedEvent domainEvent)
         {
             Guard.Against.Null(domainEvent, nameof(domainEvent));
-
-            using (var scope = new DatabaseScope(serviceProvider))
+           
+            using (var scope = serviceProvider.CreateScope())
+            using (var unitOfWork = scope.ServiceProvider.GetService<IUnitOfWork>())
             {
-                scope.Execute(() => {
-                    try
-                    {
-                        var repository = serviceProvider.GetService<IHeadOfficeRepository>();
-                        var headOffice = repository.GetById(domainEvent.TargetId);
-                        
-                        repository = scope.GetService<IHeadOfficeRepository>();
-                        headOffice.ChangeBalance(domainEvent.Delta);
-                        repository.Save(headOffice);
-                    }
-                    catch (Exception exc)
-                    {
-                        exc.ToString();
+                try
+                {
+                    var headOfficeRepository = scope.ServiceProvider.GetService<IHeadOfficeRepository>();
+                    var headOffice = headOfficeRepository.GetById(domainEvent.TargetId);
 
-                        //TODO: do sth with exc
-                    }
-                });
+                    headOffice.ChangeBalance(domainEvent.Delta);
+                    headOfficeRepository.Save(headOffice);
+
+                    unitOfWork.Commit();
+                }
+                catch(Exception exc)
+                {
+                    exc.ToString();
+                    //TODO: do sth with exc
+                }
             }
 
             return Task.CompletedTask;
