@@ -69,7 +69,8 @@ namespace SnackMachineApp.Infrastructure.Data.Configuration
             {
                 y.Map(x => x.Quantity);
                 y.Map(x => x.Price);
-                y.References(x => x.Snack).Not.LazyLoad();
+                y.References(x => x.Snack)
+                .Not.LazyLoad();
             });
 
             References(x => x.SnackMachine);
@@ -94,11 +95,6 @@ namespace SnackMachineApp.Infrastructure.Data.Configuration
                 nav.Property<long>("SnackId").HasColumnName("SnackId");
                 nav.HasOne(pp => pp.Snack).WithMany().HasForeignKey("SnackId").HasConstraintName("FK_SlotId_SnackId").IsRequired();
             });
-
-            //builder.HasOne(d => d.SnackMachine)
-            //   .WithMany(SnackMachine.Slots_Name)
-            //   .HasForeignKey("SnackMachineId")
-            //   .HasConstraintName("FK_SlotId_SnackMachineId");
         }
     }
 
@@ -107,7 +103,7 @@ namespace SnackMachineApp.Infrastructure.Data.Configuration
         public SnackMap()
         {
             Id(x => x.Id);
-            Map(x => x.Name);
+            Map(x => x.SnackName);
             Map(x => x.ImageWidth);
         }
 
@@ -118,7 +114,7 @@ namespace SnackMachineApp.Infrastructure.Data.Configuration
             builder.Property(x => x.Id).HasColumnName("SnackId").ValueGeneratedNever();
             builder.Ignore(x => x.ValidationMessages);
 
-            builder.Property(x => x.Name)
+            builder.Property(x => x.SnackName)
                 .IsRequired()
                 .HasMaxLength(255);
 

@@ -161,7 +161,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Snack](
 	[SnackId] [bigint] NOT NULL,
-	[Name] [nvarchar](255) NOT NULL,
+	[SnackName] [nvarchar](255) NOT NULL,
  CONSTRAINT [PK_SnackId] PRIMARY KEY CLUSTERED 
 (
 	[SnackId] ASC
@@ -237,9 +237,9 @@ UPDATE [dbo].[Ids] SET [NextHigh] = 2 WHERE [Id] = N'SnackMachineId'
 INSERT [dbo].[SnackMachine] ([SnackMachineId], [OneCentCount], [TenCentCount], [QuarterCount], [OneDollarCount], [FiveDollarCount], [TwentyDollarCount]) VALUES (2, 40, 20, 20, 130, 10, 20)
 
 UPDATE [dbo].[Snack] SET [NextHigh] = 6 WHERE [Id] = N'SnackId'
-INSERT [dbo].[Snack] ([SnackId], [Name], ImageWidth) VALUES (4, N'Water', 70)
-INSERT [dbo].[Snack] ([SnackId], [Name], ImageWidth) VALUES (5, N'Pepsi', 70)
-INSERT [dbo].[Snack] ([SnackId], [Name], ImageWidth) VALUES (6, N'Soda', 70)
+INSERT [dbo].[Snack] ([SnackId], [SnackName], ImageWidth) VALUES (4, N'Water', 70)
+INSERT [dbo].[Snack] ([SnackId], [SnackName], ImageWidth) VALUES (5, N'Pepsi', 70)
+INSERT [dbo].[Snack] ([SnackId], [SnackName], ImageWidth) VALUES (6, N'Soda', 70)
 
 UPDATE [dbo].[Snack] SET [NextHigh] = 6 WHERE [Id] = N'SlotId'
 INSERT [dbo].[Slot] ([SlotId], [Position], [SnackMachineId], [Quantity], [Price], [SnackId]) VALUES (4, 1, 2, 10, CAST(1.00000 AS Decimal(19, 5)), 4)

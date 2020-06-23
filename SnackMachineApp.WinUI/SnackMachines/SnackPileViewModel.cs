@@ -13,7 +13,7 @@ namespace SnackMachineApp.WinUI.SnackMachines
         public string Price => _snackPile.Price.ToString("C2");
         public int Amount => _snackPile.Quantity;
         public int ImageWidth => _snackPile.Snack.ImageWidth;
-        public ImageSource Image => new BitmapImage(new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", _snackPile.Snack.Name + ".png")));
+        public ImageSource Image => new BitmapImage(new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", _snackPile.Snack.SnackName + ".png")));
 
         public SnackPileViewModel(SnackPile snackPile)
         {
