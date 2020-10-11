@@ -15,9 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		database.sql = database.sql
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackMachineApp.Infrastructure", "SnackMachineApp.Infrastructure\SnackMachineApp.Infrastructure.csproj", "{2FC74AF7-C016-40C3-BBC2-506751E7D234}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachineApp.Infrastructure", "SnackMachineApp.Infrastructure\SnackMachineApp.Infrastructure.csproj", "{2FC74AF7-C016-40C3-BBC2-506751E7D234}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackMachineApp.Application", "SnackMachineApp.Application\SnackMachineApp.Application.csproj", "{6A765D00-7963-4271-ACA3-6BFE1B945C80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachineApp.Application", "SnackMachineApp.Application\SnackMachineApp.Application.csproj", "{6A765D00-7963-4271-ACA3-6BFE1B945C80}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E3D6F3C4-FF83-42DE-95F2-CDFFCE988CCB}"
 EndProject

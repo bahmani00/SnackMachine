@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="AtmSpecs.cs" />
   </ItemGroup>
 
@@ -28,7 +34,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="Dapper" Version="2.0.35" />
+    <PackageReference Include="Dapper.FluentMap" Version="1.8.1" />
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="LightInject" Version="6.3.3" />
     <PackageReference Include="LightInject.Microsoft.DependencyInjection" Version="3.3.1" />
@@ -40,11 +46,6 @@
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
-  </ItemGroup>
-  
-  
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
   
   

@@ -13,17 +13,17 @@ namespace SnackMachineApp.Infrastructure.Repositories
             return DbPersister.List();
         }
 
-        public T GetById(long id)
+        public virtual T GetById(long id)
         {
             return DbPersister.GetById(id);
         }
 
-        public void Save(T entity)
+        public virtual void Save(T entity)
         {
             DbPersister.Save(entity);
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             DbPersister.Delete(entity);
         }

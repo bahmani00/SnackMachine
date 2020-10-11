@@ -15,10 +15,10 @@ namespace SnackMachineApp.Domain.SnackMachines
             : this()
         {
             Id = id;
-            Name = name;
+            SnackName = name;
         }
 
-        public virtual string Name { get; set; }
+        public virtual string SnackName { get; set; }
         public virtual int ImageWidth { get; set; } = 70;
     }
 }
