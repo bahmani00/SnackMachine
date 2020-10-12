@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachineApp.Application
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E3D6F3C4-FF83-42DE-95F2-CDFFCE988CCB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackMachineApp.Web", "SnackMachineApp.Web\SnackMachineApp.Web.csproj", "{7F873A6F-B24B-4FD0-BD61-E587217A497D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{6A765D00-7963-4271-ACA3-6BFE1B945C80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A765D00-7963-4271-ACA3-6BFE1B945C80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A765D00-7963-4271-ACA3-6BFE1B945C80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F873A6F-B24B-4FD0-BD61-E587217A497D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F873A6F-B24B-4FD0-BD61-E587217A497D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F873A6F-B24B-4FD0-BD61-E587217A497D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F873A6F-B24B-4FD0-BD61-E587217A497D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
