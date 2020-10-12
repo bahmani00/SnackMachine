@@ -77,19 +77,19 @@ namespace SnackMachineApp.Domain.SharedKernel
         private Money AllocateCore(decimal amount)
         {
             int twentyDollarCount = Math.Min((int)(amount / 20), TwentyDollarCount);
-            amount = amount - twentyDollarCount * 20;
+            amount -= twentyDollarCount * 20;
 
             int fiveDollarCount = Math.Min((int)(amount / 5), FiveDollarCount);
-            amount = amount - fiveDollarCount * 5;
+            amount -= fiveDollarCount * 5;
 
             int oneDollarCount = Math.Min((int)amount, OneDollarCount);
-            amount = amount - oneDollarCount;
+            amount -= oneDollarCount;
 
             int quarterCount = Math.Min((int)(amount / 0.25m), QuarterCount);
-            amount = amount - quarterCount * 0.25m;
+            amount -= quarterCount * 0.25m;
 
             int tenCentCount = Math.Min((int)(amount / 0.1m), TenCentCount);
-            amount = amount - tenCentCount * 0.1m;
+            amount -= tenCentCount * 0.1m;
 
             int oneCentCount = Math.Min((int)(amount / 0.01m), OneCentCount);
 
