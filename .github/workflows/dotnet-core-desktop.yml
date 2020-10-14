@@ -57,7 +57,6 @@ jobs:
 
     env:
       Solution_Name: SnackMachineApp.sln                        # Replace with your solution name, i.e. MyWpfApp.sln.
-      Test_Project_Path: SnackMachineApp.Domain.Tests\SnackMachineApp.Domain.Tests.csproj                 # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
 
     steps:
     - name: Checkout
